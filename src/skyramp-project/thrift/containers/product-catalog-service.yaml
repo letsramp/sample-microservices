@@ -1,0 +1,22 @@
+containers:
+  - name: product-catalog-service
+    image:
+      repository: registry.cequoi.ca/google-samples/microservices-demo/productcatalogservice
+      tag: v0.3.9
+    manifests:
+      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
+    ports:
+      - product-catalog-service-port3550
+      - product-catalog-service-port60000
+    envs:
+      PORT: "3550"
+      DISABLE_STATS: "1"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+
+ports:
+  - name: product-catalog-service-port3550
+    protocol: protobuf
+    port: 3550
+  - name: product-catalog-service-port60000
+    port: 60000

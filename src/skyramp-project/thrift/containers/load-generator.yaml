@@ -1,0 +1,9 @@
+containers:
+  - name: load-generator
+    image:
+      repository: registry.cequoi.ca/google-samples/microservices-demo/loadgenerator
+      tag: v0.3.9
+    dependencies:
+      - frontend
+    manifests:
+      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml

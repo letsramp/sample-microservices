@@ -1,0 +1,14 @@
+containers:
+  - name: ad-service
+    image:
+      repository: registry.cequoi.ca/google-samples/microservices-demo/adservice
+      tag: v0.3.9
+    manifests:
+      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
+    ports:
+      - ad-service-port9555
+
+ports:
+  - name: ad-service-port9555
+    protocol: protobuf
+    port: 9555
