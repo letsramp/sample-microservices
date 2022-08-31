@@ -57,7 +57,7 @@ func init() {
 	log.Out = os.Stdout
 }
 
-func main() {
+func startGrpc() {
 	if os.Getenv("DISABLE_TRACING") == "" {
 		log.Info("Tracing enabled.")
 		go initTracing()
