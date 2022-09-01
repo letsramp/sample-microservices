@@ -70,7 +70,7 @@ the online store experience
 
 ## Undeploy Services
 ```
-$ skyramp down demo 
+$ skyramp down demo
 
 ```
 
@@ -79,9 +79,9 @@ $ skyramp down demo
 
 Here we will explore the power of Skyramp Mockworker to mock two services.
 - payment-service
-- shipping-service 
+- shipping-service
 
-Note: inspect the Container description of the payment-service and pay attention to the endpoint 
+Note: inspect the Container description of the payment-service and pay attention to the endpoint
 and signature definition that declares the behaviour.
 
 ```
@@ -130,7 +130,7 @@ redis-7f6445f856-sgk9m                        ready
 ad-service-5b56d86b5f-jt8pn                   ready
 checkout-service-57549d999c-pd22c             ready
 email-service-db4c8f558-vh7w7                 ready
-skyramp-debug-worker-7cd4d58c6b-dx8bb         ready
+skyramp-worker-7cd4d58c6b-dx8bb               ready
 All pods are ready.
 
 ```
@@ -138,11 +138,76 @@ All pods are ready.
 Note: The shipping and payment service pods are not deployed,
 as the Skyramp Mockworker Mocks their behaviour.
 
-## Test the online butique experience with browser. 
+## Test the online butique experience with browser.
 
 ## Testing API interaction with a GRPC client.
-TBD:
+---
 
+### Python
+The python test clients are available in the project folder and sub directory /files/python
+
+1. Change working directory to the python test clients
+```
+cd <project folder>/files/python
+```
+
+2. Create a python virtual environment
+```
+$ python3 -m venv env
+```
+
+3. Activate the virtual environment
+```
+$ source ./venv/bin/activate
+```
+
+4. Install the python dependencies
+```
+$ pip install -r requirements.txt
+```
+
+4. Add item to the CartService
+Inspect the file addCartLocal.py and note that user_id 'abcde' is adding one unit of product_id 'OLJCESPC7Z' to the cart service
+
+```
+$  python3 addCartLocal.py
+Successfully added item to cart.
+```
+5. Place the order, and expect the successful result.
+
+```
+$  python placeOrderLocal.py
+Successfully placed order.
+
+order {
+  order_id: "9e5ef048-2994-11ed-bdca-56f53d787cb9"
+  shipping_tracking_id: "ET-34675-173898815"
+  shipping_cost {
+    currency_code: "USD"
+    units: 8
+    nanos: 990000000
+  }
+  shipping_address {
+    street_address: "1600 Amp street"
+    city: "Mountain View"
+    state: "CA"
+    country: "USA"
+    zip_code: 94043
+  }
+  items {
+    item {
+      product_id: "OLJCESPC7Z"
+      quantity: 1
+    }
+    cost {
+      currency_code: "USD"
+      units: 19
+      nanos: 990000000
+    }
+  }
+}
+```
+---
 
 ## Use skyramp to deploy Online Boutique with rest
 TBD:
