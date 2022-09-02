@@ -1,0 +1,43 @@
+package main
+
+import (
+	thrift "cartservice/thriftgo/demo"
+	"context"
+	"fmt"
+)
+
+type Handler struct{}
+
+func (h Handler) AddItem(ctx context.Context, user_id string, item *thrift.CartItem) (_err error) {
+	log.Debugf("calling thrift api AddItem() for user id [%s] product id [%s] quantity [%d]", user_id, item.GetProductID(), item.GetQuantity())
+	AddItem(user_id, item.GetProductID(), int32(item.GetQuantity()))
+	return nil
+}
+
+func (h Handler) GetCart(ctx context.Context, user_id string) (*thrift.Cart, error) {
+	log.Debugf("calling thrift api GetCart() for user id [%s]", user_id)
+	cart := GetCart(user_id)
+	cartItems := make([]*thrift.CartItem, 0, len(cart.Items))
+	for _, item := range cart.Items {
+		c := thrift.CartItem{ProductID: item.ProductId, Quantity: item.Quantity}
+		cartItems = append(cartItems, &c)
+	}
+	return &thrift.Cart{
+		UserID: user_id,
+		Items:  cartItems,
+	}, nil
+}
+
+func (h Handler) EmptyCart(ctx context.Context, user_id string) error {
+	log.Debugf("calling thrift api EmptyCart() for user id [%s]", user_id)
+	EmtyCart(user_id)
+	return nil
+}
+
+func runThrift(port string, opt *Option) {
+	processor := thrift.NewCartServiceProcessor(&Handler{})
+	go func() {
+		hostPort := fmt.Sprintf("0.0.0.0:%s", port)
+		NewHttpThriftServer(hostPort, opt, processor)
+	}()
+}
