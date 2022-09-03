@@ -41,9 +41,7 @@ func main() {
 	runGrpc()
 	runRest(port)
 	opt := NewDefaultOption()
-	opt.Secure = true
 	opt.HttpUrl = "/CartService"
-	opt.HttpTransport = true
 	port, found = os.LookupEnv("THRIFT_PORT")
 	if !found {
 		port = defaultThriftPort
