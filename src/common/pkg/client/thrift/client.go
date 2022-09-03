@@ -6,6 +6,9 @@ var (
 	ThriftPort = 50000
 )
 
+// Http ULZZ
+const ()
+
 type Client struct {
 	restClient            *http.Client
 	thriftPort            int

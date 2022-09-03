@@ -205,58 +205,73 @@ func (c *RestClient) ListRecommendations(cartitems []string) ([]*pb.Product, err
 	return out, nil
 }
 
-func (c *RestClient) AddCart(userId, productId string, quantity int32) error {
-	url := fmt.Sprintf("https://%s/%s?user_id=%s&product_id=%s&quantity=%d",
-		c.CartService, "add-cart", userId, productId, quantity)
-	log.Debugf("REST endpoint %s", url)
+// Cartservice
+func (c *RestClient) AddCart(userId, productId, quantity string) error {
+	url := fmt.Sprintf("http://%s/%s", c.CartService, "add-cart")
+	request, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+	q := request.URL.Query()
+	q.Add("user_id", userId)
+	q.Add("product_id", productId)
+	q.Add("quantity", quantity)
+	request.URL.RawQuery = q.Encode()
 
-	// Post(url, contentType string, body io.Reader) (resp *Response, err error) {
-	res, err := c.restClient.Get(url)
-	if err != nil || res.Status != "200 OK" {
-		err := fmt.Sprintf("error sending get: url [%s], status %s, error:  %v", url, res.Status, err)
-		return fmt.Errorf(err)
+	res, err := c.restClient.Do(request)
+	if err != nil {
+		return err
+	}
+	if res.Status != "200 OK" {
+		return fmt.Errorf("Expected 200 OK, but received %s", res.Status)
 	}
 	return nil
 }
 
 func (c *RestClient) EmptyCart(user_id string) error {
-	url := fmt.Sprintf("https://%s/%s?user_id=%s", c.CartService, "empty-cart", user_id)
-	log.Debugf("calling rest endpoint %s", url)
+	url := fmt.Sprintf("https://%s/%s", c.CartService, "empty-cart")
+	request, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+	q := request.URL.Query()
+	q.Add("user_id", user_id)
+	request.URL.RawQuery = q.Encode()
 
-	res, err := c.restClient.Get(url)
-	if err != nil || res.Status != "200 OK" {
-		err := fmt.Sprintf("error sending get: url [%s], status %s, error:  %v", url, res.Status, err)
-		return fmt.Errorf(err)
+	res, err := c.restClient.Do(request)
+	if err != nil {
+		return err
+	}
+	if res.Status != "200 OK" {
+		return fmt.Errorf("Expected 200 OK, but received %s", res.Status)
 	}
 	return nil
 }
 
-func (c *RestClient) GetCart(userId string) ([]*pb.CartItem, error) {
-	url := fmt.Sprintf("https://%s/%s?user_id=%s", c.CartService, "get-cart", userId)
-	log.Debugf("calling rest endpoint %s", url)
-	res, err := c.restClient.Get(url)
-	if err != nil || res.Status != "200 OK" {
-		fmt.Printf("error sending get: url [%s], status %s, error:  %v", url, res.Status, err)
-		return nil, nil
+func (c *RestClient) GetCart(userId string) (string, error) {
+	url := fmt.Sprintf("http://%s/%s", c.CartService, "get-cart")
+	request, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", err
 	}
-	if err != nil || res.Status != "200 OK" {
-		fmt.Printf("error sending get: url [%s], status %s, error:  %v", url, res.Status, err)
-		return nil, nil
+	q := request.URL.Query()
+	q.Add("user_id", userId)
+	request.URL.RawQuery = q.Encode()
+
+	res, err := c.restClient.Do(request)
+	if err != nil {
+		return "", err
+	}
+	if res.Status != "200 OK" {
+		return "", fmt.Errorf("Expected 200 OK, but received %s", res.Status)
 	}
 	defer res.Body.Close()
 	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		error := fmt.Sprintf("error reading GetCart response: %v", err)
-		return nil, fmt.Errorf(error)
+		return "", fmt.Errorf(error)
 	}
-
-	var cart pb.Cart
-	if err := json.Unmarshal(data, &cart); err != nil {
-		error := fmt.Sprintf("error marshaling GetCart response: %v", err)
-		return nil, fmt.Errorf(error)
-	}
-
-	return cart.Items, nil
+	return string(data), nil
 }
 
 func (c *RestClient) ConvertCurrency(money *pb.Money, toCode string) (*pb.Money, error) {

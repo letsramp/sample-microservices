@@ -8,6 +8,7 @@ const (
 	F0 TestFeature = 1 << iota
 	ProductCatalog
 	Recommendation
+	CartService
 	Email
 	Shipping
 	Ad

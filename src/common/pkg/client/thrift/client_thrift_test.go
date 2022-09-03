@@ -2,7 +2,6 @@ package thrift
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"testing"
 
@@ -15,30 +14,16 @@ const (
 	errotStartServer = 1
 )
 
-var (
-	defaultThriftPort     = 50000
-	productcatalogservice = fmt.Sprintf("127.0.0.1:%d", defaultThriftPort)
-	emailService          = fmt.Sprintf("%s:%d", "dev", defaultThriftPort)
-	//"productcatalogservice:5000"
-)
-
 var client *Client
 var tscope TestScope
 
 func TestMain(m *testing.M) {
-	// server, err := startProductCatalogMock(productCatalogServicePort)
-	// if err != nil {
-	// 	os.Exit(errotStartServer)
-	// }
-	// go server.Serve()
 	tscope.Set(Email)
-	// time.Sleep(5 * time.Second)
 	client = NewClient()
-	client.ProductCatalogService = productcatalogservice
-	client.Emailservice = emailService
+	client.ProductCatalogService = "productcatalogservice:5000"
+	client.CartService = "cartservice:50000"
+	client.Emailservice = "emailService:50000"
 	retCode := m.Run()
-	// server.Stop()
-
 	os.Exit(retCode)
 }
 
@@ -75,6 +60,25 @@ func TestGetAds(t *testing.T) {
 	p, err := client.GetAds(&pb.AdRequest{ContextKeys: []string{"kitchen"}})
 	assert.Nil(t, err)
 	_ = p
+}
+
+func TestAddCart(t *testing.T) {
+	tscope.testScope(t, CartService)
+	err := client.AddCart("abcdef", "GRAVLAX", 5)
+	assert.Nil(t, err)
+}
+
+func TestGetCart(t *testing.T) {
+	tscope.testScope(t, CartService)
+	items, err := client.GetCart("abcdef")
+	assert.Nil(t, err)
+	_ = items
+}
+
+func TestEmptyCart(t *testing.T) {
+	tscope.testScope(t, CartService)
+	err := client.EmptyCart("abcdef")
+	assert.Nil(t, err)
 }
 
 func TestSendEmailConfirmation(t *testing.T) {

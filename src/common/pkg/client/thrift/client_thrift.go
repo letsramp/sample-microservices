@@ -180,6 +180,7 @@ func (tc *Client) GetAds(adReq *pb.AdRequest) ([]*pb.Ad, error) {
 // ------- Cart Service
 func (tc *Client) AddCart(userID, productID string, quantity int32) error {
 	opt := thrift.NewDefaultOption()
+	opt.HttpUrl = "/CartService"
 	client, transport, err := thrift.NewThriftClient(tc.CartService, opt)
 	if err != nil {
 		return fmt.Errorf("failed creating cartservice client")
@@ -194,6 +195,7 @@ func (tc *Client) AddCart(userID, productID string, quantity int32) error {
 }
 func (tc *Client) EmptyCart(userID string) error {
 	opt := thrift.NewDefaultOption()
+	opt.HttpUrl = "/CartService"
 	client, transport, err := thrift.NewThriftClient(tc.CartService, opt)
 	if err != nil {
 		return fmt.Errorf("failed creating cartservice client")
@@ -208,6 +210,7 @@ func (tc *Client) EmptyCart(userID string) error {
 }
 func (tc *Client) GetCart(userID string) ([]*pb.CartItem, error) {
 	opt := thrift.NewDefaultOption()
+	opt.HttpUrl = "/CartService"
 	client, transport, err := thrift.NewThriftClient(tc.CartService, opt)
 	if err != nil {
 		return nil, fmt.Errorf("failed creating cartservice client")
