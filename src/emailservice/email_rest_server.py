@@ -12,9 +12,10 @@ restPort=os.environ.get('REST_PORT')
 
 app=FastAPI()
 
-@app.post("/send-confirmation")
+@app.post("/send-order-confirmation")
 async def sendConfirmation():
     print("Sending Email confirmation")
+    return {"status":"200 OK"}
 
 def startRest(opt):
     if opt.tls:
