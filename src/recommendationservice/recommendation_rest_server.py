@@ -1,34 +1,25 @@
 import os
-import ssl
-import json
 import requests
-import urllib3
 import random
-import uvicorn
 from fastapi import FastAPI
-from typing import List, Optional, Type
-from fastapi import FastAPI, Query, Depends
-from pydantic import BaseModel
+from typing import List, Optional
+from fastapi import FastAPI, Query
 from urllib3.exceptions import InsecureRequestWarning
 
-# Suppress warning for self signed certificate.
-requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 restPort=os.environ.get('REST_PORT')
 productcatalogservice=os.environ.get('PRODUCT_CATALOG_SERVICE_HOST')
-print(productcatalogservice)
 
 app=FastAPI()
 
 @app.get("/list-recommendations")
-async def listRecommendations(pid: Optional[List[str]] = Query(None)):
+async def listRecommendations(product_id: Optional[List[str]] = Query(None)):
     cart_ids = []
-    print(pid)
-    if pid:
-        for p in pid:
+    print(product_id)
+    if product_id:
+        for p in product_id:
             cart_ids.append(p)
-    print(cart_ids)
-    url = 'http://{server}:{port}/list-products'.format(server=productcatalogservice, port=restPort)
+    url = 'http://{server}:{port}/get-products'.format(server=productcatalogservice, port=restPort)
     r = requests.get( url, verify=False)
     if r.status_code == 200:
         product_ids =[]
