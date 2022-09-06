@@ -456,7 +456,7 @@ example results
   ]
 }
 `
-
+```
 ## Recommendation Service
 
 **List Recommendation**
@@ -552,8 +552,6 @@ curl -X 'PUT' \
 ```
 
 ## Shipping Serviece
-
-
 **Get Quote**
 ```
 curl -X 'PUT' \
