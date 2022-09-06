@@ -662,9 +662,7 @@ order {
 
 
 # Openapi
-<details>
-  <summary>Rest API</summary>
-  ```
+```
 {
   "openapi": "3.0.2",
   "info": {
@@ -1689,5 +1687,4 @@ order {
     }
   ]
 }
-  ```
-</details>
+```
