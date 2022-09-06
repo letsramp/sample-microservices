@@ -1,7 +1,5 @@
 import os
 import ssl
-import sys
-sys.path.append('thriftpy')
 import random
 
 from thrift.transport import TSocket
@@ -11,7 +9,7 @@ from thrift.server import TServer
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 
-from demo import RecommendationService, ProductCatalogService
+from thriftpy.demo import RecommendationService, ProductCatalogService
 
 class ListRecommendationHandler(RecommendationService.Iface):
     def ListRecommendations(self, in_product_ids):
@@ -47,6 +45,11 @@ class ListRecommendationHandler(RecommendationService.Iface):
     def __init__(self, productCatalogServerHost, productCatalogServerPort):
         self.productCatalogServerHost = productCatalogServerHost
         self.productCatalogServerPort = productCatalogServerPort
+
+
+def startServer(port):
+    socket = TSocket.TServerSocket(port=port)
+
 
 def startThrift(thriftPort, productCatalogServerHost, productCatalogServerPort):
     print("starting thrift server on port {}".format(thriftPort), flush=True)
