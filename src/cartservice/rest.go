@@ -2,54 +2,53 @@ package main
 
 import (
 	pb "cartservice/genproto"
-	"encoding/json"
 	"fmt"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-func httpCart() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		user_id := r.URL.Query().Get("user_id")
-		switch r.Method {
-		case "GET":
-			cart := GetCart(user_id)
-			jsonCart, err := json.Marshal(cart)
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				return
-			}
-			if _, err := w.Write(jsonCart); err != nil {
-				fmt.Println("ERROR")
-			}
-		case "POST":
-			cartItem := &pb.CartItem{}
-			decoder := json.NewDecoder(r.Body)
-			err := decoder.Decode(cartItem)
-			if err != nil {
-				w.WriteHeader(http.StatusBadRequest)
-				return
-			}
-			AddItem(user_id, cartItem.ProductId, cartItem.Quantity)
-			w.WriteHeader(http.StatusOK)
-		case "DELETE":
-			EmtyCart(user_id)
-		}
+func get(c *gin.Context) {
+	user_id := c.Param("user_id")
+	cart := GetCart(user_id)
+	if cart != nil {
+		c.JSON(200, cart)
+	} else {
+		c.JSON(404, gin.H{"error": fmt.Sprintf("cart not found for user_id [%s]", user_id)})
 	}
 }
 
-func runRest(port string) {
-	mux := http.NewServeMux()
-	mux.Handle("/cart", httpCart())
-
-	httpServer := &http.Server{
-		Addr:    fmt.Sprintf(":%s", port),
-		Handler: mux,
+func post(c *gin.Context) {
+	user_id := c.Param("user_id")
+	if len(user_id) < 1 {
+		c.JSON(403, gin.H{"error": fmt.Sprintf("invalid user id [%s]", user_id)})
+		return
 	}
+	var item pb.CartItem
+	if err := c.ShouldBindJSON(&item); err != nil {
+		c.JSON(501, gin.H{"error": "failed updating cart"})
+		return
+	}
+	AddItem(user_id, item.ProductId, item.Quantity)
+	c.JSON(200, gin.H{"success": "200 OK"})
+}
+
+func delete(c *gin.Context) {
+	user_id := c.Param("user_id")
+	if len(user_id) < 1 {
+		c.JSON(403, gin.H{"error": fmt.Sprintf("invalid user id [%s]", user_id)})
+		return
+	}
+	EmtyCart(user_id)
+	c.JSON(200, gin.H{"success": "200 OK"})
+}
+
+func runRest(port string) {
 	go func() {
 		log.Infof("rest server started on port %s", port)
-		if err := httpServer.ListenAndServe(); err != nil {
-			log.Fatal(err)
-		}
-		log.Info("rest server terminated")
+		router := gin.Default()
+		router.GET("/cart/:user_id", get)
+		router.POST("/cart/:user_id", post)
+		router.DELETE("/cart/:user_id", delete)
+		router.Run(fmt.Sprintf("0.0.0.0:%s", port))
 	}()
 }
