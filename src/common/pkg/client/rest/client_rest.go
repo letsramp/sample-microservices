@@ -48,7 +48,7 @@ func NewRestClient() *RestClient {
 }
 
 func (c *RestClient) GetProduct(productID string) (*pb.Product, error) {
-	url := fmt.Sprintf("https://%s/%s?product_id=%s", c.ProductCatalogService, "get-product", productID)
+	url := fmt.Sprintf("http://%s/%s?product_id=%s", c.ProductCatalogService, "get-product", productID)
 	log.Debugf("--- REST GetProduct for id %s", url)
 
 	res, err := c.restClient.Get(url)
@@ -82,8 +82,8 @@ func (c *RestClient) GetProduct(productID string) (*pb.Product, error) {
 	return &proto, nil
 }
 
-func (c *RestClient) ListProducts() ([]*pb.Product, error) {
-	url := fmt.Sprintf("https://%s/%s", c.ProductCatalogService, "list-products")
+func (c *RestClient) GetProducts() ([]*pb.Product, error) {
+	url := fmt.Sprintf("http://%s/%s", c.ProductCatalogService, "get-products")
 	log.Debugf("--- REST GetProducts")
 
 	res, err := c.restClient.Get(url)
@@ -122,7 +122,7 @@ func (c *RestClient) ListProducts() ([]*pb.Product, error) {
 }
 
 func (c *RestClient) SearchProducts(query string) ([]*pb.Product, error) {
-	url := fmt.Sprintf("https://%s/%s?query=%s", c.ProductCatalogService, "search-products", query)
+	url := fmt.Sprintf("http://%s/%s?query=%s", c.ProductCatalogService, "search-products", query)
 	log.Debugf("--- REST GetProducts")
 
 	res, err := c.restClient.Get(url)
@@ -166,12 +166,12 @@ func (c *RestClient) ListRecommendations(cartitems []string) ([]*pb.Product, err
 		if index == 0 {
 			qparam = "?"
 		}
-		qparam = qparam + fmt.Sprintf("pid=%s", param)
+		qparam = qparam + fmt.Sprintf("product_id=%s", param)
 		if index < len(cartitems)-2 {
 			qparam = qparam + "&"
 		}
 	}
-	url := fmt.Sprintf("https://%s/%s%s", c.RecommendationService, "list-recommendations", qparam)
+	url := fmt.Sprintf("http://%s/%s%s", c.RecommendationService, "list-recommendations", qparam)
 	log.Debugf("REST endpoint %s", url)
 
 	res, err := c.restClient.Get(url)
@@ -206,18 +206,14 @@ func (c *RestClient) ListRecommendations(cartitems []string) ([]*pb.Product, err
 }
 
 // Cartservice
-func (c *RestClient) AddCart(userId, productId, quantity string) error {
-	url := fmt.Sprintf("http://%s/%s", c.CartService, "add-cart")
-	request, err := http.NewRequest("GET", url, nil)
+func (c *RestClient) AddCart(user_id, productId string, quantity int32) error {
+	url := fmt.Sprintf("http://%s/%s/%s", c.CartService, "cart", user_id)
+	cartItem := pb.CartItem{ProductId: productId, Quantity: quantity}
+	jsonStr, err := json.Marshal(cartItem)
+	request, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	if err != nil {
 		return err
 	}
-	q := request.URL.Query()
-	q.Add("user_id", userId)
-	q.Add("product_id", productId)
-	q.Add("quantity", quantity)
-	request.URL.RawQuery = q.Encode()
-
 	res, err := c.restClient.Do(request)
 	if err != nil {
 		return err
@@ -229,15 +225,11 @@ func (c *RestClient) AddCart(userId, productId, quantity string) error {
 }
 
 func (c *RestClient) EmptyCart(user_id string) error {
-	url := fmt.Sprintf("https://%s/%s", c.CartService, "empty-cart")
-	request, err := http.NewRequest("GET", url, nil)
+	url := fmt.Sprintf("http://%s/%s/%s", c.CartService, "cart", user_id)
+	request, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return err
 	}
-	q := request.URL.Query()
-	q.Add("user_id", user_id)
-	request.URL.RawQuery = q.Encode()
-
 	res, err := c.restClient.Do(request)
 	if err != nil {
 		return err
@@ -248,15 +240,12 @@ func (c *RestClient) EmptyCart(user_id string) error {
 	return nil
 }
 
-func (c *RestClient) GetCart(userId string) (string, error) {
-	url := fmt.Sprintf("http://%s/%s", c.CartService, "get-cart")
+func (c *RestClient) GetCart(user_id string) (string, error) {
+	url := fmt.Sprintf("http://%s/%s/%s", c.CartService, "cart", user_id)
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err
 	}
-	q := request.URL.Query()
-	q.Add("user_id", userId)
-	request.URL.RawQuery = q.Encode()
 
 	res, err := c.restClient.Do(request)
 	if err != nil {
