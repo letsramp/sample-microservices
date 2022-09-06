@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func httpListProducts() http.HandlerFunc {
+func httpGetProducts() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Debug("received a http request to list products")
 		data, err := json.Marshal(products)
@@ -62,7 +62,7 @@ func httpSearchProduct() http.HandlerFunc {
 func runRest(port string) error {
 	mux := http.NewServeMux()
 	mux.Handle("/get-product", httpGetProduct())
-	mux.Handle("/list-products", httpListProducts())
+	mux.Handle("/get-products", httpGetProducts())
 	mux.Handle("/search-products", httpSearchProduct())
 
 	httpServer := &http.Server{
