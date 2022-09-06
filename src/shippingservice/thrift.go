@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/GoogleCloudPlatform/microservices-demo/src/shippingservice/thriftgo/demo"
+	"shippingservice/thriftgo/demo"
 )
 
 type Handler struct{}

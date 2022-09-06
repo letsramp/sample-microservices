@@ -32,8 +32,8 @@ type Option struct {
 func NewDefaultOption() *Option {
 	return &Option{
 		Protocol:      Binary,
-		HttpTransport: false,
-		Secure:        true,
+		HttpTransport: true,
+		Secure:        false,
 		Buffered:      true,
 		Framed:        false,
 	}

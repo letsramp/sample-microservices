@@ -12,9 +12,12 @@ const (
 func main() {
 	fmt.Println("Starting ShippingService")
 	opt := NewDefaultOption()
+	opt.HttpTransport = true
+	opt.HttpUrl = "/ShippingService"
+
 	startThrift(thriftPort, opt)
 	log.Infof("ShippingService thrift server started on port :%s", thriftPort)
-	startRest(restPort)
+	startRest()
 	log.Infof("ShippingService rest server started on port :%s", restPort)
 	startGrpc()
 	select {}

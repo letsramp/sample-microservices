@@ -2,130 +2,91 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"net/http"
 	"os"
+	pb "shippingservice/genproto"
+	"strings"
 
-	"github.com/GoogleCloudPlatform/microservices-demo/src/shippingservice/thriftgo/demo"
+	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
 
-const (
-	getQuote       = "get-quote"
-	listProductUrl = "ship-order"
-	serverCrt      = "server.crt"
-	serverKey      = "server.key"
-)
 
 func init() {
 	log = logrus.New()
 	log.Level = logrus.DebugLevel
 	log.Out = os.Stdout
-	if _, err := os.Stat(serverCrt); errors.Is(err, os.ErrNotExist) {
-		cert, key, err := GenerateTLS()
-		if err != nil {
-			log.Fatal(err)
-		}
-		err = os.WriteFile(serverCrt, cert, 0600)
-		if err != nil {
-			log.Fatal(err)
-		}
-		err = os.WriteFile(serverKey, key, 0600)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
 }
 
-// // ---------------Shipping Service----------
-// service ShippingService {
-//     Money GetQuote(1: Address address, 2: list<CartItem> items)
-//     string ShipOrder(1: Address address, 2: list<CartItem> items)
-// }
-//
-// struct Address {
-//     1: string street_address,
-//     2: string city,
-//     3: string state,
-//     4: string country,
-//     5: i32 zip_code,
-// }
-//
-// struct CartItem {
-//     1: string product_id,
-//     2: i32  quantity,
-// }
-//
-// struct Money {
-//     1: string currency_code,
-//     2: i64 units,
-//     3: i32 nanos,
-// }
+func startRest() {
+	go func() {
+    port := "60000"
+		if os.Getenv("REST_PORT") != "" {
+			port = os.Getenv("REST_PORT")
+		}
+		log.Infof("Rest server started on port %s", port)
+		router := gin.Default()
+		router.PUT("/get-quote", get_quote)
+		router.PUT("/ship-order", ship_order)
+		router.Run(fmt.Sprintf("0.0.0.0:%s", port))
+	}()
+}
 
-func HttpGetQuote() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		log.Debug("received a http request to get shipping Quote")
+func get_quote(c *gin.Context) {
+  // Same logic as in grpc
+	log.Info("[GetQuote] received rest request")
+	defer log.Info("[GetQuote] completed rest request")
 
-		log.Info("[GetQuote] received request")
-		defer log.Info("[GetQuote] completed request")
+  // fix for unmarchalling tag zip_code -> zipCode
+	in, err := c.GetRawData()
+	if err != nil {
+		c.JSON(501, gin.H{"error": "failed to read data"})
+	}
+	data := strings.ReplaceAll(string(in), "zip_code", "zipCode")
+	order := &pb.GetQuoteRequest{}
+	if err := json.Unmarshal([]byte(data), order); err != nil {
+		c.JSON(501, gin.H{"error": "failed to parse GetQuoteRequest:" })
+		return
+	}
 
-		// 1. Generate a quote based on the total number of items to be shipped.
-		quote := CreateQuoteFromCount(0)
-		shippingQuite := &demo.Money{
+	count := len(order.Items)
+	_ = count
+	// TODO Base shipping quote on number of items
+
+	// 1. Generate a quote based on the total number of items to be shipped.
+	quote := CreateQuoteFromCount(0)
+
+	// 2. Generate a response.
+	c.JSON( 200, pb.GetQuoteResponse{
+		CostUsd: &pb.Money{
 			CurrencyCode: "USD",
 			Units:        int64(quote.Dollars),
-			Nanos:        int32(quote.Cents * 10000000),
-		}
-		data, err := json.Marshal(shippingQuite)
-		if err == nil {
-			w.WriteHeader(http.StatusOK)
-			w.Write(data)
-			return
-		}
-	}
+			Nanos:        int32(quote.Cents * 10000000)},
+	})
 }
 
-func HttpShipOrder() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		switch r.Method {
-		case "POST":
-			in := &ShipOrderRequest{}
-			err := json.NewDecoder(r.Body).Decode(in)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusBadRequest)
-				return
-			}
-			defer log.Info("[ShipOrder] completed request")
-			// 1. Create a Tracking ID
-			baseAddress := fmt.Sprintf("%s, %s, %s", in.Address.StreetAddress, in.Address.City, in.Address.State)
-			id := CreateTrackingId(baseAddress)
-			// 2. Generate a response.
-			out := ShipOrderResponse{
-				TrackingId: id,
-			}
-			jsonOut, err := json.Marshal(out)
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonOut)
-		}
-	}
-}
+func ship_order(c *gin.Context) {
+  // Same logic as in grpc
+	log.Info("[ShipOrder] received request")
+	defer log.Info("[ShipOrder] completed request")
 
-func startRest(port string) {
-	mux := http.NewServeMux()
-	mux.Handle("/get-quote", HttpGetQuote())
-	mux.Handle("/ship-order", HttpShipOrder())
-
-	httpServer := &http.Server{
-		Addr:    fmt.Sprintf(":%s", port),
-		Handler: mux,
+    // fix for unmarchalling tag zip_code -> zipCode
+	in, err := c.GetRawData()
+	if err != nil {
+		c.JSON(501, gin.H{"error": "failed to read data"})
 	}
-	go func() {
-		log.Infof("Rest server started on port %s", port)
-		if err := httpServer.ListenAndServeTLS(serverCrt, serverKey); err != nil {
-			log.Fatal(err)
-		}
-		log.Info("Rest server terminated")
-	}()
+	data := strings.ReplaceAll(string(in), "zip_code", "zipCode")
+	info := &pb.ShipOrderRequest{}
+	if err := json.Unmarshal([]byte(data), info); err != nil {
+		c.JSON(501, gin.H{"error": "failed to parse ShipOrderRequest"})
+		return
+	}
+
+	// 1. Create a Tracking ID
+	baseAddress := fmt.Sprintf("%s, %s, %s", info.Address.StreetAddress, info.Address.City, info.Address.State)
+	id := CreateTrackingId(baseAddress)
+
+  c.JSON(200,pb.ShipOrderResponse{
+		TrackingId: id,
+	})
 }
