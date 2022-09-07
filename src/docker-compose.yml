@@ -13,7 +13,7 @@ services:
     #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
   cartservice:
     build:
-      context: ./cartservice/src/.
+      context: ./cartservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/cartservice:v0.3.9
     env_file:

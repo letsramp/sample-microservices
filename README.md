@@ -148,7 +148,7 @@ as the Skyramp Mockworker Mocks their behaviour.
 **Add Product to Shopping cart**
 ```
 curl -X 'POST' \
-  'http://cartservice:60000/cart/abcde' \
+  'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -165,7 +165,7 @@ example result
 **Get Shopping cart**
 ```
 curl -X 'GET' \
-  'http://cartservice:60000/cart/abcde' \
+  'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
    -H 'accept: application/json' | jq .
 ```
 
@@ -186,17 +186,21 @@ example
 **Delete Shopping Cart**
 ```
 curl -X 'DELETE' \
-  'http://cartservice:60000/cart/abcde' \
+  'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
    -H 'accept: application/json'
 ```
 
+example result
+```
+{"success":"200 OK"}
+```
 
 ## Product Catalog Service
 
 ### Get Products
 ```
 curl -X 'GET' \
-  'http://productcatalogservice:60000/get-products' \
+  'http://product-catalog-service-port60000.demo.skyramp.test/get-products' \
   -H 'accept: application/json' | jq .
 ```
 
@@ -338,7 +342,7 @@ example result
 ### Get Product
 ```
 curl -X 'GET' \
-  'http://productcatalogservice:60000/get-product?product_id=OLJCESPC7Z' \
+  'http://product-catalog-service-port60000.demo.skyramp.test/get-product?product_id=OLJCESPC7Z' \
   -H 'accept: application/json' | jq .
 ```
 
@@ -363,7 +367,7 @@ example result
 ### Search Product
 ```
 curl -X 'GET' \
-  'http://productcatalogservice:60000/search-products?query=kitchen' \
+  'http://product-catalog-service-port60000.demo.skyramp.test/search-products?query=kitchen' \
   -H 'accept: application/json' | jq .
 ```
 
@@ -405,7 +409,7 @@ example result
 **Checkout Order**
 ```
 curl -X 'POST' \
-  'http://checkoutservice:60000/checkout' \
+  'http://checkout-service-port60000.demo.skyramp.test/checkout' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -462,7 +466,7 @@ example results
 **List Recommendation**
 ```
 curl -X 'GET' \
-  'http://recommendationservice:60000/list-recommendations?product_id=LS4PSXUNUM%22' \
+  'http://recommendation-service-port60000.demo.skyramp.test/list-recommendations?product_id=LS4PSXUNUM%22' \
   -H 'accept: application/json'
 ```
 
@@ -481,7 +485,7 @@ example results
 **Send Order Confirmation**
 ```
 curl -X 'POST' \
-  'http://emailservice:60000/send-order-confirmation' \
+  'http://email-service-port60000.demo.skyramp.test/send-order-confirmation' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -530,10 +534,17 @@ curl -X 'POST' \
 '
 ```
 
+example result
+```
+{
+  "status":"200 OK"
+}
+```
+
 ## Payment Service
 ```
-curl -X 'PUT' \
-  'http://paymentservice:60000/charge' \
+curl -X 'POST' \
+  'http://payment-service-port60000.demo.skyramp.test/charge' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -545,17 +556,24 @@ curl -X 'PUT' \
   "credit_card": {
     "credit_card_number": "4432-8015-6152-0454",
     "credit_card_cvv": 672,
-    "credit_card_expiration_year": 24,
+    "credit_card_expiration_year": 2024,
     "credit_card_expiration_month": 1
   }
 }'
+```
+
+example result
+```
+{
+  "transaction_id":"7c542c3a-372f-4b9f-b6c8-f8876a9f86d3"
+} 
 ```
 
 ## Shipping Serviece
 **Get Quote**
 ```
 curl -X 'PUT' \
-  'http://shippingservice:60000/get-quote' \
+  'http://shipping-service-port60000.demo.skyramp.test/get-quote' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -590,6 +608,43 @@ expected result
   }
 }
 ```
+
+**Ship Order**
+```
+curl -X 'PUT' \
+  'http://shipping-service-port60000.demo.skyramp.test/ship-order' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "address": {
+    "street_address": "1600 Amp street",
+    "city": "Mountain View",
+    "state": "CA",
+    "country": "USA",
+    "zip_code": "94043"
+  },
+  "items": [
+    {
+        "product_id": "L9ECAV7KIM",
+        "quantity": 2
+    },
+    {
+        "product_id": "2ZYFJ3GM2N",
+        "quantity": 1
+    }
+  ]
+}' | jq .
+
+```
+
+expected result
+```
+{
+  "tracking_id": "NS-34988-173225515"
+}
+
+```
+
 
 ---
 
