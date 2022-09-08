@@ -40,13 +40,11 @@ func main() {
 	}
 	runGrpc()
 	runRest(port)
-	opt := NewDefaultOption()
-	opt.HttpUrl = "/CartService"
 	port, found = os.LookupEnv("THRIFT_PORT")
 	if !found {
 		port = defaultThriftPort
 		log.Infof("env THRIFT_PORT is not set, using default %s", defaultThriftPort)
 	}
-	runThrift(port, opt)
+	runThrift(port)
 	select {}
 }

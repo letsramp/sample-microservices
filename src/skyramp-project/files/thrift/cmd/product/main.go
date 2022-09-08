@@ -59,7 +59,7 @@ func main() {
 	}
 	jsonProd, err = json.MarshalIndent(products, "", "\t")
 	if err != nil {
-		fmt.Printf("F:wailed to Marshal the response from ProductCatalogService: %v", err)
+		fmt.Printf("Failed to Marshal the response from ProductCatalogService: %v", err)
 		os.Exit(1)
 	}
 	fmt.Println(string(jsonProd))

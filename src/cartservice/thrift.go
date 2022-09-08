@@ -34,9 +34,11 @@ func (h Handler) EmptyCart(ctx context.Context, user_id string) error {
 	return nil
 }
 
-func runThrift(port string, opt *Option) {
+func runThrift(port string) {
 	processor := thrift.NewCartServiceProcessor(&Handler{})
 	go func() {
+		opt := NewDefaultOption()
+		opt.HttpUrl = "/CartService"
 		hostPort := fmt.Sprintf("0.0.0.0:%s", port)
 		NewHttpThriftServer(hostPort, opt, processor)
 	}()

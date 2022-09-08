@@ -1,0 +1,53 @@
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"os"
+	api "sample-thrift/demo"
+)
+
+const (
+	thriftHttpPath = "/CartService"
+)
+
+func main() {
+	clientAddr := fmt.Sprintf("cart-service-port50000.demo.skyramp.test")
+	opt := NewDefaultOption()
+	opt.HttpUrl = thriftHttpPath
+
+	c, trans, err := NewThriftClient(clientAddr, opt)
+	if err != nil {
+		fmt.Printf("Failed to connect to server: %v", err)
+		os.Exit(1)
+	}
+	err = trans.Open()
+	if err != nil {
+		fmt.Printf("Failed to connect to server: %v", err)
+		os.Exit(1)
+	}
+	fmt.Println("connected to Product Catalog Server")
+	client := api.NewCartServiceClient(c)
+	user_id := "abcfe"
+	product_id := "OLJCESPC7Z"
+	fmt.Printf("Adding product %s to cart\n", product_id)
+	err = client.AddItem(context.Background(), user_id, &api.CartItem{ProductID: product_id, Quantity: 5})
+	if err != nil {
+		fmt.Printf("Failed to add item to cart: %v", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("\nGet Cart\n")
+	cart, err := client.GetCart(context.Background(), user_id)
+	if err != nil {
+		fmt.Printf("Failed to get cart: %v", err)
+		os.Exit(1)
+	}
+	jsonProd, err := json.MarshalIndent(cart, "", "\t")
+	if err != nil {
+		fmt.Printf("Failed to Marshal the response from ProductCatalogService: %v", err)
+		os.Exit(1)
+	}
+	fmt.Println(string(jsonProd))
+}
