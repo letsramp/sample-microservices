@@ -27,10 +27,10 @@ func main() {
 		fmt.Printf("Failed to connect to server: %v", err)
 		os.Exit(1)
 	}
-	fmt.Println("connected to Product Catalog Server")
+	fmt.Println("Sucessfully Connected to Product Catalog Server")
 	client := api.NewProductCatalogServiceClient(c)
 	product_id := "OLJCESPC7Z"
-	fmt.Printf("Trying to get product %s \n", product_id)
+	fmt.Printf("Trying to get product with id[%s] \n", product_id)
 	p, err := client.GetProduct(context.Background(), product_id)
 	if err != nil {
 		fmt.Printf("Failed to connect to server: %v", err)
@@ -45,6 +45,7 @@ func main() {
 		fmt.Printf("Failed to Marshal the response from ProductCatalogService: %v", err)
 		os.Exit(1)
 	}
+	fmt.Println("Result:")
 	fmt.Println(string(jsonProd))
 
 	fmt.Printf("\nTrying to get all products \n")
@@ -62,5 +63,6 @@ func main() {
 		fmt.Printf("Failed to Marshal the response from ProductCatalogService: %v", err)
 		os.Exit(1)
 	}
+	fmt.Println("Result:")
 	fmt.Println(string(jsonProd))
 }

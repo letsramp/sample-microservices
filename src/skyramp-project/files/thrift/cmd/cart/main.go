@@ -27,11 +27,14 @@ func main() {
 		fmt.Printf("Failed to connect to server: %v", err)
 		os.Exit(1)
 	}
-	fmt.Println("connected to Product Catalog Server")
+	//
+	// NOTE: Add Product to Cart
+	//
+	fmt.Println("connected to Cart Service")
 	client := api.NewCartServiceClient(c)
 	user_id := "abcfe"
 	product_id := "OLJCESPC7Z"
-	fmt.Printf("Adding product %s to cart\n", product_id)
+	fmt.Printf("Adding product %s to Cart\n", product_id)
 	err = client.AddItem(context.Background(), user_id, &api.CartItem{ProductID: product_id, Quantity: 5})
 	if err != nil {
 		fmt.Printf("Failed to add item to cart: %v", err)
@@ -46,7 +49,7 @@ func main() {
 	}
 	jsonProd, err := json.MarshalIndent(cart, "", "\t")
 	if err != nil {
-		fmt.Printf("Failed to Marshal the response from ProductCatalogService: %v", err)
+		fmt.Printf("Failed to Marshal the response from Cart Service: %v", err)
 		os.Exit(1)
 	}
 	fmt.Println(string(jsonProd))

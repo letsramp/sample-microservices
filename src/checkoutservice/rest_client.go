@@ -1,7 +1,7 @@
 package main
 
 import (
-	pb "checkoutservice/genproto"
+	api "checkoutservice/genproto"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -29,7 +29,7 @@ func NewRestClient() *RestClient {
 	return &RestClient{restClient: &http.Client{}}
 }
 
-func (c *RestClient) GetProduct(productID string) (*pb.Product, error) {
+func (c *RestClient) GetProduct(productID string) (*api.Product, error) {
 	url := fmt.Sprintf("http://%s/%s?product_id=%s", c.ProductCatalogService, "get-product", productID)
 
 	res, err := c.restClient.Get(url)
@@ -44,7 +44,7 @@ func (c *RestClient) GetProduct(productID string) (*pb.Product, error) {
 		return nil, fmt.Errorf(error)
 	}
 
-	var p pb.Product
+	var p api.Product
 	if err := json.Unmarshal(out, &p); err != nil {
 		error := fmt.Sprintf("error mmarshaling response: %v", err)
 		return nil, fmt.Errorf(error)
@@ -52,7 +52,7 @@ func (c *RestClient) GetProduct(productID string) (*pb.Product, error) {
 	return &p, nil
 }
 
-func (c *RestClient) GetCart(user_id string) (*pb.Cart, error) {
+func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 	url := fmt.Sprintf("http://%s/%s/%s", c.CartService, "cart", user_id)
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -72,7 +72,7 @@ func (c *RestClient) GetCart(user_id string) (*pb.Cart, error) {
 		error := fmt.Sprintf("error reading GetCart response: %v", err)
 		return nil, fmt.Errorf(error)
 	}
-	var cart = &pb.Cart{}
+	var cart = &api.Cart{}
 	if err := json.Unmarshal(out, cart); err != nil {
 		error := fmt.Sprintf("error mmarshaling response: %v", err)
 		return nil, fmt.Errorf(error)

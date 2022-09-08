@@ -1,126 +1,51 @@
 services:
-  adservice: # service
+  adservice:
     build:
       context: ./adservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/adservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=9555
-    volumes:
-      - ./adservice:/adservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
   cartservice:
     build:
       context: ./cartservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/cartservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - REDIS_ADDR=redis-cart:6379
-    volumes:
-      - ./cartservice:/cartservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  checkoutservice: # service
+  checkoutservice:
     build:
       context: ./checkoutservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/checkoutservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=5050
-    volumes:
-      - ./checkoutservice:/checkoutservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  currencyservice: # service
+  currencyservice:
     build:
       context: ./currencyservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/currencyservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=7000
-    volumes:
-      - ./currencyservice:/currencyservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  emailservice:  # service
+  emailservice:
     build:
       context: ./emailservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/emailservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=8080
-    volumes:
-      - ./emailservice:/emailservice
-    #entrypoint: [ "bash", "-c", "while sleep 3600000; do :; done" ]
-  frontend:  # service
+  frontend:
     build:
       context: ./frontend/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/frontend:v0.3.9
-    ports:
-      - 8080:8080
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=8080
-    volumes:
-      - .:/frontend:cached
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  paymentservice:  # service
+  paymentservice:
     build:
       context: ./paymentservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/paymentservice:v0.3.9
-
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=50051
-    volumes:
-      - ./paymentservice:/paymentservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  productcatalogservice: # service
+  productcatalogservice:
     build:
       context: ./productcatalogservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/productcatalogservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=3550
-    volumes:
-      - ./productcatalogservice:/productcatalogservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  recommendationservice: # service
+  recommendationservice:
     build:
       context: ./recommendationservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/recommendationservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=8080
-    volumes:
-      - ./recommendationservice:/recommendationservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  shippingservice: # service
+  shippingservice:
     build:
       context: ./shippingservice/.
       dockerfile: Dockerfile
     image: registry.cequoi.ca/google-samples/microservices-demo/shippingservice:v0.3.9
-    env_file:
-      - 'variables.env'
-    environment:
-      - PORT=50051
-    volumes:
-      - ./shippingservice:/shippingservice
-    #entrypoint: [ "sh", "-c", "while sleep 3600000; do :; done" ]
-  redis-cart: # service
-    image: redis:alpine
