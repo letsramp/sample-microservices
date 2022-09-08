@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -58,20 +57,6 @@ func init() {
 		TimestampFormat: time.RFC3339Nano,
 	}
 	log.Out = os.Stdout
-	if _, err := os.Stat(serverCrt); errors.Is(err, os.ErrNotExist) {
-		cert, key, err := GenerateTLS()
-		if err != nil {
-			log.Fatal(err)
-		}
-		err = os.WriteFile(serverCrt, cert, 0600)
-		if err != nil {
-			log.Fatal(err)
-		}
-		err = os.WriteFile(serverKey, key, 0600)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
 	catalogJSON, err := ioutil.ReadFile("products.json")
 	if err != nil {
 		panic(fmt.Sprintf("failed to open product catalog json file: %v", err))
@@ -96,8 +81,7 @@ func main() {
 		startGrpc()
 	}()
 	go func() {
-		opt := NewDefaultOption()
-		startThrift(thriftPort, opt)
+		startThrift(thriftPort)
 	}()
 	go func() {
 		runRest(restPort)

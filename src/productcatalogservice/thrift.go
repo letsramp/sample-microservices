@@ -3,8 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	thrift "github.com/GoogleCloudPlatform/microservices-demo/src/productcatalogservice/thriftgo/demo"
+	thrift "productcatalogservice/thriftgo/demo"
 	"strings"
+)
+
+const (
+	thriftHttpPath = "/ProductCatalogService"
 )
 
 type Handler struct{}
@@ -57,14 +61,12 @@ func (h Handler) SearchProducts(ctx context.Context, query string) (result []*th
 	return nil, fmt.Errorf("no products found matching %s", query)
 }
 
-func startThrift(port string, opt *Option) {
+func startThrift(port string) {
 	processor := thrift.NewProductCatalogServiceProcessor(&Handler{})
 	go func() {
-		if opt.HttpTransport {
-			NewHttpThriftServer(fmt.Sprintf("0.0.0.0:%s", port), opt, processor)
-		} else {
-			NewStandardThriftServer(fmt.Sprintf("0.0.0.0:%s", port), opt, processor)
-		}
+		opt := NewDefaultOption()
+		opt.HttpUrl = thriftHttpPath
+		NewHttpThriftServer(fmt.Sprintf("0.0.0.0:%s", port), opt, processor)
 		log.Info("Trift server terminated")
 	}()
 }
