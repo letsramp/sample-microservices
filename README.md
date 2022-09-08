@@ -1,12 +1,10 @@
-#**Skyramp** sample microservices are based on GCP **Online Boutique** with extension
+#**Skyramp** sample microservices are based on GCP **Online Boutique** with added support
 to communicate using rest and thrift.
-
 
 ## Getting Started
 
 ### install tools pre-requisit
 - docker
-- compose
 - jq
 - curl
 
@@ -17,142 +15,278 @@ git clone https://github.com/letsramp/sample-services.git
 cd sample-services/src
 ```
 
-## Building Sample services from source
-
- <!-- TODO Update service images with local registry  -->
-
-## Push Services to container registry
+## Optional - Building Sample services from source
 ```
-docker compose push
+make build-services
+```
+### Push Services to container registry
+```
+make push-services
 ```
 
 ## Use Skyramo to Create a local kubernetes cluster
 ```
-skyramo config local apply
+skyramp config local apply
 ```
 
+expected result
+```
+$ skyramp config apply local
+│Creating local cluster. ∙∙∙ [##########################################....................] 68 %
+```
 
-## Use skyramp to deploy Online Boutique with grpc
+Note:
+```
+Before images are pushed to a public repo, we need to upload credentials to the local kind cluster.
+```
+
+## Use skyramp to deploy Skyramp Sample Services
 
 ```
-cd skyramp-projects/grpc
+cd skyramp-projects
 
 $ skyramp up demo
 ```
 
-Expected Result:
+Example Result:
 ```
-product-catalog-service-556fd4b54f-8jjqf      ready
-recommendation-service-7fb4598577-spj2t       ready
-cart-service-68fc59dc8c-lbqht                 ready
-currency-service-69dbcd889d-f4v9z             ready
-frontend-6b5ddd8f69-ssj4c                     ready
-redis-7f6445f856-sgk9m                        ready
-ad-service-5b56d86b5f-jt8pn                   ready
-checkout-service-57549d999c-pd22c             ready
-email-service-db4c8f558-vh7w7                 ready
-payment-service-568974bcd9-vth2t              ready
-shipping-service-554b6c8757-ngrqm             ready
-skyramp-debug-worker-7cd4d58c6b-dx8bb         ready
+skyramp up demo
+email-service-db4c8f558-2sc7q                 ready
+recommendation-service-5b95597bc-w68gt        ready
+shipping-service-bfccbdfd7-9dqqg              ready
+currency-service-b9cb57446-2d4lf              ready
+frontend-5b6d788d47-qscgf                     ready
+redis-7f6445f856-6sp89                        ready
+payment-service-78f9576cd7-662cd              ready
+product-catalog-service-6bdb96c889-8ws8j      ready
+ad-service-5b56d86b5f-qxbk7                   ready
+cart-service-68fc59dc8c-v56kp                 ready
+checkout-service-6dcc7c5ff7-2hf9k             ready
+skyramp-debug-worker-654cd9fc6c-f75bd         ready
 All pods are ready.
+```
+
+## Lets explore the Services with kubectl
+
+Set config for kubectl
+```
+export KUBECONFIG=~/.skyramp/workload-config
+```
+
+list namespaces
+```
+kubectl get ns
+```
+
+example results
+```
+NAME                                  STATUS   AGE
+default                               Active   78m
+kube-node-lease                       Active   78m
+kube-public                           Active   78m
+kube-system                           Active   78m
+local-path-storage                    Active   77m
+projectcontour                        Active   77m
+skyramp-client-skyramp-project-demo   Active   71m
+```
+
+list pods
+```
+kubectl get pods -n skyramp-client-skyramp-project-demo
+```
+
+example result
+```
+NAME                                       READY   STATUS    RESTARTS   AGE
+ad-service-5b56d86b5f-qxbk7                1/1     Running   0          133m
+cart-service-68fc59dc8c-v56kp              1/1     Running   0          133m
+checkout-service-6dcc7c5ff7-2hf9k          1/1     Running   0          133m
+currency-service-b9cb57446-2d4lf           1/1     Running   0          133m
+email-service-db4c8f558-2sc7q              1/1     Running   0          133m
+frontend-5b6d788d47-qscgf                  1/1     Running   0          133m
+payment-service-78f9576cd7-662cd           1/1     Running   0          133m
+product-catalog-service-6bdb96c889-8ws8j   1/1     Running   0          133m
+recommendation-service-5b95597bc-w68gt     1/1     Running   0          133m
+redis-7f6445f856-6sp89                     1/1     Running   0          133m
+shipping-service-bfccbdfd7-9dqqg           1/1     Running   0          133m
+skyramp-debug-worker-654cd9fc6c-f75bd      1/1     Running   0          133m
 
 ```
 
-<!-- TODO Update DNS resolver or /etc/hosts   -->
+## Testing services with Thrift
 
+Open and inspect the thrift API (demo.thrift) in the thrift folder of skyramp project.
 
-Open a browser on url http://frontend-port8080.demo.skyramp.test to access
-the online store experience
+The sub folder files/thrift has clients in golang that connects to the demo services using thrift rpc.
 
-<br/><br/>
-![Online Boutique](docs/img/online-boutique.jpg)
-
-
-## Undeploy Services
+Procedures
 ```
-$ skyramp down demo
+cd <skyramp-project>/files/thrift
 
 ```
 
-
-## Mocking Services with Skyramp Mock Worker
-
-Here we will explore the power of Skyramp Mockworker to mock two services.
-- payment-service
-- shipping-service
-
-Note: inspect the Container description of the payment-service and pay attention to the endpoint
-and signature definition that declares the behaviour.
-
+### Example: List Products
 ```
-$ vi skyramp-projects/grpc/containers/payment-service.yaml
-$ vi skyramp-projects/grpc/containers/shipping-service.yaml
+go run ./cmd/product
 
 ```
 
-Update the target description to indicate that Skyramp Mockworker is to mock the payment and shipping service.
+example result
+```
+Sucessfully Connected to Product Catalog Server
+Trying to get product with id[OLJCESPC7Z]
+Result:
+{
+        "id": "OLJCESPC7Z",
+        "name": "Sunglasses",
+        "description": "Add a modern touch to your outfits with these sleek aviator sunglasses.",
+        "picture": "/static/img/products/sunglasses.jpg",
+        "price_usd": {
+                "currency_code": "USD",
+                "units": 19,
+                "nanos": 990000000
+        },
+        "categories": [
+                "accessories"
+        ]
+}
+
+Trying to get all products
+Result:
+[
+    {
+        "id": "OLJCESPC7Z",
+        "name": "Sunglasses",
+        "description": "Add a modern touch to your outfits with these sleek aviator sunglasses.",
+        "picture": "/static/img/products/sunglasses.jpg",
+        "price_usd": {
+                "currency_code": "USD",
+                "units": 19,
+                "nanos": 990000000
+        },
+        "categories": [
+                "accessories"
+        ]
+    },
+    ...
+    {
+        "id": "9SIQT8TOJO",
+        "name": "Bamboo Glass Jar",
+        "description": "This bamboo glass jar can hold 57 oz (1.7 l) and is perfect for any kitchen.",
+        "picture": "/static/img/products/bamboo-glass-jar.jpg",
+        "price_usd": {
+                "currency_code": "USD",
+                "units": 5,
+                "nanos": 490000000
+        },
+        "categories": [
+                "kitchen"
+        ]
+    },
+    {
+        "id": "6E92ZMYYFZ",
+        "name": "Mug",
+        "description": "A simple mug with a mustard interior.",
+        "picture": "/static/img/products/mug.jpg",
+        "price_usd": {
+                "currency_code": "USD",
+                "units": 8,
+                "nanos": 990000000
+        },
+        "categories": [
+                "kitchen"
+        ]
+    }
+]
+```
+
+### Example: Add Product to Cart
+Scenario ./cmd/cart/main.go demonstrates the API to add products to cart.
 
 ```
-vi targets/demo.yaml
-```
-Add "mock: true" to define that the service is to be mocked
-```
-containers:
-  - container: ad-service
-  - container: frontend
-  - container: cart-service
-  - container: checkout-service
-  - container: payment-service
-    mock: true
-  - container: product-catalog-service
-  - container: recommendation-service
-  - container: email-service
-  - container: shipping-service
-    mock: true
-  - container: currency-service
+go run ./cmd/cart
 
 ```
 
-## Use Skyramp to deploy the new configuration
-
+example result
 ```
-$ skyramp up demo
-```
+Connected to Cart Service
+Adding product OLJCESPC7Z to Cart
 
-Expected Result:
-```
-product-catalog-service-556fd4b54f-8jjqf      ready
-recommendation-service-7fb4598577-spj2t       ready
-cart-service-68fc59dc8c-lbqht                 ready
-currency-service-69dbcd889d-f4v9z             ready
-frontend-6b5ddd8f69-ssj4c                     ready
-redis-7f6445f856-sgk9m                        ready
-ad-service-5b56d86b5f-jt8pn                   ready
-checkout-service-57549d999c-pd22c             ready
-email-service-db4c8f558-vh7w7                 ready
-skyramp-worker-7cd4d58c6b-dx8bb               ready
-All pods are ready.
-
+Get Cart
+{
+    "user_id": "abcfe",
+    "items": [
+        {
+            "product_id": "OLJCESPC7Z",
+            "quantity": 5
+        }
+    ]
+}
 ```
 
-Note: The shipping and payment service pods are not deployed,
-as the Skyramp Mockworker Mocks their behaviour.
 
-
-# API
-
-## Rest
-
-### Cartservice Operation
-
-**Add Product to Shopping cart**
+### Example: Add products to cart and perform ckeckout.
+Inspact source code
 ```
-curl -X 'POST' \
-  'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
+cmd/checkout/main.go
+```
+
+Executing Scenario
+```
+go run ./cmd/checkout
+```
+
+Expected Result
+```
+Sucessfully connected to Cart Service
+Successfully added [4] units of product [OLJCESPC7Z] to Cart
+Successfully connected to Checkout Service
+Order Result Received fromm Checkout
+{
+        "order_id": "28f1f872-eac3-46b4-ab81-f7d294bbf528",
+        "shipping_tracking_id": "b98eabc9-95ef-48ee-ab7d-d80a9aad8b05",
+        "shipping_cost": {
+                "currency_code": "USD",
+                "units": 10,
+                "nanos": 100
+        },
+        "shipping_address": {
+                "street_address": "1600 Amp street",
+                "city": "Mountain View",
+                "state": "CA",
+                "country": "USA",
+                "zip_code": 94043
+        },
+        "items": [
+                {
+                        "item": {
+                                "product_id": "OLJCESPC7Z",
+                                "quantity": 16
+                        },
+                        "cost": {
+                                "currency_code": "USD",
+                                "units": 19,
+                                "nanos": 990000000
+                        }
+                }
+        ]
+}
+```
+
+
+## REST
+
+### cartservice operation
+
+**add product to shopping cart**
+```
+curl -X 'POST' 'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
+  --resolve cart-service-port60000.demo.skyramp.test:80:127.0.0.1 \
+  -h 'accept: application/json' \
+  -h 'content-type: application/json' \
   -d '{
-  "product_id": "LS4PSXUNUM",
+  "product_id": "ls4psxunum",
   "quantity": 8
 }'
 ```
@@ -166,6 +300,7 @@ example result
 ```
 curl -X 'GET' \
   'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
+   --resolve cart-service-port60000.demo.skyramp.test:80:127.0.0.1 \
    -H 'accept: application/json' | jq .
 ```
 
@@ -187,6 +322,7 @@ example
 ```
 curl -X 'DELETE' \
   'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
+   --resolve cart-service-port60000.demo.skyramp.test:80:127.0.0.1 \
    -H 'accept: application/json'
 ```
 
@@ -201,6 +337,7 @@ example result
 ```
 curl -X 'GET' \
   'http://product-catalog-service-port60000.demo.skyramp.test/get-products' \
+  --resolve product-catalog-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' | jq .
 ```
 
@@ -343,6 +480,7 @@ example result
 ```
 curl -X 'GET' \
   'http://product-catalog-service-port60000.demo.skyramp.test/get-product?product_id=OLJCESPC7Z' \
+    --resolve product-catalog-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' | jq .
 ```
 
@@ -368,6 +506,7 @@ example result
 ```
 curl -X 'GET' \
   'http://product-catalog-service-port60000.demo.skyramp.test/search-products?query=kitchen' \
+    --resolve product-catalog-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' | jq .
 ```
 
@@ -410,6 +549,7 @@ example result
 ```
 curl -X 'POST' \
   'http://checkout-service-port60000.demo.skyramp.test/checkout' \
+  --resolve checkout-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -486,6 +626,7 @@ example results
 ```
 curl -X 'POST' \
   'http://email-service-port60000.demo.skyramp.test/send-order-confirmation' \
+   --resolve email-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -545,6 +686,7 @@ example result
 ```
 curl -X 'POST' \
   'http://payment-service-port60000.demo.skyramp.test/charge' \
+  --resolve payment-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -566,7 +708,7 @@ example result
 ```
 {
   "transaction_id":"7c542c3a-372f-4b9f-b6c8-f8876a9f86d3"
-} 
+}
 ```
 
 ## Shipping Serviece
@@ -574,6 +716,7 @@ example result
 ```
 curl -X 'PUT' \
   'http://shipping-service-port60000.demo.skyramp.test/get-quote' \
+    --resolve shipping-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -613,6 +756,7 @@ expected result
 ```
 curl -X 'PUT' \
   'http://shipping-service-port60000.demo.skyramp.test/ship-order' \
+  --resolve shipping-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -644,77 +788,6 @@ expected result
 }
 
 ```
-
-
----
-
-### Python
-The python test clients are available in the project folder and sub directory /files/python
-
-1. Change working directory to the python test clients
-```
-cd <project folder>/files/python
-```
-
-2. Create a python virtual environment
-```
-$ python3 -m venv env
-```
-
-3. Activate the virtual environment
-```
-$ source ./venv/bin/activate
-```
-
-4. Install the python dependencies
-```
-$ pip install -r requirements.txt
-```
-
-4. Add item to the CartService
-Inspect the file addCartLocal.py and note that user_id 'abcde' is adding one unit of product_id 'OLJCESPC7Z' to the cart service
-
-```
-$  python3 addCartLocal.py
-Successfully added item to cart.
-```
-5. Place the order, and expect the successful result.
-
-```
-$  python placeOrderLocal.py
-Successfully placed order.
-
-order {
-  order_id: "9e5ef048-2994-11ed-bdca-56f53d787cb9"
-  shipping_tracking_id: "ET-34675-173898815"
-  shipping_cost {
-    currency_code: "USD"
-    units: 8
-    nanos: 990000000
-  }
-  shipping_address {
-    street_address: "1600 Amp street"
-    city: "Mountain View"
-    state: "CA"
-    country: "USA"
-    zip_code: 94043
-  }
-  items {
-    item {
-      product_id: "OLJCESPC7Z"
-      quantity: 1
-    }
-    cost {
-      currency_code: "USD"
-      units: 19
-      nanos: 990000000
-    }
-  }
-}
-```
----
-
-
 
 # Openapi
 ```
