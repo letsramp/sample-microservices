@@ -99,7 +99,7 @@ struct OrderResult {
 
 // -------------Checkout service-----------------
 service CheckoutService {
-    OrderResult PlaceOrder(1: string user_id, 2: string user_currency, 3: Address address 4: string email, 5: CreditCardInfo credit_card)
+    OrderResult PlaceOrder(1: string user_id, 2: string user_currency, 3: Address address, 4: string email, 5: CreditCardInfo credit_card)
 }
 
 // ------------Ad service------------------
