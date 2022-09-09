@@ -83,7 +83,7 @@ func checkout(c *gin.Context) {
 	// UPdate order with items
 	for _, item := range cart.Items {
 		if product, err := client.GetProduct(item.ProductId); err != nil {
-			c.JSON(501, "failed to get user cart")
+			c.JSON(501, fmt.Sprintf("failed to get product[%s] from the Product Catalog Cervice, %v", item.ProductId, err))
 			return
 		} else {
 			result.Items = append(result.Items, &pb.OrderItem{Item: item, Cost: product.PriceUsd})
