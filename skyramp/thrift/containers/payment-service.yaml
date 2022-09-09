@@ -1,0 +1,19 @@
+containers:
+  - name: payment-service
+    image:
+      repository: registry.cequoi.ca/google-samples/microservices-demo/paymentservice
+      tag: v0.3.9
+    manifests:
+      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
+    ports:
+      - payment-service-port50000
+    envs:
+      PORT: "50051"
+      DISABLE_TRACING: "1"
+      DISABLE_PROFILER: "1"
+      DISABLE_DEBUGGER: "1"
+
+ports:
+  - name: payment-service-port50000
+    protocol: thrift
+    port: 50000

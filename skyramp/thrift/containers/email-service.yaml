@@ -1,0 +1,15 @@
+containers:
+  - name: email-service
+    image:
+      repository: registry.cequoi.ca/google-samples/microservices-demo/emailservice
+      tag: v0.3.9
+    manifests:
+      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
+    ports:
+      - email-service-port50000
+
+ports:
+  - name: email-service-port50000
+    protocol: thrift
+    port: 50000
+
