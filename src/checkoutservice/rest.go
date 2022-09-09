@@ -44,6 +44,7 @@ func getService(serviceEnv string, port int) string {
 }
 
 func init() {
+	log.Info("entering rest.init()")
 	client.CartService = getService(CART_SERVICE_ADDR, 60000)
 	client.ProductCatalogService = getService(PRODUCT_CATALOG_SERVICE_ADDR, 60000)
 	client.Currencyservice = getService(CURRENCY_SERVICE_ADDR, 60000)

@@ -23,12 +23,13 @@ var thriftClient = &ThriftClient{}
 type Handler struct{}
 
 func init() {
+	log.Info("entering thrift.init()")
 	thriftClient.CartService = getService(CART_SERVICE_ADDR, 50000)
 	thriftClient.ProductCatalogService = getService(PRODUCT_CATALOG_SERVICE_ADDR, 50000)
 	thriftClient.Currencyservice = getService(CURRENCY_SERVICE_ADDR, 50000)
 	thriftClient.Paymentservice = getService(PAYMENT_SERVICE_ADDR, 50000)
 	thriftClient.Emailservice = getService(EMAIL_SERVICE_ADDR, 50000)
-	thriftClient.Shippingservice = getService(SHIPPING_SERVICE_ADDR, 5000)
+	thriftClient.Shippingservice = getService(SHIPPING_SERVICE_ADDR, 50000)
 }
 
 // PlaceOrder implements demo.CheckoutService
