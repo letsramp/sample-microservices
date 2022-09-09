@@ -8,7 +8,7 @@ curl -X 'POST' 'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
   -H 'accept: application/json' \
   -H 'content-type: application/json' \
   -d '{
-  "product_id": "ls4psxunum",
+  "product_id": "1YMWWN1N4O",
   "quantity": 8
 }'
 
