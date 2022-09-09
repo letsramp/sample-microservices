@@ -215,7 +215,7 @@ Adding product OLJCESPC7Z to Cart
 
 Get Cart
 {
-    "user_id": "abcfe",
+    "user_id": "abcde",
     "items": [
         {
             "product_id": "OLJCESPC7Z",

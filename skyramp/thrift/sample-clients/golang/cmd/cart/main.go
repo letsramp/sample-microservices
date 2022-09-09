@@ -34,7 +34,7 @@ func main() {
 	//
 	fmt.Println("connected to Cart Service")
 	client := api.NewCartServiceClient(c)
-	user_id := "abcfe"
+	user_id := "abcde"
 	product_id := "OLJCESPC7Z"
 	fmt.Printf("Adding product %s to Cart\n", product_id)
 	err = client.AddItem(context.Background(), user_id, &api.CartItem{ProductID: product_id, Quantity: 5})
