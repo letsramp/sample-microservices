@@ -35,15 +35,40 @@ $ skyramp config apply local
 │Creating local cluster. ∙∙∙ [##########################################....................] 68 %
 ```
 
-Note:
-```
-Before images are pushed to a public repo, we need to upload credentials to the local kind cluster.
-```
-
 ## Use skyramp to deploy Skyramp Sample Services
+Sample skyramp project directores are located under the skyramp dorectory.
+
+### Updating DNS with ingress fqdn
+
+Copy the following command and paste to a terminal to update /etc/host with ingress fqdn
+```
+sudo bash -c 'cat >> /etc/hosts'<<EOF
+#--- Added by Skyramp Sample Services
+127.0.0.1 cart-service-port50000.demo.skyramp.test
+127.0.0.1 cart-service-port60000.demo.skyramp.test
+127.0.0.1 checkout-service-port50000.demo.skyramp.test
+127.0.0.1 checkout-service-port60000.demo.skyramp.test
+127.0.0.1 currency-service-port60000.demo.skyramp.test
+127.0.0.1 email-service-port60000.demo.skyramp.test
+127.0.0.1 email-service-port50000.demo.skyramp.test
+127.0.0.1 frontend-port8080.demo.skyramp.test
+127.0.0.1 payment-service-port60000.demo.skyramp.test
+127.0.0.1 payment-service-port50000.demo.skyramp.test
+127.0.0.1 product-catalog-service-port50000.demo.skyramp.test
+127.0.0.1 product-catalog-service-port60000.demo.skyramp.test
+127.0.0.1 recommendation-service-port50000.demo.skyramp.test
+127.0.0.1 recommendation-service-port60000.demo.skyramp.test
+127.0.0.1 shipping-service-port50000.demo.skyramp.test
+127.0.0.1 shipping-service-port60000.demo.skyramp.test
+#--- end Skyramp Sample Services
+EOF
 
 ```
-cd skyramp-projects
+
+
+### Testing services with gRPC
+```
+cd skyramp/grpc
 
 $ skyramp up demo
 ```
@@ -113,16 +138,73 @@ skyramp-debug-worker-654cd9fc6c-f75bd      1/1     Running   0          133m
 
 ```
 
+Open a browser and navigate to http://frontend-port8080.demo.skyramp.test
+
+<br/><br/>
+![Online Boutique](docs/img/online-boutique.jpg)
+<br/><br/>
+
+Explore the Online Butique with products, shopping carts and checkout.
+
+
+## Testing services with groc golang client.
+
+```
+cd skyramp/grpc/sample-clients/golang
+```
+
+Add items to cart
+```
+go run ./cmd/cart
+```
+expected result
+```
+"Successfully added the item to the cart."
+```
+
+checkout order
+```
+go run ./cmd/order
+```
+
+example result
+```
+Order result:  order_id:"f2c18212-339a-11ed-b801-2eb35b3bc06f" shipping_tracking_id:"WE-34945-178180794" shipping_cost:{currency_code:"USD" units:8 nanos:990000000} shipping_address:{street_address:"1600 Amp street" city:"Mountain View" state:"CA" country:"USA" zip_code:94043} items:{item:{product_id:"OLJCESPC7Z" quantity:1} cost:{currency_code:"USD" units:19 nanos:990000000}}
+```
+
+
+
 ## Testing services with Thrift
+
+Change the working directory to the project folder for thrift
+```
+cd <repo>/skyramp/thrift
+```
 
 Open and inspect the thrift API (demo.thrift) in the thrift folder of skyramp project.
 
-The sub folder files/thrift has clients in golang that connects to the demo services using thrift rpc.
-
-Procedures
+bring up the demo target
 ```
-cd <skyramp-project>/files/thrift
+skyramp up demo
+```
 
+example result
+```
+product-catalog-service-589f4f7565-dbhc5      ready
+redis-7f6445f856-96pch                        ready
+currency-service-69dbcd889d-45nk7             ready
+email-service-db4c8f558-p5gnt                 ready
+recommendation-service-7fb4598577-gw9vl       ready
+checkout-service-7497b6d6df-5p96s             ready
+skyramp-mock-worker-847bfcb5f6-nbb5x          ready
+cart-service-68fc59dc8c-mgqzt                 ready
+payment-service-568974bcd9-fgl5b              ready
+shipping-service-554b6c8757-vpwgk             ready
+```
+
+change directory to the thrift clients
+```
+cd sample-client/golang
 ```
 
 ### Example: List Products
@@ -227,7 +309,7 @@ Get Cart
 
 
 ### Example: Add products to cart and perform ckeckout.
-Inspact source code
+Inspect source code
 ```
 cmd/checkout/main.go
 ```
@@ -237,7 +319,7 @@ Executing Scenario
 go run ./cmd/checkout
 ```
 
-Expected Result
+Example Result
 ```
 Sucessfully connected to Cart Service
 Successfully added [4] units of product [OLJCESPC7Z] to Cart
@@ -275,7 +357,36 @@ Order Result Received fromm Checkout
 ```
 
 
-## REST
+## Testing services with Rest
+
+Change the working directory to the project folder for thrift
+```
+cd <repo>/skyramp/rest
+```
+
+bring up the demo target
+```
+skyramp up demo
+```
+
+example result
+```
+product-catalog-service-589f4f7565-dbhc5      ready
+redis-7f6445f856-96pch                        ready
+currency-service-69dbcd889d-45nk7             ready
+email-service-db4c8f558-p5gnt                 ready
+recommendation-service-7fb4598577-gw9vl       ready
+checkout-service-7497b6d6df-5p96s             ready
+skyramp-mock-worker-847bfcb5f6-nbb5x          ready
+cart-service-68fc59dc8c-mgqzt                 ready
+payment-service-568974bcd9-fgl5b              ready
+shipping-service-554b6c8757-vpwgk             ready
+```
+
+change directory to the thrift clients
+```
+cd sample-client/curl
+```
 
 ### cartservice operation
 
