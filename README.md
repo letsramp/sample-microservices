@@ -24,7 +24,7 @@ make build-services
 make push-services
 ```
 
-## Use Skyramo to Create a local kubernetes cluster
+## Use Skyramp to Create a local kubernetes cluster
 ```
 skyramp config local apply
 ```
