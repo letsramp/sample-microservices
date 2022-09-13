@@ -1,5 +1,5 @@
-#**Skyramp** sample microservices are based on GCP **Online Boutique** with added support
-to communicate using rest and thrift.
+# Skyramp sample microservices
+Based on GCP **Online Boutique** with added rest and thrift transport protocols.
 
 ## Getting Started
 
