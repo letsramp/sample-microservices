@@ -19,6 +19,8 @@ func main() {
 	cartServiceAddr := fmt.Sprintf("cart-service-port50000.demo.skyramp.test")
 	opt := NewDefaultOption()
 	opt.HttpUrl = "/CartService"
+	opt.resolver.FQDN = cartServiceAddr
+
 	c, trans, err := NewThriftClient(cartServiceAddr, opt)
 	if err != nil {
 		fmt.Printf("Failed to connect to cart service: %v", err)

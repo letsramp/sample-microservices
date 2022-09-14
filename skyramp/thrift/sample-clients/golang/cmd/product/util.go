@@ -4,9 +4,11 @@
 package main
 
 import (
-	"crypto/tls"
+	"context"
 	"fmt"
+	"net"
 	"net/http"
+	"strings"
 
 	"github.com/apache/thrift/lib/go/thrift"
 )
@@ -20,22 +22,25 @@ const (
 	Compact    ThriftProtocolType = "compact"
 )
 
+type Resolver struct {
+	FQDN         string
+	ResolvedAddr string
+}
+
 type Option struct {
 	HttpTransport bool
 	HttpUrl       string
 	Protocol      ThriftProtocolType
-	Secure        bool
 	Buffered      bool
-	Framed        bool
+	resolver      *Resolver
 }
 
 func NewDefaultOption() *Option {
 	return &Option{
 		Protocol:      Binary,
 		HttpTransport: true,
-		Secure:        false,
 		Buffered:      true,
-		Framed:        false,
+		resolver:      &Resolver{ResolvedAddr: "127.0.0.1:80"},
 	}
 }
 
@@ -58,37 +63,25 @@ func init() {
  */
 func NewThriftClient(hostPort string, opt *Option) (client *thrift.TStandardClient, trans thrift.TTransport, err error) {
 
-	cfg := &thrift.TConfiguration{
-		TLSConfig: &tls.Config{
-			InsecureSkipVerify: true,
+	protocolFactory := thrift.NewTBinaryProtocolFactoryConf(nil)
+
+	thttpOption := thrift.THttpClientOptions{
+		Client: &http.Client{
+			Transport: &http.Transport{
+				DialContext: func(ctx context.Context, network, addr string) (conn net.Conn, err error) {
+					dialer := &net.Dialer{}
+					if opt.resolver.FQDN == strings.Split(addr, ":")[0] {
+						addr = opt.resolver.ResolvedAddr
+					}
+					return dialer.DialContext(ctx, network, addr)
+				},
+			},
 		},
 	}
 
-	protocolFactory := protocolFactoryMap[opt.Protocol]
-	if opt.Secure {
-		trans = thrift.NewTSSLSocketConf(hostPort, cfg)
-	} else {
-		trans = thrift.NewTSocketConf(hostPort, nil)
-	}
-	if err != nil {
-		return nil, nil, err
-	}
-	if opt.HttpTransport {
-		if opt.Secure {
-			tr := &http.Transport{
-				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-			}
-			client := &http.Client{Transport: tr}
-			trans, err = thrift.NewTHttpClientWithOptions(fmt.Sprintf("https://%s%s", hostPort, opt.HttpUrl), thrift.THttpClientOptions{Client: client})
-		} else {
-			trans, err = thrift.NewTHttpClient(fmt.Sprintf("http://%s%s", hostPort, opt.HttpUrl))
-		}
-	} else {
-		if opt.Buffered {
-			trans = thrift.NewTBufferedTransport(trans, 8192)
-		} else {
-			trans = thrift.NewTFramedTransportConf(trans, cfg)
-		}
+	trans, err = thrift.NewTHttpClientWithOptions(fmt.Sprintf("http://%s%s", hostPort, opt.HttpUrl), thttpOption)
+	if opt.Buffered {
+		trans = thrift.NewTBufferedTransport(trans, 8192)
 	}
 	if err != nil {
 		return nil, nil, err

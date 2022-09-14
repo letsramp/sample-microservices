@@ -18,6 +18,7 @@ func main() {
 	clientAddr := fmt.Sprintf("cart-service-port50000.demo.skyramp.test")
 	opt := NewDefaultOption()
 	opt.HttpUrl = thriftHttpPath
+	opt.resolver.FQDN = clientAddr
 
 	c, trans, err := NewThriftClient(clientAddr, opt)
 	if err != nil {
