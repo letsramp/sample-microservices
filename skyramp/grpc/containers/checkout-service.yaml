@@ -25,3 +25,20 @@ ports:
   - name: checkout-service-port5050
     protocol: protobuf
     port: 5050
+    endpoints:
+      - checkout-service-endpoint
+
+endpoints:
+  - name: checkout-service-endpoint
+    defined:
+      name: CheckoutService
+      path: "pb/demo.proto"
+    methods:
+      - name: PlaceOrder
+        input: PlaceOrderRequest
+        output: PlaceOrderResponse
+
+signatures:
+  - name: PlaceOrderRequest
+  - name: PlaceOrderResponse
+

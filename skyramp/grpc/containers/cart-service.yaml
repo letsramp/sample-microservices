@@ -15,4 +15,21 @@ containers:
 ports:
   - name: cart-service-port7070
     protocol: protobuf
+    endpoints:
+      - cartservice
     port: 7070
+
+endpoints:
+  - name: cartservice
+    defined:
+      name: CartService
+      path: "pb/demo.proto"
+    methods:
+      - name: AddItem
+        input: AddItemRequest
+        output: Empty
+
+signatures:
+  - name: AddItemRequest
+  - name: Empty
+
