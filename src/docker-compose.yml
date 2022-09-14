@@ -3,49 +3,49 @@ services:
     build:
       context: ./adservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/adservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/adservice:v0.3.9
   cartservice:
     build:
       context: ./cartservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/cartservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice:v0.3.9
   checkoutservice:
     build:
       context: ./checkoutservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/checkoutservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:v0.3.9
   currencyservice:
     build:
       context: ./currencyservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/currencyservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/currencyservice:v0.3.9
   emailservice:
     build:
       context: ./emailservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/emailservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/emailservice:v0.3.9
   frontend:
     build:
       context: ./frontend/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/frontend:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/frontend:v0.3.9
   paymentservice:
     build:
       context: ./paymentservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/paymentservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:v0.3.9
   productcatalogservice:
     build:
       context: ./productcatalogservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/productcatalogservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice:v0.3.9
   recommendationservice:
     build:
       context: ./recommendationservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/recommendationservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/recommendationservice:v0.3.9
   shippingservice:
     build:
       context: ./shippingservice/.
       dockerfile: Dockerfile
-    image: registry.cequoi.ca/google-samples/microservices-demo/shippingservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/shippingservice:v0.3.9
