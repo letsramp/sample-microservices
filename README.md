@@ -391,7 +391,7 @@ Change directory to the REST clients
 cd sample-client/curl
 ```
 
-### cartservice operation
+### Cart Service operation
 
 **Add product to shopping cart**
 ```
