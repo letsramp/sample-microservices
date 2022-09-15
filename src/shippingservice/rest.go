@@ -1,3 +1,17 @@
+// Copyright 2022 Skyramp, Inc.
+//
+//	Licensed under the Apache License, Version 2.0 (the "License");
+//	you may not use this file except in compliance with the License.
+//	You may obtain a copy of the License at
+//
+//	http://www.apache.org/licenses/LICENSE-2.0
+//
+//	Unless required by applicable law or agreed to in writing, software
+//	distributed under the License is distributed on an "AS IS" BASIS,
+//	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//	See the License for the specific language governing permissions and
+//	limitations under the License.
+
 package main
 
 import (
@@ -11,7 +25,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-
 func init() {
 	log = logrus.New()
 	log.Level = logrus.DebugLevel
@@ -20,7 +33,7 @@ func init() {
 
 func startRest() {
 	go func() {
-    port := "60000"
+		port := "60000"
 		if os.Getenv("REST_PORT") != "" {
 			port = os.Getenv("REST_PORT")
 		}
@@ -33,11 +46,11 @@ func startRest() {
 }
 
 func get_quote(c *gin.Context) {
-  // Same logic as in grpc
+	// Same logic as in grpc
 	log.Info("[GetQuote] received rest request")
 	defer log.Info("[GetQuote] completed rest request")
 
-  // fix for unmarchalling tag zip_code -> zipCode
+	// fix for unmarchalling tag zip_code -> zipCode
 	in, err := c.GetRawData()
 	if err != nil {
 		c.JSON(501, gin.H{"error": "failed to read data"})
@@ -45,7 +58,7 @@ func get_quote(c *gin.Context) {
 	data := strings.ReplaceAll(string(in), "zip_code", "zipCode")
 	order := &pb.GetQuoteRequest{}
 	if err := json.Unmarshal([]byte(data), order); err != nil {
-		c.JSON(501, gin.H{"error": "failed to parse GetQuoteRequest:" })
+		c.JSON(501, gin.H{"error": "failed to parse GetQuoteRequest:"})
 		return
 	}
 
@@ -57,7 +70,7 @@ func get_quote(c *gin.Context) {
 	quote := CreateQuoteFromCount(0)
 
 	// 2. Generate a response.
-	c.JSON( 200, pb.GetQuoteResponse{
+	c.JSON(200, pb.GetQuoteResponse{
 		CostUsd: &pb.Money{
 			CurrencyCode: "USD",
 			Units:        int64(quote.Dollars),
@@ -66,11 +79,11 @@ func get_quote(c *gin.Context) {
 }
 
 func ship_order(c *gin.Context) {
-  // Same logic as in grpc
+	// Same logic as in grpc
 	log.Info("[ShipOrder] received request")
 	defer log.Info("[ShipOrder] completed request")
 
-    // fix for unmarchalling tag zip_code -> zipCode
+	// fix for unmarchalling tag zip_code -> zipCode
 	in, err := c.GetRawData()
 	if err != nil {
 		c.JSON(501, gin.H{"error": "failed to read data"})
@@ -86,7 +99,7 @@ func ship_order(c *gin.Context) {
 	baseAddress := fmt.Sprintf("%s, %s, %s", info.Address.StreetAddress, info.Address.City, info.Address.State)
 	id := CreateTrackingId(baseAddress)
 
-  c.JSON(200,pb.ShipOrderResponse{
+	c.JSON(200, pb.ShipOrderResponse{
 		TrackingId: id,
 	})
 }

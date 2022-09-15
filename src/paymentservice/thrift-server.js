@@ -1,29 +1,44 @@
-const {parentPort, data} = require("worker_threads");
+/*
+ * Copyright 2022 Skyramp, Inc.
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
+*/
+const { parentPort, data } = require("worker_threads");
 var fs = require('fs');
 var thrift = require('thrift');
 var paymentSvc = require('./thrift-nodejs/PaymentService.js');
 var charge = require('./charge');
 
 var paymentHandler = {
-    Charge: function (amount, creditCard, result) {
-        console.log("Received charge")
-        request = { "amount" : amount, "credit_card": creditCard, };
-        id = charge(request)
-        result(id, null);
-    }
+  Charge: function(amount, creditCard, result) {
+    console.log("Received charge")
+    request = { "amount": amount, "credit_card": creditCard, };
+    id = charge(request)
+    result(id, null);
+  }
 };
 
 var serverOpt = {
-    transport: thrift.TBufferedTransport,
-    protocol: thrift.TBinaryProtocol,
-    key: fs.readFileSync('./cert/cert.pem'),
-    cert: fs.readFileSync('./cert/key.pem'),
- }
+  transport: thrift.TBufferedTransport,
+  protocol: thrift.TBinaryProtocol,
+  key: fs.readFileSync('./cert/cert.pem'),
+  cert: fs.readFileSync('./cert/key.pem'),
+}
 
- thriftPort   = 50000 //process.env.THRIFT_PORT;
+thriftPort = 50000 //process.env.THRIFT_PORT;
 
 
- var s = thrift.createServer(paymentSvc, paymentHandler, serverOpt)
- .on('error', function(error) { console.log(error); });
- s.listen(thriftPort);
- console.log("Thrift Server running on port: " + thriftPort);
+var s = thrift.createServer(paymentSvc, paymentHandler, serverOpt)
+  .on('error', function(error) { console.log(error); });
+s.listen(thriftPort);
+console.log("Thrift Server running on port: " + thriftPort);
