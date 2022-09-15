@@ -3,44 +3,45 @@ Based on GCP **Online Boutique** with added rest and thrift transport protocols.
 
 ## Getting Started
 
-### install tools pre-requisit
+### Install pre-requisite tools
 - docker
 - jq
 - curl
+- kubectl
 
 
-## Copy Code for sample services
+## Copy code for sample services
 ```
 git clone https://github.com/letsramp/sample-services.git
 cd sample-services/src
 ```
 
-## Optional - Building Sample services from source
+## Optional - Building sample services from source
 ```
 make build-services
 ```
-### Push Services to container registry
+### Push services to container registry
 ```
 make push-services
 ```
 
-## Use Skyramp to Create a local kubernetes cluster
+## Use skyramp to create a local kubernetes cluster
 ```
 skyramp config local apply
 ```
 
-expected result
+Expected result
 ```
 $ skyramp config apply local
 │Creating local cluster. ∙∙∙ [##########################################....................] 68 %
 ```
 
 ## Use skyramp to deploy Skyramp Sample Services
-Sample skyramp project directores are located under the skyramp dorectory.
+Sample skyramp project directores are located under the skyramp directory.
 
-### Updating DNS with ingress fqdn
+### Updating DNS with ingress FQDN
 
-Copy the following command and paste to a terminal to update /etc/host with ingress fqdn
+Copy the following command and paste to a terminal to update /etc/host with ingress FQDN
 ```
 sudo bash -c 'cat >> /etc/hosts'<<EOF
 #--- Added by Skyramp Sample Services
@@ -91,7 +92,7 @@ skyramp-debug-worker-654cd9fc6c-f75bd         ready
 All pods are ready.
 ```
 
-## Lets explore the Services with kubectl
+## Lets explore the services with kubectl
 
 Set config for kubectl
 ```
@@ -147,7 +148,7 @@ Open a browser and navigate to http://frontend-port8080.demo.skyramp.test
 Explore the Online Butique with products, shopping carts and checkout.
 
 
-## Testing services with groc golang client.
+## Testing services with gRPC golang client.
 
 ```
 cd skyramp/grpc/sample-clients/golang
@@ -178,17 +179,17 @@ Order result:  order_id:"f2c18212-339a-11ed-b801-2eb35b3bc06f" shipping_tracking
 
 Change the working directory to the project folder for thrift
 ```
-cd <repo>/skyramp/thrift
+cd skyramp/thrift
 ```
 
 Open and inspect the thrift API (demo.thrift) in the thrift folder of skyramp project.
 
-bring up the demo target
+Bring up the demo target
 ```
 skyramp up demo
 ```
 
-example result
+Example result
 ```
 product-catalog-service-589f4f7565-dbhc5      ready
 redis-7f6445f856-96pch                        ready
@@ -202,7 +203,7 @@ payment-service-568974bcd9-fgl5b              ready
 shipping-service-554b6c8757-vpwgk             ready
 ```
 
-change directory to the thrift clients
+Change directory to the thrift clients
 ```
 cd sample-client/golang
 ```
@@ -213,7 +214,7 @@ go run ./cmd/product
 
 ```
 
-example result
+Example result
 ```
 Sucessfully Connected to Product Catalog Server
 Trying to get product with id[OLJCESPC7Z]
@@ -357,19 +358,19 @@ Order Result Received fromm Checkout
 ```
 
 
-## Testing services with Rest
+## Testing services with REST
 
 Change the working directory to the project folder for thrift
 ```
 cd <repo>/skyramp/rest
 ```
 
-bring up the demo target
+Bring up the demo target
 ```
 skyramp up demo
 ```
 
-example result
+Example result
 ```
 product-catalog-service-589f4f7565-dbhc5      ready
 redis-7f6445f856-96pch                        ready
@@ -383,14 +384,14 @@ payment-service-568974bcd9-fgl5b              ready
 shipping-service-554b6c8757-vpwgk             ready
 ```
 
-change directory to the thrift clients
+Change directory to the REST clients
 ```
 cd sample-client/curl
 ```
 
 ### cartservice operation
 
-**add product to shopping cart**
+**Add product to shopping cart**
 ```
 curl -X 'POST' 'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
   --resolve cart-service-port60000.demo.skyramp.test:80:127.0.0.1 \
@@ -402,12 +403,12 @@ curl -X 'POST' 'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
 }'
 ```
 
-example result
+Example result
 ```
 {"success":"200 OK"}
 ```
 
-**Get Shopping cart**
+**Get shopping cart**
 ```
 curl -X 'GET' \
   'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
@@ -415,7 +416,7 @@ curl -X 'GET' \
    -H 'accept: application/json' | jq .
 ```
 
-example
+Example result
 ```
 {
   "user_id": "abcde",
@@ -429,7 +430,7 @@ example
 ```
 
 
-**Delete Shopping Cart**
+**Delete shopping cart**
 ```
 curl -X 'DELETE' \
   'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
@@ -437,14 +438,14 @@ curl -X 'DELETE' \
    -H 'accept: application/json'
 ```
 
-example result
+Example result
 ```
 {"success":"200 OK"}
 ```
 
 ## Product Catalog Service
 
-### Get Products
+### Get products
 ```
 curl -X 'GET' \
   'http://product-catalog-service-port60000.demo.skyramp.test/get-products' \
@@ -452,7 +453,7 @@ curl -X 'GET' \
   -H 'accept: application/json' | jq .
 ```
 
-example result
+Example result
 ```
 [
   {
@@ -587,7 +588,7 @@ example result
 ]
 ```
 
-### Get Product
+### Get product
 ```
 curl -X 'GET' \
   'http://product-catalog-service-port60000.demo.skyramp.test/get-product?product_id=OLJCESPC7Z' \
@@ -595,7 +596,7 @@ curl -X 'GET' \
   -H 'accept: application/json' | jq .
 ```
 
-example result
+Example result
 ```
 {
   "id": "OLJCESPC7Z",
@@ -613,7 +614,7 @@ example result
 }
 ```
 
-### Search Product
+### Search product
 ```
 curl -X 'GET' \
   'http://product-catalog-service-port60000.demo.skyramp.test/search-products?query=kitchen' \
@@ -621,7 +622,7 @@ curl -X 'GET' \
   -H 'accept: application/json' | jq .
 ```
 
-example result
+Example result
 ```
 [
   {
@@ -655,8 +656,8 @@ example result
 ]
 ```
 
-## Checkout Service
-**Checkout Order**
+## Checkout service
+**Checkout order**
 ```
 curl -X 'POST' \
   'http://checkout-service-port60000.demo.skyramp.test/checkout' \
@@ -684,7 +685,7 @@ curl -X 'POST' \
 
 ```
 
-example results
+Example results
 ```
 {
   "order_id": "99ec9ebd-13fc-411d-8997-075d9a5cdb9d",
@@ -712,16 +713,16 @@ example results
 }
 `
 ```
-## Recommendation Service
+## Recommendation service
 
-**List Recommendation**
+**List recommendation**
 ```
 curl -X 'GET' \
   'http://recommendation-service-port60000.demo.skyramp.test/list-recommendations?product_id=LS4PSXUNUM%22' \
   -H 'accept: application/json'
 ```
 
-example results
+Example results
 ```
 [
   "2ZYFJ3GM2N",
@@ -732,8 +733,8 @@ example results
 ]
 ```
 
-## Email Service
-**Send Order Confirmation**
+## Email service
+**Send order confirmation**
 ```
 curl -X 'POST' \
   'http://email-service-port60000.demo.skyramp.test/send-order-confirmation' \
@@ -786,14 +787,14 @@ curl -X 'POST' \
 '
 ```
 
-example result
+Example result
 ```
 {
   "status":"200 OK"
 }
 ```
 
-## Payment Service
+## Payment service
 ```
 curl -X 'POST' \
   'http://payment-service-port60000.demo.skyramp.test/charge' \
@@ -815,15 +816,15 @@ curl -X 'POST' \
 }'
 ```
 
-example result
+Example result
 ```
 {
   "transaction_id":"7c542c3a-372f-4b9f-b6c8-f8876a9f86d3"
 }
 ```
 
-## Shipping Serviece
-**Get Quote**
+## Shipping serviece
+**Get quote**
 ```
 curl -X 'PUT' \
   'http://shipping-service-port60000.demo.skyramp.test/get-quote' \
@@ -852,7 +853,7 @@ curl -X 'PUT' \
 
 ```
 
-expected result
+Expected result
 ```
 {
   "cost_usd": {
@@ -863,7 +864,7 @@ expected result
 }
 ```
 
-**Ship Order**
+**Ship order**
 ```
 curl -X 'PUT' \
   'http://shipping-service-port60000.demo.skyramp.test/ship-order' \
@@ -892,7 +893,7 @@ curl -X 'PUT' \
 
 ```
 
-expected result
+Expected result
 ```
 {
   "tracking_id": "NS-34988-173225515"
@@ -900,7 +901,7 @@ expected result
 
 ```
 
-# Openapi
+# OpenAPI
 ```
 {
   "openapi": "3.0.2",
