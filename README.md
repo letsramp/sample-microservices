@@ -14,8 +14,8 @@ For more information on Skyramp, contact us at info@skyramp.dev.
 
 ## Clone sample services
 ```
-git clone https://github.com/letsramp/sample-services.git
-cd sample-services/src
+git clone https://github.com/letsramp/sample-microservices.git
+cd sample-microservices/src
 ```
 
 ## Optional - Building sample services from source
