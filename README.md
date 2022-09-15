@@ -3,7 +3,7 @@ Based on GCP **Online Boutique** with added rest and thrift transport protocols.
 
 ## Getting Started
 
-### install tools pre-requisit
+### Install pre-requisite tools
 - docker
 - jq
 - curl
