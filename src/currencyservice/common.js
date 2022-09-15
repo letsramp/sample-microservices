@@ -1,9 +1,23 @@
-
+/*
+ * Copyright 2022 Skyramp, Inc.
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
+ */
 /**
  * Helper function that gets currency data from a stored JSON file
  * Uses public data from European Central Bank
  */
-function _getCurrencyData (callback) {
+function _getCurrencyData(callback) {
   const data = require('./data/currency_conversion.json');
   callback(data);
 }
@@ -11,7 +25,7 @@ function _getCurrencyData (callback) {
 /**
  * Helper function that handles decimal/fractional carrying
  */
-function _carry (amount) {
+function _carry(amount) {
   const fractionSize = Math.pow(10, 9);
   amount.nanos += (amount.units % 1) * fractionSize;
   amount.units = Math.floor(amount.units) + Math.floor(amount.nanos / fractionSize);
@@ -22,17 +36,17 @@ function _carry (amount) {
 /**
  * Lists the supported currencies
  */
-function getSupportedCurrencies (call, callback) {
+function getSupportedCurrencies(call, callback) {
   logger.info('Getting supported currencies...');
   _getCurrencyData((data) => {
-    callback(null, {currency_codes: Object.keys(data)});
+    callback(null, { currency_codes: Object.keys(data) });
   });
 }
 
 /**
  * Converts between currencies
  */
-function convert (call, callback) {
+function convert(call, callback) {
   try {
     _getCurrencyData((data) => {
       const request = call.request;
@@ -68,7 +82,7 @@ function convert (call, callback) {
 module.exports = {
   getSupportedCurrencies: getSupportedCurrencies,
   getCurrencyData: _getCurrencyData,
-  convert : convert
+  convert: convert
 };
 
 
