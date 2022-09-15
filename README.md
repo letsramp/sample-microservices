@@ -99,7 +99,7 @@ Set config for kubectl
 export KUBECONFIG=~/.skyramp/workload-config
 ```
 
-list namespaces
+List namespaces
 ```
 kubectl get ns
 ```
@@ -116,12 +116,12 @@ projectcontour                        Active   77m
 skyramp-client-skyramp-project-demo   Active   71m
 ```
 
-list pods
+List pods
 ```
 kubectl get pods -n skyramp-client-skyramp-project-demo
 ```
 
-example result
+Example result
 ```
 NAME                                       READY   STATUS    RESTARTS   AGE
 ad-service-5b56d86b5f-qxbk7                1/1     Running   0          133m
@@ -163,19 +163,19 @@ expected result
 "Successfully added the item to the cart."
 ```
 
-checkout order
+Checkout order
 ```
 go run ./cmd/order
 ```
 
-example result
+Example result
 ```
 Order result:  order_id:"f2c18212-339a-11ed-b801-2eb35b3bc06f" shipping_tracking_id:"WE-34945-178180794" shipping_cost:{currency_code:"USD" units:8 nanos:990000000} shipping_address:{street_address:"1600 Amp street" city:"Mountain View" state:"CA" country:"USA" zip_code:94043} items:{item:{product_id:"OLJCESPC7Z" quantity:1} cost:{currency_code:"USD" units:19 nanos:990000000}}
 ```
 
 
 
-## Testing services with Thrift
+## Testing services with thrift
 
 Change the working directory to the project folder for thrift
 ```
@@ -291,7 +291,7 @@ go run ./cmd/cart
 
 ```
 
-example result
+Example result
 ```
 Connected to Cart Service
 Adding product OLJCESPC7Z to Cart
@@ -309,18 +309,18 @@ Get Cart
 ```
 
 
-### Example: Add products to cart and perform ckeckout.
+### Example: Add products to cart and perform checkout.
 Inspect source code
 ```
 cmd/checkout/main.go
 ```
 
-Executing Scenario
+Executing scenario
 ```
 go run ./cmd/checkout
 ```
 
-Example Result
+Example result
 ```
 Sucessfully connected to Cart Service
 Successfully added [4] units of product [OLJCESPC7Z] to Cart
@@ -685,7 +685,7 @@ curl -X 'POST' \
 
 ```
 
-Example results
+Example result
 ```
 {
   "order_id": "99ec9ebd-13fc-411d-8997-075d9a5cdb9d",
@@ -722,7 +722,7 @@ curl -X 'GET' \
   -H 'accept: application/json'
 ```
 
-Example results
+Example result
 ```
 [
   "2ZYFJ3GM2N",
@@ -823,7 +823,7 @@ Example result
 }
 ```
 
-## Shipping serviece
+## Shipping service
 **Get quote**
 ```
 curl -X 'PUT' \
