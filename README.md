@@ -148,7 +148,7 @@ Open a browser and navigate to http://frontend-port8080.demo.skyramp.test
 Explore the Online Butique with products, shopping carts and checkout.
 
 
-## Testing services with gRPC golang client.
+## Testing services with gRPC golang client
 
 ```
 cd skyramp/grpc/sample-clients/golang
