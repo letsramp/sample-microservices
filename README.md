@@ -1,16 +1,18 @@
 # Skyramp sample microservices
-Based on [GCP **Online Boutique**] https://github.com/GoogleCloudPlatform/microservices-demo with added REST and Thrift transport protocols. For more information on Skyramp, contact us at info@skyramp.dev.
+Based on [GCP **Online Boutique**](https://github.com/GoogleCloudPlatform/microservices-demo) with added REST and Thrift transport protocols.
+
+For more information on Skyramp, contact us at info@skyramp.dev.
 
 ## Getting Started
 
 ### Install pre-requisite tools
 - docker
-- jq
-- curl
-- kubectl
+- curl (required for REST)
+- jq (optional)
+- kubectl (optional)
 
 
-## Copy code for sample services
+## Clone sample services
 ```
 git clone https://github.com/letsramp/sample-services.git
 cd sample-services/src
@@ -27,13 +29,13 @@ make push-services
 
 ## Use skyramp to create a local kubernetes cluster
 ```
-skyramp config local apply
+skyramp config apply local
 ```
 
 Expected result
 ```
 $ skyramp config apply local
-│Creating local cluster. ∙∙∙ [##########################################....................] 68 %
+│Creating local cluster ∙∙∙ [##########################################....................] 68 %
 ```
 
 ## Use skyramp to deploy Skyramp Sample Services
@@ -104,7 +106,7 @@ List namespaces
 kubectl get ns
 ```
 
-example results
+Example results
 ```
 NAME                                  STATUS   AGE
 default                               Active   78m
@@ -145,7 +147,7 @@ Open a browser and navigate to http://frontend-port8080.demo.skyramp.test
 ![Online Boutique](docs/img/online-boutique.jpg)
 <br/><br/>
 
-Explore the Online Butique with products, shopping carts and checkout.
+Explore the Online Boutique with products, shopping carts and checkout.
 
 
 ## Testing services with gRPC golang client
