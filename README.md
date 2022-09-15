@@ -76,7 +76,7 @@ cd skyramp/grpc
 $ skyramp up demo
 ```
 
-Example Result:
+Example result:
 ```
 skyramp up demo
 email-service-db4c8f558-2sc7q                 ready
