@@ -1,5 +1,5 @@
 # Skyramp sample microservices
-Based on GCP **Online Boutique** with added rest and thrift transport protocols.
+Based on [GCP **Online Boutique**] https://github.com/GoogleCloudPlatform/microservices-demo with added REST and Thrift transport protocols. For more information on Skyramp, contact us at info@skyramp.dev.
 
 ## Getting Started
 
