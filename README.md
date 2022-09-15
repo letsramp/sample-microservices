@@ -92,7 +92,7 @@ skyramp-debug-worker-654cd9fc6c-f75bd         ready
 All pods are ready.
 ```
 
-## Lets explore the services with kubectl
+## Explore the services with kubectl
 
 Set config for kubectl
 ```
@@ -158,7 +158,7 @@ Add items to cart
 ```
 go run ./cmd/cart
 ```
-expected result
+Expected result
 ```
 "Successfully added the item to the cart."
 ```
@@ -208,7 +208,7 @@ Change directory to the thrift clients
 cd sample-client/golang
 ```
 
-### Example: List Products
+### Example: List products
 ```
 go run ./cmd/product
 
@@ -283,8 +283,8 @@ Result:
 ]
 ```
 
-### Example: Add Product to Cart
-Scenario ./cmd/cart/main.go demonstrates the API to add products to cart.
+### Example: Add product to cart
+Scenario ./cmd/cart/main.go demonstrates the API to add products to cart
 
 ```
 go run ./cmd/cart
@@ -309,7 +309,7 @@ Get Cart
 ```
 
 
-### Example: Add products to cart and perform checkout.
+### Example: Add products to cart and perform checkout
 Inspect source code
 ```
 cmd/checkout/main.go
