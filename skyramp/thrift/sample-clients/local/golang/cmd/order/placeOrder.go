@@ -51,6 +51,7 @@ func main() {
 	ctx := context.Background()
 	opt = NewDefaultOption()
 	opt.HttpUrl = "/CheckoutService"
+	opt.resolver.FQDN = checkoutServiceAddr
 	c2, trans2, err := NewThriftClient(checkoutServiceAddr, opt)
 	if err != nil {
 		fmt.Printf("Failed to connect to cart service: %v", err)
