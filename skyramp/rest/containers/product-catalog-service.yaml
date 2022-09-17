@@ -6,8 +6,6 @@ containers:
     manifests:
       - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
-      - product-catalog-service-port3550
-      - product-catalog-service-port50000
       - product-catalog-service-port60000
     envs:
       PORT: "3550"
@@ -16,10 +14,5 @@ containers:
       DISABLE_TRACING: "1"
 
 ports:
-  - name: product-catalog-service-port3550
-    protocol: protobuf
-    port: 3550
-  - name: product-catalog-service-port50000
-    port: 50000
   - name: product-catalog-service-port60000
     port: 60000

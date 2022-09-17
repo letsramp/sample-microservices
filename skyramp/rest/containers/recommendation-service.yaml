@@ -8,8 +8,6 @@ containers:
     manifests:
       - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
-      - recommendation-service-port8080
-      - recommendation-service-port50000
       - recommendation-service-port60000
     envs:
       PORT: "8080"
@@ -19,11 +17,5 @@ containers:
       DISABLE_DEBUGGER: "1"
 
 ports:
-  - name: recommendation-service-port50000
-    protocol: thrift
-    port: 50000
   - name: recommendation-service-port60000
     port: 60000
-  - name: recommendation-service-port8080
-    protocol: protobuf
-    port: 8080
