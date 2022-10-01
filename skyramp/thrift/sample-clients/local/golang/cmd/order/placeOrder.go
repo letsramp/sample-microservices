@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+
 	api "sample-thrift/demo"
 )
 
@@ -13,13 +14,11 @@ const (
 )
 
 func main() {
-
 	// NOTE: Connect to Cart Service via Skyramp Ingress URL
 	//
 	cartServiceAddr := fmt.Sprintf("cart-service-port50000.demo.skyramp.test")
 	opt := NewDefaultOption()
 	opt.HttpUrl = "/CartService"
-	opt.resolver.FQDN = cartServiceAddr
 
 	c, trans, err := NewThriftClient(cartServiceAddr, opt)
 	if err != nil {

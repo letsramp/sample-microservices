@@ -15,5 +15,76 @@ containers:
 
 ports:
   - name: currency-service-port50000
-    protocol: thrift
     port: 50000
+    secure: false
+    thrift-options:
+      protocol: "binary"
+      buffered: true
+      http: true
+      framed: false
+    endpoints:
+      - CurrencyService
+    protocol: thrift
+
+endpoints:
+  - name: CurrencyService
+    defined:
+      name: CurrencyService
+      path: "thrift/demo.thrift"
+    methods:
+      - name: GetSupportedCurrencies
+        input: GetSupportedCurrenciesRequest
+        output: GetSupportedCurrenciesResponse
+      - name: Convert
+        input: ConvertRequest
+        output: ConvertResponse
+
+signatures:
+  - name: GetSupportedCurrenciesRequest
+  - name: GetSupportedCurrenciesResponse
+    fields:
+      - name: result
+        type: array
+        subtype: string
+        fields:
+          - default: "USD"
+          - default: "CAD"
+          - default: "SEK"
+          - default: "NOK"
+          - default: "EUR"
+          - default: "GBP"
+          - default: "JPY"
+          - default: "CZK"
+
+  - name: ConvertRequest
+    fields:
+      - name: from_curr
+        type: map
+        fields:
+          - name: currency_code
+            type: string
+            default: "USD"
+          - name: units
+            type: integer
+            default: 100
+          - name: nanos
+            type: integer
+            default: 99000000
+      - name: to_curr
+        type: string
+        default: "CAD"
+
+  - name: ConvertResponse
+    fields:
+      - name: result
+        type: map
+        fields:
+          - name: currency_code
+            type: string
+            default: "CAD"
+          - name: units
+            type: integer
+            default: 130
+          - name: nanos
+            type: integer
+            default: 99000000

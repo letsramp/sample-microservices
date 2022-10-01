@@ -19,8 +19,14 @@ def main():
     quantity = 5
     cartItem = CartItem(product_id='OLJCESPC7Z', quantity=quantity)
     products = client.AddItem(user_id, cartItem )
-
     print(f"sucessfully added {quantity} products to cart for user {user_id}")
+
+    user_id = "abcde"
+    quantity = 5
+    cartItem = CartItem(product_id='OLJCESPC7Z', quantity=quantity)
+    cart = client.GetCart(user_id)
+    print(f"sucessfully called GetCart user {user_id}. result {cart}")
+
     transport.close()
 
 if __name__ == '__main__':
