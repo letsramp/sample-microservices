@@ -18,5 +18,35 @@ containers:
 
 ports:
   - name: recommendation-service-port50000
-    protocol: thrift
     port: 50000
+    secure: false
+    thrift-options:
+      protocol: "binary"
+      buffered: true
+      http: true
+      framed: false
+    endpoints:
+      - RecommendationService
+    protocol: thrift
+
+endpoints:
+  - name: RecommendationService
+    defined:
+      name: RecommendationService
+      path: "thrift/demo.thrift"
+    methods:
+      - name: ListRecommendations
+        output: ListRecommendationsResponse
+
+signatures:
+  - name: ListRecommendationsResponse
+    fields:
+      - name: result
+        type: array
+        subtype: string
+        fields:
+          - default: "OLJCESPC7Z"
+          - default: "66VCHSJNUP"
+          - default: "1YMWWN1N4O"
+          - default: "L9ECAV7KIM"
+          - default: "2ZYFJ3GM2N"

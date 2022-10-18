@@ -16,6 +16,8 @@ def main():
     client = ProductCatalogService.Client(protocol)
     products = client.ListProducts()
     print(f"successfully retrieved products from product cataloge {products}")
+    search = client.SearchProducts("accessories")
+    print(f"successfully retrieved for products in assocries category {search}")
     transport.close()
 
 if __name__ == '__main__':

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+
 	api "sample-thrift/demo"
 )
 
@@ -27,8 +28,9 @@ func main() {
 		fmt.Printf("Failed to connect to server: %v", err)
 		os.Exit(1)
 	}
-	fmt.Println("Sucessfully Connected to Product Catalog Server")
+	fmt.Println("Successfully Connected to Product Catalog Server")
 	client := api.NewProductCatalogServiceClient(c)
+
 	product_id := "OLJCESPC7Z"
 	fmt.Printf("Trying to get product with id[%s] \n", product_id)
 	p, err := client.GetProduct(context.Background(), product_id)
@@ -59,6 +61,24 @@ func main() {
 		os.Exit(1)
 	}
 	jsonProd, err = json.MarshalIndent(products, "", "\t")
+	if err != nil {
+		fmt.Printf("Failed to Marshal the response from ProductCatalogService: %v", err)
+		os.Exit(1)
+	}
+	fmt.Println("Result:")
+	fmt.Println(string(jsonProd))
+
+	fmt.Printf("\nTrying to search products \n")
+	search, err := client.SearchProducts(context.Background(), "kitchen")
+	if err != nil {
+		fmt.Printf("Failed to search products: %v ", err)
+		os.Exit(1)
+	}
+	if p == nil {
+		fmt.Println("No Products found", err)
+		os.Exit(1)
+	}
+	jsonProd, err = json.MarshalIndent(search, "", "\t")
 	if err != nil {
 		fmt.Printf("Failed to Marshal the response from ProductCatalogService: %v", err)
 		os.Exit(1)

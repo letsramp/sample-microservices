@@ -62,7 +62,7 @@ func init() {
 *  Return a new ThriftClient
  */
 func NewThriftClient(hostPort string, opt *Option) (client *thrift.TStandardClient, trans thrift.TTransport, err error) {
-
+	opt.resolver.FQDN = hostPort
 	protocolFactory := thrift.NewTBinaryProtocolFactoryConf(nil)
 
 	thttpOption := thrift.THttpClientOptions{
