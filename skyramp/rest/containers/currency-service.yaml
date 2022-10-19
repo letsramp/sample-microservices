@@ -6,8 +6,6 @@ containers:
     manifests:
       - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
-      - currency-service-port7000
-      - currency-service-port50000
       - currency-service-port60000
     envs:
       PORT: "7000"
@@ -16,60 +14,5 @@ containers:
       DISABLE_DEBUGGER: "1"
 
 ports:
-  - name: currency-service-port50000
-    protocol: thrift
-    port: 50000
   - name: currency-service-port60000
     port: 60000
-  - name: currency-service-port7000
-    protocol: protobuf
-    port: 7000
-    endpoints:
-      - currency-service-endpoint
-
-endpoints:
-  - name: currency-service-endpoint
-    defined:
-      name: CurrencyService
-      path: "pb/demo.proto"
-    methods:
-      - name: GetSupportedCurrencies
-        # There is no input
-        output: GetSupportedCurrenciesResponse
-      - name: Convert
-        input: CurrencyConversionRequest
-        output: Money
-
-signatures:
-  - name: GetSupportedCurrenciesResponse
-    fields:
-      - type: map
-        fields:
-          - name: currency_codes
-            type: array
-            subtype: string
-  - name: CurrencyConversionRequest
-    fields:
-      - type: map
-        fields:
-          - name: from
-            type: map
-            fields:
-              - name: currency_code
-                type: string
-              - name: units
-                type: int
-              - name: nanos
-                type: int
-          - name: to_code
-            type: string
-  - name: Money
-    fields:
-      - type: map
-        fields:
-          - name: currency_code
-            type: string
-          - name: units
-            type: int
-          - name: nanos
-            type: int
