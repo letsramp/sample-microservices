@@ -49,3 +49,8 @@ services:
       context: ./shippingservice/.
       dockerfile: Dockerfile
     image: public.ecr.aws/j1n2c2p2/microservices-demo/shippingservice:v0.3.9
+  dnsmasq:
+    build:
+      context: ./dnsmasq/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/rampup/dnsmasq:v0.4.0
