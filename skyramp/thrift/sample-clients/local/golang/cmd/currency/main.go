@@ -13,7 +13,7 @@ const (
 )
 
 func main() {
-	clientAddr := "currency-service-port50000.demo.skyramp.test"
+	clientAddr := "currency-service-port60000.demo.skyramp.test"
 	opt := NewDefaultOption()
 	opt.HttpUrl = thriftHttpPath
 

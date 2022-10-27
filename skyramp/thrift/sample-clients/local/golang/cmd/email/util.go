@@ -4,11 +4,8 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"net"
 	"net/http"
-	"strings"
 
 	"github.com/apache/thrift/lib/go/thrift"
 )
@@ -22,17 +19,11 @@ const (
 	Compact    ThriftProtocolType = "compact"
 )
 
-type Resolver struct {
-	FQDN         string
-	ResolvedAddr string
-}
-
 type Option struct {
 	HttpTransport bool
 	HttpUrl       string
 	Protocol      ThriftProtocolType
 	Buffered      bool
-	resolver      *Resolver
 }
 
 func NewDefaultOption() *Option {
@@ -40,7 +31,6 @@ func NewDefaultOption() *Option {
 		Protocol:      Binary,
 		HttpTransport: true,
 		Buffered:      true,
-		resolver:      &Resolver{ResolvedAddr: "127.0.0.1:80"},
 	}
 }
 
@@ -62,21 +52,10 @@ func init() {
 *  Return a new ThriftClient
  */
 func NewThriftClient(hostPort string, opt *Option) (client *thrift.TStandardClient, trans thrift.TTransport, err error) {
-	opt.resolver.FQDN = hostPort
 	protocolFactory := thrift.NewTBinaryProtocolFactoryConf(nil)
 
 	thttpOption := thrift.THttpClientOptions{
-		Client: &http.Client{
-			Transport: &http.Transport{
-				DialContext: func(ctx context.Context, network, addr string) (conn net.Conn, err error) {
-					dialer := &net.Dialer{}
-					if opt.resolver.FQDN == strings.Split(addr, ":")[0] {
-						addr = opt.resolver.ResolvedAddr
-					}
-					return dialer.DialContext(ctx, network, addr)
-				},
-			},
-		},
+		Client: &http.Client{Transport: &http.Transport{}},
 	}
 
 	trans, err = thrift.NewTHttpClientWithOptions(fmt.Sprintf("http://%s%s", hostPort, opt.HttpUrl), thttpOption)

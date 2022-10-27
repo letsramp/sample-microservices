@@ -4,7 +4,6 @@ set -e
 
 curl -X 'PUT' \
   'http://shipping-service-port60000.demo.skyramp.test/ship-order' \
-  --resolve shipping-service-port60000.demo.skyramp.test:80:127.0.0.1 \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
