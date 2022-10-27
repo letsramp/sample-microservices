@@ -18,7 +18,7 @@ func main() {
 	//
 	cartServiceAddr := fmt.Sprintf("cart-service-port50000.demo.skyramp.test")
 	opt := NewDefaultOption()
-	opt.HttpUrl = "/CartService"
+	opt.HttpUrl = thriftHttpPath
 
 	c, trans, err := NewThriftClient(cartServiceAddr, opt)
 	if err != nil {
@@ -33,7 +33,7 @@ func main() {
 
 	// NOTE: Add 4 units of product_id "OLJCESPC7Z" to Cart
 
-	fmt.Println("Sucessfully connected to Cart Service")
+	fmt.Println("Successfully connected to Cart Service")
 	client := api.NewCartServiceClient(c)
 	user_id := "abcde"
 	product_id := "OLJCESPC7Z"
@@ -50,7 +50,6 @@ func main() {
 	ctx := context.Background()
 	opt = NewDefaultOption()
 	opt.HttpUrl = "/CheckoutService"
-	opt.resolver.FQDN = checkoutServiceAddr
 	c2, trans2, err := NewThriftClient(checkoutServiceAddr, opt)
 	if err != nil {
 		fmt.Printf("Failed to connect to cart service: %v", err)
@@ -94,6 +93,6 @@ func main() {
 	}
 
 	// NOTE: Print the Order Response
-	fmt.Println("Order Result Received fromm Checkout")
+	fmt.Println("Order Result Received from Checkout")
 	fmt.Println(string(jsonOut))
 }
