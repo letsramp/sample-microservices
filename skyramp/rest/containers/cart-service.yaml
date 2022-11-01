@@ -2,7 +2,7 @@ containers:
   - name: cart-service
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice
-      tag: v0.3.9
+      tag: v0.4.0
     dependencies:
       - redis
     manifests:
