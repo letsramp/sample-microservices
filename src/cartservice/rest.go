@@ -59,9 +59,9 @@ func runRest(port string) {
 	go func() {
 		log.Infof("rest server started on port %s", port)
 		router := gin.Default()
-		router.GET("/cart/:user_id", get)
-		router.POST("/cart/:user_id", post)
-		router.DELETE("/cart/:user_id", delete)
+		router.GET("/cart/user_id/:user_id", get)
+		router.POST("/cart/user_id/:user_id", post)
+		router.DELETE("/cart/user_id/:user_id", delete)
 		router.Run(fmt.Sprintf("0.0.0.0:%s", port))
 	}()
 }

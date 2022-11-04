@@ -3,6 +3,6 @@
 set -e
 
 curl -X 'DELETE' \
-  'http://cart-service-port60000.demo.skyramp.test/cart/abcde' \
    --resolve cart-service-port60000.demo.skyramp.test:80:127.0.0.1 \
+  'http://cart-service-port60000.demo.skyramp.test/cart/user_id/abcde' \
    -H 'accept: application/json'

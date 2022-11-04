@@ -66,7 +66,7 @@ func (c *RestClient) GetProduct(productID string) (*api.Product, error) {
 }
 
 func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
-	url := fmt.Sprintf("http://%s/%s/%s", c.CartService, "cart", user_id)
+	url := fmt.Sprintf("http://%s/%s/user_id/%s", c.CartService, "cart", user_id)
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 		error := fmt.Sprintf("error reading GetCart response: %v", err)
 		return nil, fmt.Errorf(error)
 	}
-	var cart = &api.Cart{}
+	cart := &api.Cart{}
 	if err := json.Unmarshal(out, cart); err != nil {
 		error := fmt.Sprintf("error mmarshaling response: %v", err)
 		return nil, fmt.Errorf(error)
