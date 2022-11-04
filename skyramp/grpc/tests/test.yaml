@@ -1,6 +1,6 @@
 tests:
   - name: test
-    target: demo
+    target: grpc
     testPattern:
       - startAt: 1s
         scenario: scenario1

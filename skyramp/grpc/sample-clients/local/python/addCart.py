@@ -10,7 +10,7 @@ async def main():
     async with Channel('127.0.0.1', 80) as channel:
         # Set HTTP2 authority header so the request can be routed
         # correctly by Skyramp
-        channel._authority = "cart-service-port7070.demo.skyramp.test"
+        channel._authority = "cart-service-port7070.grpc.skyramp.test"
         cart = CartServiceStub(channel)
 
         reply = await cart.AddItem(AddItemRequest(user_id='abcde', item=CartItem(product_id="OLJCESPC7Z", quantity=1)))

@@ -5,12 +5,13 @@ import (
 	"fmt"
 
 	pb "gcp/demo"
+
 	"google.golang.org/grpc"
 )
 
 func main() {
 
-	conn, err := grpc.Dial("127.0.0.1:80", grpc.WithInsecure(), grpc.WithAuthority("checkout-service-port5050.demo.skyramp.test"))
+	conn, err := grpc.Dial("127.0.0.1:80", grpc.WithInsecure(), grpc.WithAuthority("checkout-service-port5050.grpc.skyramp.test"))
 	if err != nil {
 		fmt.Printf("Could not connect: %v\n", err)
 	}
