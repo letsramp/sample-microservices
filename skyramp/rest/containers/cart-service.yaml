@@ -3,15 +3,25 @@ containers:
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice
       tag: v0.4.0
-    dependencies:
-      - redis
-    manifests:
-      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
       - cart-service-port60000
-    envs:
-      REDIS_ADDR: "redis:6379"
 
 ports:
   - name: cart-service-port60000
     port: 60000
+    protocol: rest
+    endpoints:
+      - cart-service
+
+endpoints:
+  - name: cart-service
+    path: "/cart"
+    methods:
+      - type: 'POST'
+        output: add-output
+      - type: 'GET'
+        output: add-output
+
+signatures:
+  - name: add-output
+  - name: get-output
