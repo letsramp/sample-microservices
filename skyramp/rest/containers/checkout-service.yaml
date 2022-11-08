@@ -21,6 +21,21 @@ containers:
       CART_SERVICE_ADDR: "cart-service:7070"
       DISABLE_TRACING: "1"
       DISABLE_PROFILER: "1"
+
+
 ports:
   - name: checkout-service-port60000
     port: 60000
+    protocol: rest
+    endpoints:
+      - checkout-service
+
+endpoints:
+   - name: checkout-service
+     path: "/checkout"
+     methods:
+       - type: 'POST'
+         output: checkout-output
+
+signatures:
+   - name: checkout-output
