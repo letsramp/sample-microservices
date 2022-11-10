@@ -7,10 +7,9 @@ from demo_pb2 import PlaceOrderRequest, Address, CreditCardInfo
 from demo_grpc import CheckoutServiceStub
 
 async def main():
-    async with Channel('127.0.0.1', 80) as channel:
+    async with Channel('checkout-service-port5050.demo.skyramp.test', 80) as channel:
         # Set HTTP2 authority header so the request can be routed
         # correctly by Skyramp
-        channel._authority = "checkout-service-port5050.demo.skyramp.test"
         checkout = CheckoutServiceStub(channel)
 
         reply = await checkout.PlaceOrder(PlaceOrderRequest(
