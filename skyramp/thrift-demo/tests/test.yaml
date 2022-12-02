@@ -1,0 +1,45 @@
+tests:
+  - name: test
+    target: demo
+    testPattern:
+      - startAt: 1s
+        scenario: scenario1
+      - startAt: 1s
+        scenario: scenario1
+
+scenarios:
+  - name: scenario1
+    steps:
+      - request: request1
+
+requests:
+  - name: request1
+    endpoint: cart
+    method: POST
+    inputData:
+      - value: |
+            {
+                "item": {
+                    "productId": "OLJCESPC7Z",
+                    "quantity": 1
+                }
+            }
+      - params:
+        - name: user_id
+          in: path
+          value: abcde
+  - name: request1
+    endpoint: cart
+    method: POST
+    inputData:
+      - value: |
+            {
+                "item": {
+                    "productId": "OLJCESPC7Z",
+                    "quantity": 1
+                }
+            }
+      - params:
+        - name: user_id
+          in: path
+          value: abcde
