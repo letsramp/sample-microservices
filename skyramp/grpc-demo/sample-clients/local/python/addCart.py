@@ -7,7 +7,7 @@ from demo_pb2 import AddItemRequest, CartItem
 from demo_grpc import CartServiceStub
 
 async def main():
-    async with Channel('grpc-demo.cart-service-port7070.e2e-target.skyramp.test', 80) as channel:
+    async with Channel('grpc-demo.cart-service-port7070.checkout-system.skyramp.test', 80) as channel:
         cart = CartServiceStub(channel)
 
         reply = await cart.AddItem(AddItemRequest(user_id='abcde', item=CartItem(product_id="OLJCESPC7Z", quantity=1)))

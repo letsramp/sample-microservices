@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	conn, err := grpc.Dial("grpc-demo.checkout-service-port5050.e2e-target.skyramp.test:80", grpc.WithInsecure())
+	conn, err := grpc.Dial("grpc-demo.checkout-service-port5050.checkout-system.skyramp.test:80", grpc.WithInsecure())
 	if err != nil {
 		fmt.Printf("Could not connect: %v\n", err)
 	}
