@@ -8,6 +8,7 @@ containers:
       - payment-service
       - shipping-service
       - product-catalog-service
+      - currency-service
     manifests:
       - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
