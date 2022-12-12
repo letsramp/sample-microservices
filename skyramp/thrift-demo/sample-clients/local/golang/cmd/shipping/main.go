@@ -59,5 +59,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("\nSuccessfully called ShippingService.ShipOrder(): returned tracking id [%s]]n", trackingId)
+	fmt.Printf("\nSuccessfully called ShippingService.ShipOrder(): returned tracking id [%s]]\n", trackingId)
 }
