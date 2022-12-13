@@ -7,7 +7,7 @@ from demo_pb2 import PlaceOrderRequest, Address, CreditCardInfo
 from demo_grpc import CheckoutServiceStub
 
 async def main():
-    async with Channel('grpc-demo.checkout-service-port5050.e2e-target.skyramp.test', 80) as channel:
+    async with Channel('grpc-demo.checkout-service-port5050.checkout-system.skyramp.test', 80) as channel:
         checkout = CheckoutServiceStub(channel)
 
         reply = await checkout.PlaceOrder(PlaceOrderRequest(

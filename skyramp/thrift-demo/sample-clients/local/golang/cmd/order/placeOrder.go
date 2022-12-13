@@ -16,7 +16,7 @@ const (
 func main() {
 	// NOTE: Connect to Cart Service via Skyramp Ingress URL
 	//
-	cartServiceAddr := "thrift-demo.cart-service-port50000.e2e-target.skyramp.test"
+	cartServiceAddr := "thrift-demo.cart-service-port50000.checkout-system.skyramp.test"
 	opt := NewDefaultOption()
 	opt.HttpUrl = thriftHttpPath
 
@@ -46,7 +46,7 @@ func main() {
 	fmt.Printf("Successfully added [%d] units of product [%s] to Cart\n", quantity, product_id)
 
 	// Perform Checkout
-	checkoutServiceAddr := "thrift-demo.checkout-service-port50000.e2e-target.skyramp.test"
+	checkoutServiceAddr := "thrift-demo.checkout-service-port50000.checkout-system.skyramp.test"
 	ctx := context.Background()
 	opt = NewDefaultOption()
 	opt.HttpUrl = "/CheckoutService"

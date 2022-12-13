@@ -15,7 +15,7 @@ const (
 )
 
 func main() {
-	clientAddr := "thrift-demo.cart-service-port50000.e2e-target.skyramp.test"
+	clientAddr := "thrift-demo.cart-service-port50000.checkout-system.skyramp.test"
 	opt := NewDefaultOption()
 	opt.HttpUrl = thriftHttpPath
 
