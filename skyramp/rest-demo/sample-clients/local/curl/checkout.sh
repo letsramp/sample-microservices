@@ -9,7 +9,7 @@ curl -X 'POST' 'http://rest-demo.cart-service-port60000.checkout-system.skyramp.
   -d '{
   "product_id": "1YMWWN1N4O",
   "quantity": 8
-}'
+}'; echo
 
 
 curl -X 'POST' \
@@ -33,5 +33,5 @@ curl -X 'POST' \
     "credit_card_expiration_year": 24,
     "credit_card_expiration_month": 1
   }
-}'
+}'; echo
 

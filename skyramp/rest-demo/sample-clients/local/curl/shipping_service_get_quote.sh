@@ -24,5 +24,5 @@ curl -X 'PUT' \
         "quantity": 1
     }
   ]
-}'
+}' ; echo
 

@@ -8,4 +8,5 @@ curl -X 'POST' 'http://rest-demo.cart-service-port60000.checkout-system.skyramp.
   -d '{
   "product_id": "L9ECAV7KIM",
   "quantity": 8
-}'
+}'; echo
+

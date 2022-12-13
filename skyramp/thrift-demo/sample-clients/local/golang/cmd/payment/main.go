@@ -37,5 +37,5 @@ func main() {
 		fmt.Printf("Failed to connect to server: %v", err)
 		os.Exit(1)
 	}
-	fmt.Printf("Result: [%s]", p)
+	fmt.Printf("Result: [%s]\n", p)
 }
