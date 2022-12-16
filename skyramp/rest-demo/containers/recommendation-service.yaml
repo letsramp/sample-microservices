@@ -19,3 +19,32 @@ containers:
 ports:
   - name: recommendation-service-port60000
     port: 60000
+    protocol: rest
+    endpoints:
+      - recommendation-service
+endpoints:
+  - name: recommendation-service
+    path: "/list-recommendations"
+    methods:
+      - type: 'GET'
+        input: ListRecommendationsRequest
+        output: ListRecommendationsResponse
+
+signatures:
+  - name: ListRecommendationsRequest
+    restparams:
+      - name: product_id
+        type: array
+        in: path
+
+  - name: ListRecommendationsResponse
+    fields:
+      - name: result
+        type: array
+        subtype: string
+        fields:
+          - default: "OLJCESPC7Z"
+          - default: "66VCHSJNUP"
+          - default: "1YMWWN1N4O"
+          - default: "L9ECAV7KIM"
+          - default: "2ZYFJ3GM2N"

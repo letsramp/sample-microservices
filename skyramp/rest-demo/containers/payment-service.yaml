@@ -25,9 +25,43 @@ endpoints:
     path: "/charge"
     methods:
       - type: 'POST'
+        input: ChargeRequest
         output: ChargeResponse
 
 signatures:
+  - name: ChargeRequest
+    fields:
+      - name: amount
+        type: map
+        fields:
+          - name: amount
+            type: map
+            fields:
+              - name: currency_code
+                type: string
+                default: "USD"
+              - name: units
+                type: integer
+                default: 150
+              - name: nanos
+                type: integer
+                default: 99000000
+      - name: credit_card
+        type: map
+        fields:
+          - name: credit_card_name
+            type: string
+            default: "4432-8015-6152-0454"
+          - name: credit_card_cvv
+            type: integer
+            default: 672
+          - name: credit_card_expiration_year
+            type: integer
+            default: 2024
+          - name: credit_card_expiration_month
+            type: integer
+            default: 01
+
   - name: ChargeResponse
     fields:
     - name: transaction_id

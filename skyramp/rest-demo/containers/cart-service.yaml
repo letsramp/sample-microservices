@@ -9,6 +9,7 @@ containers:
 ports:
   - name: cart-service-port60000
     port: 60000
+    secure: false
     protocol: rest
     endpoints:
       - cart-service
@@ -17,11 +18,68 @@ endpoints:
   - name: cart-service
     path: "/cart"
     methods:
-      - type: 'POST'
-        output: add-output
+      - type: 'DELETE'
+        input: DeleteCartRequest
       - type: 'GET'
-        output: add-output
+        output: GetCartResponse
+      - type: 'POST'
+        input: AddCartRequest
 
 signatures:
-  - name: add-output
+  - name: AddCartRequest
+    restparams:
+      - name: user_id
+        type: string
+        in: path
+        value: "abcde"
+    fields:
+      - name: item
+        type: map
+        fields:
+          - name: product_id
+            type: string
+            default: "YMWWN1N4O"
+          - name: quantity
+            type: integer
+            default: 3
+
+  - name: DeleteCartRequest
+    restparams:
+      - name: user_id
+        type: string
+        in: path
+        value: "abcde"
+
+  - name: GetCartResponse
+    fields:
+      - name: result
+        type: map
+        fields:
+          - name: user_id
+            type: string
+            default: "abcde"
+          - name: items
+            type: array
+            subtype: map
+            fields:
+            - fields:
+              - name: product_id
+                type: string
+                default: "OLJCESPC7Z"
+              - name: quantity
+                type: integer
+                default: 2
+            - fields:
+              - name: product_id
+                type: string
+                default: "1YMWWN1N4O"
+              - name: quantity
+                type: integer
+                default: 1
+            - fields:
+              - name: product_id
+                type: string
+                default: "66VCHSJNUP"
+              - name: quantity
+                type: integer
   - name: get-output
