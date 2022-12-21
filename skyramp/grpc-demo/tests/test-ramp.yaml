@@ -1,0 +1,25 @@
+tests:
+  - name: test
+    target: checkout-system
+    testPattern:
+      - startAt: 1s
+        request: request1
+        rampUp:
+          duration: 10s
+          rate: 1
+          interval: 1s
+    outputFile: "load.yaml"
+
+requests:
+  - name: request1
+    endpoint: cartservice
+    method: AddItem
+    inputData:
+      - value: |
+          {
+              "userId": "abcde",
+              "item": {
+                  "productId": "OLJCESPC7Z",
+                  "quantity": 1
+              }
+          }
