@@ -15,14 +15,13 @@ scenarios:
 
 requests:
   - name: getProductRequest
-    endpoint: product-catalog-service
+    endpoint: get-product
     method: GET
-    path: "/get-product"
     mockValue:
       params:
         - name: product_id
           in: query
-          value: "L9ECAV7KIM"
+          value: "OLJCESPC7Z"
 
   - name: addCartRequest
     endpoint: cart-service

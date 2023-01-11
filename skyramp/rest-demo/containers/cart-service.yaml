@@ -18,8 +18,6 @@ endpoints:
   - name: cart-service
     path: "/cart"
     methods:
-      - type: 'DELETE'
-        input: DeleteCartRequest
       - type: 'GET'
         output: GetCartResponse
       - type: 'POST'
@@ -42,13 +40,6 @@ signatures:
           - name: quantity
             type: integer
             default: 3
-
-  - name: DeleteCartRequest
-    restparams:
-      - name: user_id
-        type: string
-        in: path
-        value: "abcde"
 
   - name: GetCartResponse
     fields:

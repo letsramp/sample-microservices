@@ -19,8 +19,6 @@ ports:
     protocol: rest
     endpoints:
       - get-product
-      - get-products
-      - search-products
 
 endpoints:
   - name: get-product
@@ -29,19 +27,6 @@ endpoints:
       - type: 'GET'
         input: GetProductRequest
         output: GetProductResponse
-
-  - name: get-products
-    path: "/get-products"
-    methods:
-      - type: 'GET'
-        output: GetProductsResponse
-
-  - name: search-products
-    path: "/search-products"
-    methods:
-      - type: 'GET'
-        input: SearchProductsRequest
-        output: SearchProductsResponse
 
 signatures:
   - name: GetProductRequest
