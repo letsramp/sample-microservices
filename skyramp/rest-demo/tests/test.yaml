@@ -15,7 +15,7 @@ scenarios:
 
 requests:
   - name: getProductRequest
-    endpoint: product-catalog-service
+    endpoint: get-product
     method: GET
     path: "/get-product"
     mockValue:
