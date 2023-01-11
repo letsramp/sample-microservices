@@ -16,30 +16,30 @@ requests:
   - name: request1
     endpoint: cart
     method: POST
-    inputData:
-      - value: |
+    mockValue:
+      blob: |
             {
                 "item": {
                     "productId": "OLJCESPC7Z",
                     "quantity": 1
                 }
             }
-      - params:
+      params:
         - name: user_id
           in: path
           value: abcde
   - name: request1
     endpoint: cart
     method: POST
-    inputData:
-      - value: |
+    mockValue:
+      blob: |
             {
                 "item": {
                     "productId": "OLJCESPC7Z",
                     "quantity": 1
                 }
             }
-      - params:
+      params:
         - name: user_id
           in: path
           value: abcde
