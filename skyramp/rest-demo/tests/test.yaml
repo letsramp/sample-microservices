@@ -18,8 +18,8 @@ requests:
     endpoint: product-catalog-service
     method: GET
     path: "/get-product"
-    inputData:
-      - params:
+    mockValue:
+      params:
         - name: product_id
           in: query
           value: "L9ECAV7KIM"
@@ -28,15 +28,15 @@ requests:
     endpoint: cart-service
     method: POST
     path: "/cart"
-    inputData:
-      - value: |
+    mockValue:
+      blob: |
             {
                 "item": {
                     "productId": "OLJCESPC7Z",
                     "quantity": 1
                 }
             }
-      - params:
+      params:
         - name: user_id
           in: path
           value: abcde
@@ -45,33 +45,34 @@ requests:
     endpoint: cart-service
     method: GET
     path: "/cart"
-    inputData:
-      - params:
-        - name: user_id
-          in: path
-          value: abcde
+    mockValue:
+      params:
+      - name: user_id
+        in: path
+        value: abcde
 
   - name: checkoutRequest
     endpoint: checkout-service
     method: POST
     path: "/checkout"
-    inputData:
-      - value: |
-          {
-              "user_id": "abcde",
-              "user_currency": "UDS",
-              "address": {
-                "street_address": "1600 Amp street",
-                "city": "Mountain View",
-                "state": "CA",
-                "country": "USA",
-                "zip_code": "94043"
-              },
-              "email": "someone@example.com",
-              "credit_card": {
-                "credit_card_number": "4432-8015-6251-0454",
-                "credit_card_cvv": 672,
-                "credit_card_expiration_year": 24,
-                "credit_card_expiration_month": 1
-              }
+    mockValue:
+      blob: |
+       {
+           "user_id": "abcde",
+           "user_currency": "UDS",
+           "address": {
+             "street_address": "1600 Amp street",
+             "city": "Mountain View",
+             "state": "CA",
+             "country": "USA",
+             "zip_code": "94043"
+           },
+           "email": "someone@example.com",
+           "credit_card": {
+             "credit_card_number": "4432-8015-6251-0454",
+             "credit_card_cvv": 672,
+             "credit_card_expiration_year": 24,
+             "credit_card_expiration_month": 1
+           }
+        }
 
