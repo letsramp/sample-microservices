@@ -1,3 +1,6 @@
+- [Introduction](#introduction)
+  - [Use Cases](#use-cases)
+  - [Implementation](#implementation)
 - [Usage](#usage)
   - [1. Install pre-requisite tools](#1-install-pre-requisite-tools)
   - [2. Clone sample services](#2-clone-sample-services)
@@ -7,22 +10,22 @@
   - [4. Deploy](#4-deploy)
   - [5. Interacting with the microservices](#5-interacting-with-the-microservices)
     - [Add to cart using gRPC API](#add-to-cart-using-grpc-api)
-  - [Add to cart using REST API](#add-to-cart-using-rest-api)
+    - [Add to cart using REST API](#add-to-cart-using-rest-api)
     - [Add to cart using Thrift API](#add-to-cart-using-thrift-api)
     - [Verify contents of cart](#verify-contents-of-cart)
-  - [Contributing Code](#contributing-code)
+- [Contributing Code](#contributing-code)
 
 
+# Introduction
 
-
-This is a demo project based on [GCP **Online Boutique**](https://github.com/GoogleCloudPlatform/microservices-demo) with added support for REST and Thrift APIs.
+This is a demo project based on [GCP Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo) with added support for REST and Thrift APIs. It is designed to be used during cloud-native development for testing across different APIs–REST, gRPC, and Thrift. It is extensible in support of future functionality (e.g. GraphQL).
 
 ## Use Cases
 
-1. Use as a test project to compare performance of the same product implemented with different communication protocols.
+1. Use as a test project for developing cloud-native dev tools.
 2. Learn how to implement Thrift (and REST) support for an existing project.
 
-Implemented by the [Skyramp](www.skyramp.dev) team.
+Implemented by the [Skyramp](https://skyramp.dev) team.
 
 ## Implementation
 For each microservice in the repo, REST and Thrift implementations open up separate ports to listen to the corresponding traffic. Implementations are in the `rest.go` and `thrift.go` files in the top-level directory for each service. 
@@ -62,7 +65,7 @@ docker compose build
 ```
 
 ### Push services to container registry
-Update the host path/s in the docke-compose.yaml file to point to your down docker registry. Push images by running: 
+Update the host path/s in the docke-compose.yaml file to point to your own docker registry. Push images by running:
 
 ```
 docker compose push
@@ -89,11 +92,17 @@ Now, familiarize yourself with the application by navigating to http://127.0.0.1
 
 ## 5. Interacting with the microservices
 
-To demonstrate the REST and Thrift implementations, we've created simple clients (`src/clients`) for the "add to cart" scenario for each of the APIs. The clients are volume mounted in the clients container in the cluster.
+To demonstrate the REST and Thrift implementations, we've created simple clients (`src/clients`) for the "add to cart" scenario for each of the APIs. The client code is accessible from the `clients` container in the cluster.
 
-First, download and install [Docker Desktop](https://www.docker.com/products/docker-desktop/) to follow along.
+To connect to the `clients` container, run the following command in your terminal:
 
-You will see that Docker Desktop shows the containers that are running. Click on the "clients_1" container and go to the CLI from there.
+```
+docker compose exec -it clients ash
+```
+
+Optionally, you can download and install [Docker Desktop](https://www.docker.com/products/docker-desktop/) to follow along.
+
+If you are using Docker Desktop, click on the `clients_1` container and go to the CLI from there.
 
 <img width="1122" alt="CLI for the clients container" src="https://user-images.githubusercontent.com/1672645/217331154-3be0e78b-3c22-43c3-bdb2-ac5b5365c50b.png">
 
@@ -112,7 +121,7 @@ go mod download
 conn, err := grpc.Dial("cartservice:7070", grpc.WithInsecure())
 ```
 
-Run the code in the file to add an item to the cart.
+3. Run the code in the file to add an item to the cart.
 
 ```
 go run ./cmd/cart
@@ -122,18 +131,18 @@ Expected result
 Successfully added the item to the cart.
 ```
 
-Now, we can add the same item to the cart using REST and Thrift APIs. 
+Having seen how to successfully add an item to the cart with a gRPC client calling the gRPC endpoint, we can see how to do the same through the REST and Thrift endpoints.
 
-## Add to cart using REST API
+### Add to cart using REST API
 
-Since cURL is already installed in the `clients` container, you can issue a request directly from the CLI as of the container to add an item to the cart.
+Since cURL is already installed in the `clients` container, you can issue a request directly from the CLI of the container to add an item to the cart.
 
 ```
 curl -X 'POST' 'http://cartservice:60000/cart/user_id/abcde' \
   -H 'accept: application/json' \
   -H 'content-type: application/json' \
   -d '{
-  "product_id": "L9ECAV7KIM",
+  "product_id": "OLJCESPC7Z",
   "quantity": 1
 }'
 ```
@@ -152,7 +161,7 @@ Result
 
 Setup
 ```
-cd /test/thrift-demo/sample-clients/local/golang
+cd /thrift/golang
 go mod download
 ```
 
@@ -162,7 +171,7 @@ go mod download
 clientAddr := "cartservice:50000"
 ```
 
-Now, run the code in the file to add an item to the cart.
+3. Now, run the code in the file to add an item to the cart.
 
 ```
 go run ./cmd/cart
@@ -181,7 +190,7 @@ You can now fetch the contents of the cart using REST API to see that a total of
 
 ```
 curl -X 'GET' \
-  'http://cartservice:60000/cart/abcde' \
+  'http://cartservice:60000/cart/user_id/abcde' \
    -H 'accept: application/json'
 ```
 
@@ -192,7 +201,7 @@ Result:
 ```
 
 
-## Contributing Code
+# Contributing Code
 
 PRs are welcome!  
 
