@@ -7,7 +7,7 @@ from thriftpy.demo import ShippingService
 from thriftpy.demo.ttypes import Address, CartItem
 
 def main():
-    uri = "shipping-service-port50000.demo.skyramp.test/ShippingService"
+    uri = "thrift-demo.shipping-service-port50000.checkout-system.skyramp.test/ShippingService"
     socket = THttpClient.THttpClient(f'http://{uri}')
     transport = TTransport.TBufferedTransport(socket)
     protocol = TBinaryProtocol.TBinaryProtocol(transport)
