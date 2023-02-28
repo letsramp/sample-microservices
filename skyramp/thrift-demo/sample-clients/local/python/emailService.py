@@ -7,7 +7,7 @@ from thriftpy.demo import EmailService
 from thriftpy.demo.ttypes import Address, CartItem, OrderResult, OrderItem, Money
 
 def main():
-    uri = "email-service-port50000.demo.skyramp.test/EmailService"
+    uri = "thrift-demo.email-service-port50000.checkout-system.skyramp.test/EmailService"
     socket = THttpClient.THttpClient(f'http://{uri}')
     transport = TTransport.TBufferedTransport(socket)
     protocol = TBinaryProtocol.TBinaryProtocol(transport)
