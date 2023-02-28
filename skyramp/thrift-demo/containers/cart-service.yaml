@@ -5,8 +5,6 @@ containers:
       tag: v0.3.9
     dependencies:
       - redis
-    manifests:
-      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
       - cart-service-port50000
     envs:
@@ -16,7 +14,7 @@ ports:
   - name: cart-service-port50000
     port: 50000
     secure: false
-    thrift-options:
+    thriftOptions:
       protocol: "binary"
       buffered: true
       http: true

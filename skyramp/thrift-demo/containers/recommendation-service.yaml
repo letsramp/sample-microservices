@@ -5,8 +5,6 @@ containers:
       tag: v0.3.9
     dependencies:
       - product-catalog-service
-    manifests:
-      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
       - recommendation-service-port50000
     envs:
@@ -20,7 +18,7 @@ ports:
   - name: recommendation-service-port50000
     port: 50000
     secure: false
-    thrift-options:
+    thriftOptions:
       protocol: "binary"
       buffered: true
       http: true

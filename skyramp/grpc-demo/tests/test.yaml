@@ -10,6 +10,7 @@ scenarios:
     steps:
       - request: request1
       - request: request2
+      - asserts: requests.request2.res.order.items[0].item.productId == "OLJCESPC7Z"
 
 requests:
   - name: request1

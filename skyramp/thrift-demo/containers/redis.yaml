@@ -3,8 +3,6 @@ containers:
     image:
       repository: redis
       tag: alpine
-    manifests:
-      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
       - redis-port6379
 

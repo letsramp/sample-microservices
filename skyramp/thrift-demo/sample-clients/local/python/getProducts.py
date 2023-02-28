@@ -7,7 +7,7 @@ from thriftpy.demo import ProductCatalogService
 
 def main():
 
-    uri = "thrift-demo.product-catalog-service-port50000.checkout-system.skyramp.test/ProductCatalogService"
+    uri = "product-catalog-service-port50000.demo.skyramp.test/ProductCatalogService"
     socket = THttpClient.THttpClient(f'http://{uri}')
     transport = TTransport.TBufferedTransport(socket)
     protocol = TBinaryProtocol.TBinaryProtocol(transport)

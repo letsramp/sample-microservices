@@ -5,8 +5,6 @@ containers:
       tag: v0.3.9
     dependencies:
       - redis
-    manifests:
-      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
       - cart-service-port7070
     envs:
