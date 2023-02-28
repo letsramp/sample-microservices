@@ -3,8 +3,6 @@ containers:
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice
       tag: v0.3.9
-    manifests:
-      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
       - product-catalog-service-port60000
     envs:

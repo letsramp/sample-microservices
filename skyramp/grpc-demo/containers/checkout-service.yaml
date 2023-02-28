@@ -9,8 +9,6 @@ containers:
       - shipping-service
       - product-catalog-service
       - currency-service
-    manifests:
-      - gcp-microservices-demo/deploy/kubernetes/kubernetes-manifests.yaml
     ports:
       - checkout-service-port5050
     envs:
