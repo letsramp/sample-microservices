@@ -7,7 +7,7 @@ from thriftpy.demo import CheckoutService
 from thriftpy.demo.ttypes import Address, CreditCardInfo
 
 def main():
-    uri = "checkout-service-port50000.demo.skyramp.test/CheckoutService"
+    uri = "thrift-demo.checkout-service-port50000.checkout-system.skyramp.test/CheckoutService"
     socket = THttpClient.THttpClient(f'http://{uri}')
     transport = TTransport.TBufferedTransport(socket)
     protocol = TBinaryProtocol.TBinaryProtocol(transport)
