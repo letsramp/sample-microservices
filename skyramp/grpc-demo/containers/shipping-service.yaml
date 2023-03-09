@@ -3,7 +3,7 @@ containers:
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/shippingservice
       tag: v0.3.9
-    ports:
+    services:
       - shipping-service-port50051
     envs:
       PORT: "50051"
@@ -11,7 +11,7 @@ containers:
       DISABLE_PROFILER: "1"
       DISABLE_DEBUGGER: "1"
 
-ports:
+services:
   - name: shipping-service-port50051
     protocol: grpc
     port: 50051
@@ -25,79 +25,4 @@ endpoints:
       path: "pb/demo.proto"
     methods:
       - name: GetQuote
-        input: GetQuoteRequest
-        output: GetQuoteResponse
       - name: ShipOrder
-        input: ShipOrderRequest
-        output: ShipOrderResponse
-
-signatures:
-  - name: GetQuoteRequest
-    fields:
-      - type: map
-        fields:
-          - name: address
-            type: map
-            fields:
-              - name: street_address
-                type: string
-              - name: city
-                type: string
-              - name: state
-                type: string
-              - name: country
-                type: string
-              - name: zip_code
-                type: int
-          - name: items
-            type: array
-            subtype: map
-            fields:
-              - name: product_id
-                type: string
-              - name: quantity
-                type: int
-  - name: GetQuoteResponse
-    fields:
-      - type: map
-        fields:
-          - name: cost_usd
-            type: map
-            fields:
-              - name: currency_code
-                type: string
-              - name: units
-                type: int
-              - name: nanos
-                type: int
-  - name: ShipOrderRequest
-    fields:
-      - type: map
-        fields:
-          - name: address
-            type: map
-            fields:
-              - name: street_address
-                type: string
-              - name: city
-                type: string
-              - name: state
-                type: string
-              - name: country
-                type: string
-              - name: zip_code
-                type: int
-          - name: items
-            type: array
-            subtype: map
-            fields:
-              - name: product_id
-                type: string
-              - name: quantity
-                type: int
-  - name: ShipOrderResponse
-    fields:
-      - type: map
-        fields:
-          - name: tracking_id
-            type: string

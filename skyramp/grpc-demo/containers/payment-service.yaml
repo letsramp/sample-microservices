@@ -3,7 +3,7 @@ containers:
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice
       tag: v0.3.9
-    ports:
+    services:
       - payment-service-port50051
     envs:
       PORT: "50051"
@@ -11,7 +11,7 @@ containers:
       DISABLE_PROFILER: "1"
       DISABLE_DEBUGGER: "1"
 
-ports:
+services:
   - name: payment-service-port50051
     port: 50051
     protocol: grpc
@@ -25,36 +25,9 @@ endpoints:
       path: "pb/demo.proto"
     methods:
       - name: Charge
-        input: ChargeRequest
-        output: ChargeResponse
+        responseValue: ChargeResponse
 
-signatures:
-  - name: ChargeRequest
-    fields:
-      - type: map
-        fields:
-          - name: amount
-            type: map
-            fields:
-              - name: currency_code
-                type: string
-              - name: units
-                type: int
-              - name: nanos
-                type: int
-          - name: credit_card
-            type: map
-            fields:
-              - name: credit_card_name
-                type: string
-              - name: credit_card_cvv
-                type: int
-              - name: credit_card_expiration_year
-                type: int
-              - name: credit_card_expiration_month
-                type: int
+responseValues:
   - name: ChargeResponse
-    fields:
-      - name: transaction_id
-        type: string
-        default: "abcefghi"
+    blob: |
+      { "transaction_id": "abcefghi" }

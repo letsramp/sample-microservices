@@ -11,7 +11,7 @@ containers:
       - checkout-service
       - shipping-service
       - currency-service
-    ports:
+    services:
       - frontend-port8080
     envs:
       PORT: "80"
@@ -25,6 +25,6 @@ containers:
       DISABLE_TRACING: "1"
       DISABLE_PROFILER: "1"
 
-ports:
+services:
   - name: frontend-port8080
     port: 80

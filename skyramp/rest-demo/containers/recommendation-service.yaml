@@ -5,7 +5,7 @@ containers:
       tag: v0.3.9
     dependencies:
       - product-catalog-service
-    ports:
+    services:
       - recommendation-service-port60000
     envs:
       PORT: "8080"
@@ -14,7 +14,7 @@ containers:
       DISABLE_PROFILER: "1"
       DISABLE_DEBUGGER: "1"
 
-ports:
+services:
   - name: recommendation-service-port60000
     port: 60000
     protocol: rest
@@ -25,25 +25,16 @@ endpoints:
     path: "/list-recommendations"
     methods:
       - type: 'GET'
-        input: ListRecommendationsRequest
-        output: ListRecommendationsResponse
+        responseValue: ListRecommendationsResponse
         name: recommendation-get
 
-signatures:
-  - name: ListRecommendationsRequest
-    restparams:
-      - name: product_id
-        type: array
-        in: path
-
+responseValues:
   - name: ListRecommendationsResponse
-    fields:
-      - name: result
-        type: array
-        subtype: string
-        fields:
-          - default: "OLJCESPC7Z"
-          - default: "66VCHSJNUP"
-          - default: "1YMWWN1N4O"
-          - default: "L9ECAV7KIM"
-          - default: "2ZYFJ3GM2N"
+    blob: |
+      [
+        "OLJCESPC7Z",
+        "66VCHSJNUP",
+        "1YMWWN1N4O",
+        "L9ECAV7KIM",
+        "2ZYFJ3GM2N"
+      ]

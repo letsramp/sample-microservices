@@ -9,7 +9,7 @@ containers:
       - shipping-service
       - product-catalog-service
       - currency-service
-    ports:
+    services:
       - checkout-service-port5050
     envs:
       PRODUCT_CATALOG_SERVICE_ADDR: "product-catalog-service:3550"
@@ -20,7 +20,7 @@ containers:
       CART_SERVICE_ADDR: "cart-service:7070"
       DISABLE_TRACING: "1"
       DISABLE_PROFILER: "1"
-ports:
+services:
   - name: checkout-service-port5050
     protocol: grpc
     port: 5050
@@ -34,10 +34,3 @@ endpoints:
       path: "pb/demo.proto"
     methods:
       - name: PlaceOrder
-        input: PlaceOrderRequest
-        output: PlaceOrderResponse
-
-signatures:
-  - name: PlaceOrderRequest
-  - name: PlaceOrderResponse
-

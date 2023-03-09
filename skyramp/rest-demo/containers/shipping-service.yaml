@@ -3,7 +3,7 @@ containers:
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/shippingservice
       tag: v0.3.9
-    ports:
+    services:
       - shipping-service-port60000
     envs:
       PORT: "50051"
@@ -11,7 +11,7 @@ containers:
       DISABLE_PROFILER: "1"
       DISABLE_DEBUGGER: "1"
 
-ports:
+services:
   - name: shipping-service-port60000
     protocol: rest
     secure: true
@@ -25,127 +25,24 @@ endpoints:
     path: "/get-quote"
     methods:
       - type: 'PUT'
-        input: GetQuoteRequest
-        output: GetQuoteResponse
+        responseValue: GetQuoteResponse
         name: get-shipping-quote-put
   - name: ship-order
     path: "/ship-order"
     methods:
       - type: 'PUT'
-        input: ShipOrderRequest
-        output: ShipOrderResponse
+        responseValue: ShipOrderResponse
         name: ship-order-put
 
-signatures:
-  - name: GetQuoteRequest
-    fields:
-      - name: shipping_address
-        type: map
-        fields:
-          - name: street_address
-            type: string
-            default: "Main Street 101"
-          - name: city
-            type: string
-            default: " San Fransisco"
-          - name: state
-            type: string
-            default: "CA"
-          - name: country
-            type: string
-            default: "US"
-          - name: zip_code
-            type: integer
-            default: 94043
-      - name: items
-        type: array
-        subtype: map
-        fields:
-          - fields:
-            - name: product_id
-              type: string
-              default: "OLJCESPC7Z"
-            - name: quantity
-              type: integer
-              default: 1
-          - fields:
-            - name: product_id
-              type: string
-              default: "66VCHSJNUP"
-            - name: quantity
-              type: integer
-              default: 3
-          - fields:
-            - name: product_id
-              type: string
-              default: "1YMWWN1N4O"
-            - name: quantity
-              type: integer
-              default: 2
-
+responseValues:
   - name: GetQuoteResponse
-    fields:
-      - name: result
-        type: map
-        fields:
-          - name: currency_code
-            type: string
-            default: "USD"
-          - name: units
-            type: integer
-            default: 150
-          - name: nanos
-            type: integer
-            default: 99000000
-
-  - name: ShipOrderRequest
-    fields:
-      - name: shipping_address
-        type: map
-        fields:
-          - name: street_address
-            type: string
-            default: "Main Street 101"
-          - name: city
-            type: string
-            default: " San Fransisco"
-          - name: state
-            type: string
-            default: "CA"
-          - name: country
-            type: string
-            default: "US"
-          - name: zip_code
-            type: integer
-            default: 95000
-      - name: items
-        type: array
-        subtype: map
-        fields:
-          - fields:
-            - name: product_id
-              type: string
-              default: "OLJCESPC7Z"
-            - name: quantity
-              type: integer
-              default: 1
-          - fields:
-            - name: product_id
-              type: string
-              default: "66VCHSJNUP"
-            - name: quantity
-              type: integer
-              default: 3
-          - fields:
-            - name: product_id
-              type: string
-              default: "1YMWWN1N4O"
-            - name: quantity
-              type: integer
-              default: 2
+    blob: |
+      {
+        "currency_code": "USD",
+        "units": 150,
+        "nanos": 99000000
+      }
 
   - name: ShipOrderResponse
-    fields:
-      - name: result
-        type: string
-        default: "tracking-id-5f32af7c-799e-404e-9dc3-42be5461bad5"
+    blob: |
+      "tracking-id-5f32af7c-799e-404e-9dc3-42be5461bad5"
