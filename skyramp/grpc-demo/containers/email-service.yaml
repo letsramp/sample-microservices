@@ -3,10 +3,10 @@ containers:
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/emailservice
       tag: v0.3.9
-    ports:
+    services:
       - email-service-port5000
 
-ports:
+services:
   - name: email-service-port5000
     protocol: grpc
     port: 5000
@@ -20,62 +20,3 @@ endpoints:
       path: "pb/demo.proto"
     methods:
       - name: SendOrderConfirmation
-        input: SendOrderConfirmationRequest
-        # There is no output
-
-signatures:
-  - name: SendOrderConfirmationRequest
-    fields:
-      - type: map
-        fields:
-          - name: email
-            type: string
-          - name: order
-            type: map
-            fields:
-              - name: order_id
-                type: string
-              - name: shipping_tracking_id
-                type: string
-              - name: shipping_cost
-                type: map
-                fields:
-                  - name: currency_code
-                    type: string
-                  - name: units
-                    type: int
-                  - name: nanos
-                    type: int
-              - name: shipping_address
-                type: map
-                fields:
-                  - name: street_address
-                    type: string
-                  - name: city
-                    type: string
-                  - name: state
-                    type: string
-                  - name: country
-                    type: string
-                  - name: zip_code
-                    type: int
-              - name: items
-                type: array
-                subtype: map
-                fields:
-                  - name: item
-                    type: map
-                    fields:
-                      - name: product_id
-                        type: string
-                      - name: quantity
-                        type: int
-                  - name: cost
-                    type: map
-                    fields:
-                      - name: currency_code
-                        type: string
-                      - name: units
-                        type: int
-                      - name: nanos
-                        type: int

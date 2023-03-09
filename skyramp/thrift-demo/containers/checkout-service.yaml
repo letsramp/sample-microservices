@@ -8,7 +8,7 @@ containers:
       - payment-service
       - shipping-service
       - product-catalog-service
-    ports:
+    services:
       - checkout-service-port50000
     envs:
       PRODUCT_CATALOG_SERVICE_ADDR: "product-catalog-service:3550"
@@ -19,7 +19,7 @@ containers:
       CART_SERVICE_ADDR: "cart-service:7070"
       DISABLE_TRACING: "1"
       DISABLE_PROFILER: "1"
-ports:
+services:
   - name: checkout-service-port50000
     port: 50000
     secure: false
@@ -39,139 +39,48 @@ endpoints:
       path: "thrift/demo.thrift"
     methods:
       - name: PlaceOrder
-        input: PlaceOrderRequest
-        output: PlaceOrderResult
+        responseValue: PlaceOrderResult
 
-signatures:
-  - name: PlaceOrderRequest
-    fields:
-    - name: user_id
-      type: string
-      default: "abcdef"
-    - name: user_currency
-      type: string
-      default: "USD"
-    - name: shipping_address
-      type: map
-      fields:
-        - name: street_address
-          type: string
-          default: "1600 Amp street"
-        - name: city
-          type: string
-          default: "Mountain View"
-        - name: state
-          type: string
-          default: "CA"
-        - name: country
-          type: string
-          default: "USA"
-        - name: zip_code
-          type: integer
-          default: 94043
-    - name: email
-      type: string
-      default: someuser@example.com
-    - name: credit_card
-      type: map
-      fields:
-        - name: credit_card_name
-          type: string
-        - name: credit_card_cvv
-          type: int
-        - name: credit_card_expiration_year
-          type: int
-          default: 2022
-        - name: credit_card_expiration_month
-          type: int
-          default: 02
-
+responseValues:
   - name: PlaceOrderResult
-    fields:
-      - name: result
-        type: map
-        fields:
-          - name: order_id
-            type: string
-            default: "order-id-e2646f58-417a-11ed-b878-0242ac120002"
-          - name: shipping_tracking_id
-            type: string
-            default: "tracking-id-5f32af7c-799e-404e-9dc3-42be5461bad5"
-          - name: shipping_cost
-            type: map
-            fields:
-              - name: currency_code
-                type: string
-                default: "USD"
-              - name: units
-                type: int
-                default: 100
-              - name: nanos
-                type: int
-                default: 99000000
-          - name: shipping_address
-            type: map
-            fields:
-              - name: street_address
-                type: string
-                default: "1600 Amp street"
-              - name: city
-                type: string
-                default: "Mountain View"
-              - name: state
-                type: string
-                default: "CA"
-              - name: country
-                type: string
-                default: "USA"
-              - name: zip_code
-                type: integer
-                default: 94043
-          - name: items
-            type: array
-            subtype: map
-            fields:
-            - fields:
-              - name: item
-                type: map
-                fields:
-                - name: product_id
-                  type: string
-                  default: "66VCHSJNUP"
-                - name: quantity
-                  type: integer
-                  default: 1
-              - name: cost
-                type: map
-                fields:
-                - name: currency_code
-                  type: string
-                  default: "USD"
-                - name: units
-                  type: integer
-                  default: 17
-                - name: nanos
-                  type: integer
-                  default: 99000000
-            - fields:
-              - name: item
-                type: map
-                fields:
-                - name: product_id
-                  type: string
-                  default: "OLJCESPC7Z"
-                - name: quantity
-                  type: integer
-                  default: 3
-              - name: cost
-                type: map
-                fields:
-                - name: currency_code
-                  type: string
-                  default: "USD"
-                - name: units
-                  type: integer
-                  default: 17
-                - name: nanos
-                  type: integer
-                  default: 99000000
+    blob: |
+      {
+        "order_id": "order-id-e2646f58-417a-11ed-b878-0242ac120002",
+        "shipping_tracking_id": "tracking-id-5f32af7c-799e-404e-9dc3-42be5461bad5",
+        "shipping_code": {
+          "currency_code": "USD",
+          "units": 100,
+          "nanos": 99000000
+        },
+        "shipping_address": {
+          "street_address": "1600 Amp street",
+          "city": "Mountain View",
+          "state": "CA",
+          "country": "USA",
+          "zip_code": 95043
+        },
+        "items": [
+          {
+            "item": {
+              "product_id": "66VCHSJNUP",
+              "quantity": 3
+            },
+            "cost": {
+              "currency_code": "USD",
+              "units": 17,
+              "nanos": 99000000
+            }
+          },
+          {
+             "item": {
+              "product_id": "66VCHSJNUP",
+              "quantity": 3
+            },
+            "cost": {
+              "currency_code": "USD",
+              "units": 17,
+              "nanos": 99000000
+            }
+         }
+        ]
+      }

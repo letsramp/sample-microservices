@@ -5,7 +5,7 @@ containers:
       tag: v0.3.9
     dependencies:
       - product-catalog-service
-    ports:
+    services:
       - recommendation-service-port8080
     envs:
       PORT: "8080"
@@ -14,7 +14,7 @@ containers:
       DISABLE_PROFILER: "1"
       DISABLE_DEBUGGER: "1"
 
-ports:
+services:
   - name: recommendation-service-port8080
     protocol: grpc
     port: 8080

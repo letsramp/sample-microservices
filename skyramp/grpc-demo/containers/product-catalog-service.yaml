@@ -3,7 +3,7 @@ containers:
     image:
       repository: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice
       tag: v0.3.9
-    ports:
+    services:
       - product-catalog-service-port3550
     envs:
       PORT: "3550"
@@ -11,7 +11,7 @@ containers:
       DISABLE_PROFILER: "1"
       DISABLE_TRACING: "1"
 
-ports:
+services:
   - name: product-catalog-service-port3550
     protocol: grpc
     port: 3550

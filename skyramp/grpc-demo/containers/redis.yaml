@@ -3,10 +3,10 @@ containers:
     image:
       repository: redis
       tag: alpine
-    ports:
+    services:
       - redis-port6379
 
-ports:
+services:
   - name: redis-port6379
     protocol: grpc
     port: 6379
