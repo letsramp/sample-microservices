@@ -22,7 +22,7 @@ services:
       - recommendation-service
 endpoints:
   - name: recommendation-service
-    path: "/list-recommendations"
+    path: "/list-recommendations/{product_id}"
     methods:
       - type: 'GET'
         responseValue: ListRecommendationsResponse

@@ -16,7 +16,7 @@ services:
 
 endpoints:
   - name: cart-service
-    path: "/cart"
+    path: "/cart/user_id/{user_id}"
     methods:
       - type: 'DELETE'
         name: cart-service-delete
