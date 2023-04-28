@@ -1,0 +1,37 @@
+{{- if .Values.cartDatabase.create }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.cartDatabase.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.cartDatabase.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.cartDatabase.name }}
+    spec:
+      containers:
+      - name: {{ .Values.cartDatabase.name }}
+        image: {{ .Values.cartDatabase.image.repository }}:{{ .Values.cartDatabase.image.tag }}
+        ports:
+        - containerPort:  {{ .Values.cartDatabase.containerPort }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.cartDatabase.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  ports:
+  - port:  {{ .Values.cartDatabase.servicePort}}
+    name: {{ .Values.cartDatabase.name }}
+    protocol: {{ .Values.cartDatabase.protocol}} 
+  selector:
+    app: {{ .Values.cartDatabase.name }}
+{{- end }}

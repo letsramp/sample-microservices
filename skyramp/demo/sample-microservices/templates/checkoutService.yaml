@@ -1,0 +1,49 @@
+{{- if .Values.checkoutService.create }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.checkoutService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.checkoutService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.checkoutService.name }}
+    spec:
+      containers:
+      - name: {{ .Values.checkoutService.name }}
+        image: {{ .Values.checkoutService.image.repository }}:{{ .Values.checkoutService.image.tag }}
+        ports:
+        - containerPort:  {{ .Values.checkoutService.containerPort }}
+        env:
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: "{{ .Values.productCatalogService.name }}:{{ .Values.productCatalogService.servicePort }}"
+          - name: SHIPPING_SERVICE_ADDR
+            value: "{{ .Values.shippingService.name }}:{{ .Values.shippingService.servicePort }}"
+          - name: PAYMENT_SERVICE_ADDR
+            value:  "{{ .Values.paymentService.name }}:{{ .Values.paymentService.servicePort }}"
+          - name: EMAIL_SERVICE_ADDR
+            value: "{{ .Values.emailService.name }}:{{ .Values.emailService.servicePort }}"
+          - name: CURRENCY_SERVICE_ADDR
+            value: "{{ .Values.currencyService.name }}:{{ .Values.currencyService.servicePort }}"
+          - name: CART_SERVICE_ADDR
+            value: "{{ .Values.cartService.name }}:{{ .Values.cartService.servicePort }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.checkoutService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  ports:
+  - port:  {{ .Values.checkoutService.servicePort}}
+    name: {{ .Values.checkoutService.name }}
+    protocol: {{ .Values.checkoutService.protocol}} 
+  selector:
+    app: {{ .Values.checkoutService.name }}
+{{- end }}

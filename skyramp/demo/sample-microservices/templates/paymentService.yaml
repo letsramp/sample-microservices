@@ -1,0 +1,40 @@
+{{- if .Values.paymentService.create }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.paymentService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.paymentService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.paymentService.name }}
+    spec:
+      containers:
+      - name: {{ .Values.paymentService.name }}
+        image: {{ .Values.paymentService.image.repository }}:{{ .Values.paymentService.image.tag }}
+        ports:
+        - containerPort:  {{ .Values.paymentService.containerPort }}
+        env:
+          - name: PORT
+            value: "{{ .Values.paymentService.containerPort }}"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.paymentService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  ports:
+  - port:  {{ .Values.paymentService.servicePort}}
+    name: {{ .Values.paymentService.name }}
+    protocol: {{ .Values.paymentService.protocol}} 
+  selector:
+    app: {{ .Values.paymentService.name }}
+{{- end }}

@@ -1,10 +1,10 @@
 tests:
   - name: test
+    target: checkout-system
     testPattern:
       - startAt: 1s
-        atOnce: 2
         scenario: scenario1
-        duration: 10s
+
 services:
   - name: cart-service
     port: 7070
@@ -12,7 +12,7 @@ services:
   - name: checkout-service
     port: 5050
     protocol: grpc
-    
+
 endpoints:
   - name: cart-service
     defined:

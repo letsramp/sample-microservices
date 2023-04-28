@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Payment Service API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /charge:
+    post:
+      summary: Charges a credit card with a specified amount
+      operationId: chargeCreditCard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChargeRequest'
+      responses:
+        '200':
+          description: A successful charge
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeResponse'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    ChargeRequest:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Money'
+        credit_card:
+          type: object
+          properties:
+            credit_card_number:
+              type: string
+            credit_card_cvv:
+              type: integer
+            credit_card_expiration_year:
+              type: integer
+            credit_card_expiration_month:
+              type: integer
+          required:
+            - credit_card_number
+            - credit_card_cvv
+            - credit_card_expiration_year
+            - credit_card_expiration_month
+      required:
+        - amount
+        - credit_card
+    ChargeResponse:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+    Money:
+      type: object
+      properties:
+        currency_code:
+          type: string
+        units:
+          type: integer
+        nanos:
+          type: integer
+      required:
+        - currency_code
+        - units
+        - nanos

@@ -1,0 +1,20 @@
+services:
+    - name: payment-service
+      port: 50051
+      protocol: rest
+endpoints:
+    - name: charge
+      methods:
+        - name: charge-POST
+          type: POST
+          responseValue: charge-POST
+      path: /charge
+      defined:
+        path: ./openapi/demo.yaml
+      service: payment-service
+responseValues:
+    - name: charge-POST
+      blob: |-
+        {
+          "transaction_id": "default-value"
+        }

@@ -1,0 +1,37 @@
+{{- if .Values.productCatalogService.create }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.productCatalogService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.productCatalogService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.productCatalogService.name }}
+    spec:
+      containers:
+      - name: {{ .Values.productCatalogService.name }}
+        image: {{ .Values.productCatalogService.image.repository }}:{{ .Values.productCatalogService.image.tag }}
+        ports:
+        - containerPort:  {{ .Values.productCatalogService.containerPort }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.productCatalogService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  ports:
+  - port:  {{ .Values.productCatalogService.servicePort}}
+    name: {{ .Values.productCatalogService.name }}
+    protocol: {{ .Values.productCatalogService.protocol}} 
+  selector:
+    app: {{ .Values.productCatalogService.name }}
+{{- end }}

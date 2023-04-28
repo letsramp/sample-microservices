@@ -1,0 +1,19 @@
+services:
+    - name: payment-service
+      port: 50051
+      protocol: grpc
+endpoints:
+    - name: payment-service-svc-PaymentService
+      methods:
+        - name: Charge
+          responseValue: ChargeResponse
+      defined:
+        path: ./pb/demo.proto
+        name: PaymentService
+      service: payment-service
+responseValues:
+    - name: ChargeResponse
+      blob: |-
+        {
+          "transaction_id": "default-string"
+        }

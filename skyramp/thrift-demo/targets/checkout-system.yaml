@@ -1,6 +1,0 @@
----
-containers:
-  - container: cart-service
-  - container: checkout-service
-  - container: payment-service
-    mock: true
