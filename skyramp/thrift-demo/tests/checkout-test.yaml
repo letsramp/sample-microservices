@@ -2,10 +2,13 @@ tests:
   - name: test
     testPattern:
       - startAt: 1s
-        atOnce: 2
         scenario: scenario1
-        duration: 10s
 
+scenarios:
+  - name: scenario1
+    steps:
+      - request: request1
+      - request: request2
 services:
   - name: cart-service
     port: 50000
@@ -41,11 +44,6 @@ endpoints:
     methods:
       - name: PlaceOrder
     service: checkout-service
-scenarios:
-  - name: scenario1
-    steps:
-      - request: request1
-      - request: request2
 
 requests:
   - name: request1

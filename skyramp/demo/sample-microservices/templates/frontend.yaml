@@ -1,0 +1,57 @@
+{{- if .Values.frontend.create }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.frontend.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.frontend.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.frontend.name }}
+    spec:
+      containers:
+      - name: {{ .Values.frontend.name }}
+        image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
+        ports:
+        - containerPort:  {{ .Values.frontend.containerPort }}
+        env:
+          - name: PORT
+            value: "80"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: "{{ .Values.productCatalogService.name }}:{{ .Values.productCatalogService.servicePort }}"
+          - name: SHIPPING_SERVICE_ADDR
+            value: "{{ .Values.shippingService.name }}:{{ .Values.shippingService.servicePort }}"
+          - name: PAYMENT_SERVICE_ADDR
+            value:  "{{ .Values.paymentService.name }}:{{ .Values.paymentService.servicePort }}"
+          - name: EMAIL_SERVICE_ADDR
+            value:  "{{ .Values.emailService.name }}:{{ .Values.emailService.servicePort }}"
+          - name: CURRENCY_SERVICE_ADDR
+            value:  "{{ .Values.currencyService.name }}:{{ .Values.currencyService.servicePort }}"
+          - name: CART_SERVICE_ADDR
+            value:  "{{ .Values.cartService.name }}:{{ .Values.cartService.servicePort }}"
+          - name: RECOMMENDATION_SERVICE_ADDR
+            value:  "{{ .Values.recommendationService.name }}:{{ .Values.recommendationService.servicePort }}"
+          - name: CHECKOUT_SERVICE_ADDR
+            value:  "{{ .Values.checkoutService.name }}:{{ .Values.checkoutService.servicePort }}"
+          - name: AD_SERVICE_ADDR
+            value:  "{{ .Values.adService.name }}:{{ .Values.adService.servicePort }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.frontend.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ .Values.frontend.servicePort }}
+    name: {{ .Values.frontend.name }}
+    protocol: {{ .Values.frontend.protocol}}
+  selector:
+      app: {{ .Values.frontend.name }}
+{{- end }}

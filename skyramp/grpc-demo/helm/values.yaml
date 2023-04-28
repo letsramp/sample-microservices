@@ -1,0 +1,35 @@
+adService:
+  servicePort: 9555
+  containerPort: 9555
+
+cartService:
+  servicePort: 7070
+  containerPort: 7070
+  
+checkoutService:
+  servicePort: 5050
+  containerPort: 5050
+
+currencyService:
+  servicePort: 7000
+  containerPort: 7000
+
+emailService:
+  servicePort: 5000
+  containerPort: 5000
+
+paymentService:
+  servicePort: 50051
+  containerPort: 50051
+
+productCatalogService:
+  servicePort: 3550
+  containerPort: 3550
+
+recommendationService:
+  servicePort: 8080
+  containerPort: 8080
+
+shippingService:
+  servicePort: 50051
+  containerPort: 50051

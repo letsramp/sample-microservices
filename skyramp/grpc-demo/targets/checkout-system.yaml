@@ -1,6 +1,10 @@
+namespace: test-grpc-demo
 containers:
-  - container: cart-service
-  - container: checkout-service
-  - container: payment-service
-    mock: true
-
+    - type: helm
+      releaseName: test-grpc-demo
+      paths:
+          - ../demo/sample-microservices
+      valuesPath : helm/values.yaml
+      excludes:
+        - Deployment/payment-service
+        - Service/payment-service

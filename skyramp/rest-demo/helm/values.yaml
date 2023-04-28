@@ -1,0 +1,35 @@
+adService:
+  servicePort: 60000
+  containerPort: 60000
+
+cartService:
+  servicePort: 60000
+  containerPort: 60000
+  
+checkoutService:
+  servicePort: 60000
+  containerPort: 60000
+
+currencyService:
+  servicePort: 7000
+  containerPort: 7000
+
+emailService:
+  servicePort: 60000
+  containerPort: 60000
+
+paymentService:
+  servicePort: 50051
+  containerPort: 50051
+
+productCatalogService:
+  servicePort: 60000
+  containerPort: 60000
+
+recommendationService:
+  servicePort: 60000
+  containerPort: 60000
+
+shippingService:
+  servicePort: 60000
+  containerPort: 60000

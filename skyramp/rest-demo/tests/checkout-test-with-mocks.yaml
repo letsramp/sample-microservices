@@ -1,10 +1,9 @@
 tests:
   - name: test
+    target: checkout-system
     testPattern:
       - startAt: 1s
-        atOnce: 2
         scenario: scenario1
-        duration: 10s
 
 services:
   - name: cart-service
@@ -28,8 +27,8 @@ endpoints:
     service: checkout-service
     methods:
       - type: 'POST'
-        name: checkout-service-post   
-      
+        name: checkout-service-post
+
 scenarios:
   - name: scenario1
     steps:
