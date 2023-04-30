@@ -31,5 +31,5 @@ recommendationService:
   containerPort: 50000
 
 shippingService:
-  servicePort: 50000
-  containerPort: 50000
+  servicePort: 60051
+  containerPort: 60051
