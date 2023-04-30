@@ -31,5 +31,5 @@ recommendationService:
   containerPort: 8080
 
 shippingService:
-  servicePort: 50051
-  containerPort: 50051
+  servicePort: 60051
+  containerPort: 60051
