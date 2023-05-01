@@ -1,0 +1,7 @@
+namespace: test-grpc-demo
+containers:
+    - type: helm
+      releaseName: test-grpc-demo
+      paths:
+          - ../demo/sample-microservices
+      valuesPath : helm/values.yaml
