@@ -1,0 +1,7 @@
+namespace: test-rest-demo
+containers:
+    - type: helm
+      releaseName: test-rest-demo
+      paths:
+          - ../demo/sample-microservices
+      valuesPath : helm/values.yaml
