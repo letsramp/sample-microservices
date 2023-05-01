@@ -5,6 +5,14 @@ containers:
       paths:
           - ../demo/sample-microservices
       valuesPath : helm/values.yaml
-      excludes:
-        - Deployment/payment-service
-        - Service/payment-service
+      includes:
+        - Deployment/checkout-service
+        - Service/checkout-service
+        - Deployment/cart-service
+        - Service/cart-service
+        - Deployment/product-catalog-service
+        - Service/product-catalog-service
+        - Deployment/currency-service
+        - Service/currency-service
+        - Deployment/shipping-service
+        - Service/shipping-service
