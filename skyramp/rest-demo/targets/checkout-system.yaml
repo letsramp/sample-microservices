@@ -1,18 +1,17 @@
 namespace: test-rest-demo
 containers:
-    - type: helm
-      releaseName: test-rest-demo
-      paths:
-          - ../demo/sample-microservices
-      valuesPath : helm/values.yaml
-      includes:
-        - Deployment/checkout-service
-        - Service/checkout-service
-        - Deployment/cart-service
-        - Service/cart-service
-        - Deployment/product-catalog-service
-        - Service/product-catalog-service
-        - Deployment/currency-service
-        - Service/currency-service
-        - Deployment/shipping-service
-        - Service/shipping-service
+  - type: helm
+    releaseName: test-rest-demo
+    path: ../demo/sample-microservices
+    valuesPath: helm/values.yaml
+    includes:
+      - Deployment/checkout-service
+      - Service/checkout-service
+      - Deployment/cart-service
+      - Service/cart-service
+      - Deployment/product-catalog-service
+      - Service/product-catalog-service
+      - Deployment/currency-service
+      - Service/currency-service
+      - Deployment/shipping-service
+      - Service/shipping-service
