@@ -15,3 +15,5 @@ containers:
       - Service/currency-service
       - Deployment/shipping-service
       - Service/shipping-service
+      - Deployment/email-service
+      - Service/email-service
