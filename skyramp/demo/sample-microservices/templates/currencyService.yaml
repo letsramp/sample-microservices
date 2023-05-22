@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.currencyService.name }}
+      name: {{ .Values.currencyService.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.currencyService.name }}
+        name: {{ .Values.currencyService.name }}
     spec:
       containers:
       - name: {{ .Values.currencyService.name }}
@@ -28,14 +28,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    skyramp.dev/protocol: {{ .Values.currencyService.protocol}}
   name: {{ .Values.currencyService.name }}
   namespace: {{ .Release.Namespace }}
 spec:
   type: ClusterIP
   ports:
   - port:  {{ .Values.currencyService.servicePort}}
-    name: {{ .Values.currencyService.name }}
-    protocol: {{ .Values.currencyService.protocol}} 
+    name: {{ .Values.currencyService.name }} 
   selector:
-    app: {{ .Values.currencyService.name }}
+    name: {{ .Values.currencyService.name }}
 {{- end }}

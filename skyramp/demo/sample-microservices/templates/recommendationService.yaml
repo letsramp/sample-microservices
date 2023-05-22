@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.recommendationService.name }}
+      name: {{ .Values.recommendationService.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.recommendationService.name }}
+        name: {{ .Values.recommendationService.name }}
     spec:
       containers:
       - name: {{ .Values.recommendationService.name }}
@@ -24,14 +24,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    skyramp.dev/protocol: {{ .Values.recommendationService.protocol}}
   name: {{ .Values.recommendationService.name }}
   namespace: {{ .Release.Namespace }}
 spec:
   type: ClusterIP
   ports:
   - port:  {{ .Values.recommendationService.servicePort}}
-    name: {{ .Values.recommendationService.name }}
-    protocol: {{ .Values.recommendationService.protocol}} 
+    name: {{ .Values.recommendationService.name }} 
   selector:
-    app: {{ .Values.recommendationService.name }}
+    name: {{ .Values.recommendationService.name }}
 {{- end }}
