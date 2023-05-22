@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.cartDatabase.name }}
+      name: {{ .Values.cartDatabase.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.cartDatabase.name }}
+        name: {{ .Values.cartDatabase.name }}
     spec:
       containers:
       - name: {{ .Values.cartDatabase.name }}
@@ -31,7 +31,6 @@ spec:
   ports:
   - port:  {{ .Values.cartDatabase.servicePort}}
     name: {{ .Values.cartDatabase.name }}
-    protocol: {{ .Values.cartDatabase.protocol}} 
   selector:
-    app: {{ .Values.cartDatabase.name }}
+    name: {{ .Values.cartDatabase.name }}
 {{- end }}

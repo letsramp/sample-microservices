@@ -1,35 +1,44 @@
 adService:
   servicePort: 50000
   containerPort: 50000
+  protocol: thrift
 
 cartService:
   servicePort: 50000
   containerPort: 50000
+  protocol: thrift
   
 checkoutService:
   servicePort: 50000
   containerPort: 50000
+  protocol: thrift
 
 currencyService:
   servicePort: 7000
   containerPort: 7000
+  protocol: thrift
 
 emailService:
   servicePort: 50000
   containerPort: 50000
+  protocol: thrift
 
 paymentService:
   servicePort: 50051
   containerPort: 50051
+  protocol: thrift
 
 productCatalogService:
   servicePort: 50000
   containerPort: 50000
+  protocol: thrift
 
 recommendationService:
   servicePort: 50000
   containerPort: 50000
+  protocol: thrift
 
 shippingService:
   servicePort: 60051
   containerPort: 60051
+  protocol: thrift

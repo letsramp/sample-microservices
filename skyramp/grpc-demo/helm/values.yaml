@@ -1,35 +1,44 @@
 adService:
   servicePort: 9555
   containerPort: 9555
+  protocol: grpc
 
 cartService:
   servicePort: 7070
   containerPort: 7070
+  protocol: grpc
   
 checkoutService:
   servicePort: 5050
   containerPort: 5050
+  protocol: grpc
 
 currencyService:
   servicePort: 7000
   containerPort: 7000
+  protocol: grpc
 
 emailService:
   servicePort: 5000
   containerPort: 5000
+  protocol: grpc
 
 paymentService:
   servicePort: 50051
   containerPort: 50051
+  protocol: grpc
 
 productCatalogService:
   servicePort: 3550
   containerPort: 3550
+  protocol: grpc
 
 recommendationService:
   servicePort: 8080
   containerPort: 8080
+  protocol: grpc
 
 shippingService:
   servicePort: 60051
   containerPort: 60051
+  protocol: grpc

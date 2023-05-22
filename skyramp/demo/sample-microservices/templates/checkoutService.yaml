@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.checkoutService.name }}
+      name: {{ .Values.checkoutService.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.checkoutService.name }}
+        name: {{ .Values.checkoutService.name }}
     spec:
       containers:
       - name: {{ .Values.checkoutService.name }}
@@ -36,6 +36,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    skyramp.dev/protocol: {{ .Values.checkoutService.protocol}}
   name: {{ .Values.checkoutService.name }}
   namespace: {{ .Release.Namespace }}
 spec:
@@ -43,7 +45,6 @@ spec:
   ports:
   - port:  {{ .Values.checkoutService.servicePort}}
     name: {{ .Values.checkoutService.name }}
-    protocol: {{ .Values.checkoutService.protocol}} 
   selector:
-    app: {{ .Values.checkoutService.name }}
+    name: {{ .Values.checkoutService.name }}
 {{- end }}

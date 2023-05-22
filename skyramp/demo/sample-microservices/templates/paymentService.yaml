@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.paymentService.name }}
+      name: {{ .Values.paymentService.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.paymentService.name }}
+        name: {{ .Values.paymentService.name }}
     spec:
       containers:
       - name: {{ .Values.paymentService.name }}
@@ -27,14 +27,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    skyramp.dev/protocol: {{ .Values.paymentService.protocol}}
   name: {{ .Values.paymentService.name }}
   namespace: {{ .Release.Namespace }}
 spec:
   type: ClusterIP
   ports:
   - port:  {{ .Values.paymentService.servicePort}}
-    name: {{ .Values.paymentService.name }}
-    protocol: {{ .Values.paymentService.protocol}} 
+    name: {{ .Values.paymentService.name }} 
   selector:
-    app: {{ .Values.paymentService.name }}
+    name: {{ .Values.paymentService.name }}
 {{- end }}

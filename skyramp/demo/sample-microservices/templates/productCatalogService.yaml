@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.productCatalogService.name }}
+      name: {{ .Values.productCatalogService.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.productCatalogService.name }}
+        name: {{ .Values.productCatalogService.name }}
     spec:
       containers:
       - name: {{ .Values.productCatalogService.name }}
@@ -24,6 +24,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    skyramp.dev/protocol: {{ .Values.productCatalogService.protocol}}
   name: {{ .Values.productCatalogService.name }}
   namespace: {{ .Release.Namespace }}
 spec:
@@ -31,7 +33,6 @@ spec:
   ports:
   - port:  {{ .Values.productCatalogService.servicePort}}
     name: {{ .Values.productCatalogService.name }}
-    protocol: {{ .Values.productCatalogService.protocol}} 
   selector:
-    app: {{ .Values.productCatalogService.name }}
+    name: {{ .Values.productCatalogService.name }}
 {{- end }}

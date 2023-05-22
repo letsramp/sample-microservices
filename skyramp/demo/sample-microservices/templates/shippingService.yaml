@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.shippingService.name }}
+      name: {{ .Values.shippingService.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.shippingService.name }}
+        name: {{ .Values.shippingService.name }}
     spec:
       containers:
       - name: {{ .Values.shippingService.name }}
@@ -32,6 +32,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    skyramp.dev/protocol: {{ .Values.shippingService.protocol}}
   name: {{ .Values.shippingService.name }}
   namespace: {{ .Release.Namespace }}
 spec:
@@ -39,7 +41,6 @@ spec:
   ports:
   - port:  {{ .Values.shippingService.servicePort}}
     name: {{ .Values.shippingService.name }}
-    protocol: {{ .Values.shippingService.protocol}} 
   selector:
-    app: {{ .Values.shippingService.name }}
+    name: {{ .Values.shippingService.name }}
 {{- end }}

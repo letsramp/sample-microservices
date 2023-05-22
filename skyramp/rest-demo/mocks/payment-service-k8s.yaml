@@ -2,6 +2,8 @@ services:
     - name: payment-service
       port: 50051
       protocol: rest
+      kubernetes:
+        service: payment-service
 endpoints:
     - name: charge
       methods:
