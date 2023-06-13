@@ -24,21 +24,21 @@ emailService:
   protocol: thrift
 
 paymentService:
-  servicePort: 50051
+  servicePort: 50000
   containerPort: 50051
   protocol: thrift
 
 productCatalogService:
   servicePort: 50000
-  containerPort: 50000
+  containerPort: 3550
   protocol: thrift
 
 recommendationService:
   servicePort: 50000
-  containerPort: 50000
+  containerPort: 8080
   protocol: thrift
 
 shippingService:
-  servicePort: 60051
-  containerPort: 60051
+  servicePort: 50000
+  containerPort: 50051
   protocol: thrift

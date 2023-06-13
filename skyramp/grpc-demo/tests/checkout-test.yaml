@@ -1,9 +1,9 @@
-tests:
-  - name: test
-    target: checkout-system
-    testPattern:
-      - startAt: 1s
-        scenario: scenario1
+test:
+  name: "[GRPC] Checkout system testcase"
+  target: checkout-system
+  testPattern:
+    - startAt: 1s
+      scenario: scenario1
 
 services:
   - name: cart-service

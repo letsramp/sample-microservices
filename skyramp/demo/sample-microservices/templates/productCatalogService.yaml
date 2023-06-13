@@ -19,6 +19,15 @@ spec:
         image: {{ .Values.productCatalogService.image.repository }}:{{ .Values.productCatalogService.image.tag }}
         ports:
         - containerPort:  {{ .Values.productCatalogService.containerPort }}
+        env:
+          - name: PORT
+            value: "{{ .Values.productCatalogService.containerPort }}"
+          - name: DISABLE_STATS
+            value: "1"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: DISABLE_TRACING
+            value: "1"
 
 ---
 apiVersion: v1

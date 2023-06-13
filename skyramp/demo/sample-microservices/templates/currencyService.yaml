@@ -22,7 +22,12 @@ spec:
         env:
           - name: PORT
             value: "{{ .Values.currencyService.containerPort }}"
-
+          - name: DISABLE_TRACING
+            value: "1"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: DISABLE_DEBUGGER
+            value: "1"
 
 ---
 apiVersion: v1
@@ -36,7 +41,7 @@ spec:
   type: ClusterIP
   ports:
   - port:  {{ .Values.currencyService.servicePort}}
-    name: {{ .Values.currencyService.name }} 
+    name: {{ .Values.currencyService.name }}
   selector:
     name: {{ .Values.currencyService.name }}
 {{- end }}
