@@ -19,7 +19,9 @@ spec:
         image: {{ .Values.cartService.image.repository }}:{{ .Values.cartService.image.tag }}
         ports:
         - containerPort:  {{ .Values.cartService.containerPort }}
-
+        env:
+          - name: REDIS_ADDR
+            value: "{{ .Values.cartDatabase.name }}:{{ .Values.cartDatabase.containerPort }}"
 ---
 apiVersion: v1
 kind: Service

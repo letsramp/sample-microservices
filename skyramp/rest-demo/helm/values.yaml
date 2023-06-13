@@ -19,17 +19,17 @@ emailService:
   containerPort: 60000
 
 paymentService:
-  servicePort: 50051
+  servicePort: 60000
   containerPort: 50051
 
 productCatalogService:
   servicePort: 60000
-  containerPort: 60000
+  containerPort: 3550
 
 recommendationService:
   servicePort: 60000
-  containerPort: 60000
+  containerPort: 8080
 
 shippingService:
-  servicePort: 60051
-  containerPort: 60051
+  servicePort: 60000
+  containerPort: 50051

@@ -21,29 +21,31 @@ spec:
         - containerPort:  {{ .Values.frontend.containerPort }}
         env:
           - name: PORT
-            value: "80"
+            value: "{{ .Values.frontend.containerPort }}"
           - name: PRODUCT_CATALOG_SERVICE_ADDR
-            value: "{{ .Values.productCatalogService.name }}:{{ .Values.productCatalogService.servicePort }}"
+            value: "{{ .Values.productCatalogService.name }}:{{ .Values.productCatalogService.containerPort }}"
           - name: SHIPPING_SERVICE_ADDR
-            value: "{{ .Values.shippingService.name }}:{{ .Values.shippingService.servicePort }}"
+            value: "{{ .Values.shippingService.name }}:{{ .Values.shippingService.containerPort }}"
           - name: PAYMENT_SERVICE_ADDR
-            value:  "{{ .Values.paymentService.name }}:{{ .Values.paymentService.servicePort }}"
+            value:  "{{ .Values.paymentService.name }}:{{ .Values.paymentService.containerPort }}"
           - name: EMAIL_SERVICE_ADDR
-            value:  "{{ .Values.emailService.name }}:{{ .Values.emailService.servicePort }}"
+            value:  "{{ .Values.emailService.name }}:{{ .Values.emailService.containerPort }}"
           - name: CURRENCY_SERVICE_ADDR
-            value:  "{{ .Values.currencyService.name }}:{{ .Values.currencyService.servicePort }}"
+            value:  "{{ .Values.currencyService.name }}:{{ .Values.currencyService.containerPort }}"
           - name: CART_SERVICE_ADDR
-            value:  "{{ .Values.cartService.name }}:{{ .Values.cartService.servicePort }}"
+            value:  "{{ .Values.cartService.name }}:{{ .Values.cartService.containerPort }}"
           - name: RECOMMENDATION_SERVICE_ADDR
-            value:  "{{ .Values.recommendationService.name }}:{{ .Values.recommendationService.servicePort }}"
+            value:  "{{ .Values.recommendationService.name }}:{{ .Values.recommendationService.containerPort }}"
           - name: CHECKOUT_SERVICE_ADDR
-            value:  "{{ .Values.checkoutService.name }}:{{ .Values.checkoutService.servicePort }}"
+            value:  "{{ .Values.checkoutService.name }}:{{ .Values.checkoutService.containerPort }}"
           - name: AD_SERVICE_ADDR
-            value:  "{{ .Values.adService.name }}:{{ .Values.adService.servicePort }}"
+            value:  "{{ .Values.adService.name }}:{{ .Values.adService.containerPort }}"
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    skyramp.dev/protocol: {{ .Values.frontend.protocol}}
   name: {{ .Values.frontend.name }}
   namespace: {{ .Release.Namespace }}
 spec:

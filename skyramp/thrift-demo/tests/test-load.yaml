@@ -1,11 +1,11 @@
-tests:
-  - name: test
-    target: checkout-system
-    testPattern:
-      - startAt: 1s
-        atOnce: 2
-        scenario: scenario1
-        duration: 10s
+test:
+  name: "[Thrift] Checkout system load test testcase"
+  target: checkout-system
+  testPattern:
+    - startAt: 1s
+      atOnce: 2
+      scenario: scenario1
+      duration: 10s
 
 services:
   - name: cart-service

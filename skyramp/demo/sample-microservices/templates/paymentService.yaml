@@ -22,6 +22,13 @@ spec:
         env:
           - name: PORT
             value: "{{ .Values.paymentService.containerPort }}"
+          - name: DISABLE_TRACING
+            value: "1"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: DISABLE_DEBUGGER
+            value: "1"
+
 
 ---
 apiVersion: v1
