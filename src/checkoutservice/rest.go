@@ -78,6 +78,12 @@ func checkout(c *gin.Context) {
 		return
 	}
 
+	expYear := order.CreditCard.CreditCardExpirationYear
+	// if credit card is given with 2 digit, then add centuary:w
+	if expYear < 100 {
+		order.CreditCard.CreditCardExpirationYear = expYear + 2000
+	}
+
 	result := pb.OrderResult{
 		ShippingAddress: order.Address,
 		Items:           make([]*pb.OrderItem, 0),
