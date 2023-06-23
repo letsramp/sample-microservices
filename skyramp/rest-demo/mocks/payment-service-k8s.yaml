@@ -1,6 +1,6 @@
 services:
     - name: payment-service
-      port: 50051
+      port: 60000
       protocol: rest
       kubernetes:
         service: payment-service
