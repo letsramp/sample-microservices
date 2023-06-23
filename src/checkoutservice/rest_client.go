@@ -14,7 +14,9 @@
 package main
 
 import (
+	"bytes"
 	api "checkoutservice/genproto"
+	pb "checkoutservice/genproto"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -91,4 +93,30 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 		return nil, fmt.Errorf(error)
 	}
 	return cart, nil
+}
+
+func (c *RestClient) charge(chargeReq pb.ChargeRequest) (*pb.ChargeResponse, error) {
+	url := fmt.Sprintf("http://%s/%s", c.Paymentservice, "charge")
+	log.Debugf("calling rest endpoint %s", url)
+	data, err := json.Marshal(chargeReq)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal ChargeRequest")
+	}
+	res, err := c.restClient.Post(url, "application/json", bytes.NewBuffer(data))
+	if err != nil {
+		fmt.Printf("error sending post: url [%s], error:  %v", url, err)
+	}
+	data, err = ioutil.ReadAll(res.Body)
+	if err != nil {
+		error := fmt.Sprintf("error reading ChargeResponse response: %v", err)
+		return nil, fmt.Errorf(error)
+	}
+
+	var chargeResponse pb.ChargeResponse
+	err = json.Unmarshal(data, &chargeResponse)
+	if err != nil {
+		return nil, fmt.Errorf("failed to populate ChargeResponse")
+	}
+
+	return &chargeResponse, nil
 }

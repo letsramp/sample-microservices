@@ -78,12 +78,17 @@ func checkout(c *gin.Context) {
 		return
 	}
 
+	expYear := order.CreditCard.CreditCardExpirationYear
+	// if credit card is given with 2 digit, then add centuary:w
+	if expYear < 100 {
+		order.CreditCard.CreditCardExpirationYear = expYear + 2000
+	}
+
 	result := pb.OrderResult{
-		ShippingAddress:    order.Address,
-		Items:              make([]*pb.OrderItem, 0),
-		ShippingCost:       &pb.Money{CurrencyCode: "USD", Units: 10, Nanos: 100},
-		ShippingTrackingId: uuid.NewString(),
-		OrderId:            uuid.NewString(),
+		ShippingAddress: order.Address,
+		Items:           make([]*pb.OrderItem, 0),
+		ShippingCost:    &pb.Money{CurrencyCode: "USD", Units: 10, Nanos: 100},
+		OrderId:         uuid.NewString(),
 	}
 
 	// Get Cart
@@ -93,15 +98,32 @@ func checkout(c *gin.Context) {
 		return
 	}
 
-	// UPdate order with items
+	var orderCost float32
+	// Update order with items
 	for _, item := range cart.Items {
 		if product, err := client.GetProduct(item.ProductId); err != nil {
 			c.JSON(501, fmt.Sprintf("failed to get product[%s] from the Product Catalog Cervice, %v", item.ProductId, err))
 			return
 		} else {
 			result.Items = append(result.Items, &pb.OrderItem{Item: item, Cost: product.PriceUsd})
+			orderCost += float32(product.PriceUsd.GetUnits()) * float32(item.Quantity)
 		}
 	}
+	chargeRequest := pb.ChargeRequest{
+		Amount: &pb.Money{
+			CurrencyCode: "USD",
+			Units:        int64(orderCost),
+			Nanos:        0,
+		},
+		CreditCard: order.CreditCard,
+	}
+	cResult, err := client.charge(chargeRequest)
+	if err != nil {
+		c.JSON(501, fmt.Sprintf("failed to charge credit card, %v", err))
+		return
+	}
+	result.ShippingTrackingId = cResult.TransactionId
+
 	c.JSON(200, result)
 }
 
