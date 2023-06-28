@@ -2,8 +2,7 @@ services:
     - name: payment-service
       port: 60000
       protocol: rest
-      kubernetes:
-        service: payment-service
+      alias: payment-service
 endpoints:
     - name: charge
       methods:

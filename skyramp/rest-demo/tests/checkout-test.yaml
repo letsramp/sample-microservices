@@ -1,5 +1,5 @@
 test:
-  name: "[GRPC] Checkout system load test testcase"
+  name: "[REST] Checkout system testcase"
   target: checkout-system
   testPattern:
     - startAt: 1s

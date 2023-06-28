@@ -2,8 +2,7 @@ services:
     - name: payment-service
       port: 50051
       protocol: grpc
-      kubernetes:
-        service: payment-service
+      alias: payment-service
 endpoints:
     - name: payment-service-svc-PaymentService
       methods:
