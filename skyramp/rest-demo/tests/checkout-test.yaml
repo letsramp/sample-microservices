@@ -48,6 +48,8 @@ requests:
                 "product_id": "OLJCESPC7Z",
                 "quantity": 1
             }
+      headers:
+        Authorization: "Basic YWxhZGRpbjpvcGVuc2VzYW1l"
       params:
         - name: user_id
           in: path
@@ -57,6 +59,8 @@ requests:
     endpoint: cart-service
     method: cart-service-get
     requestValue:
+      headers:
+        Authorization: "Basic YWxhZGRpbjpvcGVuc2VzYW1l"
       params:
       - name: user_id
         in: path
@@ -66,6 +70,8 @@ requests:
     endpoint: checkout-service
     method: checkout-service-post
     requestValue:
+      headers:
+        Authorization: "Basic YWxhZGRpbjpvcGVuc2VzYW1l"
       blob: |
        {
            "user_id": "abcde",
