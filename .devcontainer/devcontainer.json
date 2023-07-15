@@ -3,7 +3,7 @@
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/skyramp/devcontainer-features/skyramp:1": {},
+        "ghcr.io/pellepedro/devcontainer-features/skyramp:1": {},
         "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
         "ghcr.io/mpriscella/features/kind:1": {},
         "ghcr.io/devcontainers/features/go:1": {
