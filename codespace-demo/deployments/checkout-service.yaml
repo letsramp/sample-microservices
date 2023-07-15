@@ -1,0 +1,78 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkout-service
+  namespace: codespace
+spec:
+  selector:
+    app.kubernetes.io/name: checkout-service
+  ports:
+    - protocol: TCP
+      port: 60000
+      targetPort: 60000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: checkout-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: checkout-service
+    spec:
+      containers:
+        - name: devcontainer
+          securityContext:
+            capabilities:
+              add:
+              - SYS_PTRACE
+          image: codespace-godev:latest
+          workingDir: /src
+          env:
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: DISABLE_DEBUGGER
+            value: "1"
+          - name: DISABLE_STATS
+            value: "1"
+          - name: DISABLE_TRACING
+            value: "1"
+          - name: DISABLE_TRACING
+            value: "1"
+          - name: PORT
+            value: "5050"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: "product-catalog-service:3550"
+          - name: PAYMENT_SERVICE_ADDR
+            value: "payment-service:50051"
+          - name: CART_SERVICE_ADDR
+            value: "cart-service:7070"
+            #command: ["sleep","3600"]
+          command:
+            - "/bin/bash"
+            - "-c"
+            - |
+              go mod download
+              sleep 3600
+          volumeMounts:
+            - name: checkout-service-mount
+              mountPath: /src
+          imagePullPolicy: Never
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.5"
+              memory: "256Mi"
+      volumes:
+        - name: checkout-service-mount
+          hostPath:
+            path: /checkout-service
+
