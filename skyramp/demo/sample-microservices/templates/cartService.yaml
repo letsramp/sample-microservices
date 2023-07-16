@@ -16,12 +16,47 @@ spec:
     spec:
       containers:
       - name: {{ .Values.cartService.name }}
-        image: {{ .Values.cartService.image.repository }}:{{ .Values.cartService.image.tag }}
+        image: pellepedro/codespace-godev:latest
+        workingDir: /src
+        securityContext:
+          capabilities:
+            add:
+              - SYS_PTRACE
         ports:
         - containerPort:  {{ .Values.cartService.containerPort }}
         env:
           - name: REDIS_ADDR
             value: "{{ .Values.cartDatabase.name }}:{{ .Values.cartDatabase.containerPort }}"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: DISABLE_DEBUGGER
+            value: "1"
+          - name: DISABLE_STATS
+            value: "1"
+          - name: DISABLE_TRACING
+            value: "1"
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            go mod download
+            reload-debugger &
+            sleep 360000
+        volumeMounts:
+          - name: cart-service-mount
+            mountPath: /src
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+      volumes:
+        - name: cart-service-mount
+          hostPath:
+            path: /cartservice
 ---
 apiVersion: v1
 kind: Service

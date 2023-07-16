@@ -16,7 +16,19 @@ spec:
     spec:
       containers:
       - name: {{ .Values.productCatalogService.name }}
-        image: {{ .Values.productCatalogService.image.repository }}:{{ .Values.productCatalogService.image.tag }}
+        image: pellepedro/codespace-godev:latest
+        workingDir: /src
+        securityContext:
+          capabilities:
+            add:
+              - SYS_PTRACE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            go mod download
+            reload-debugger &
+            sleep 360000
         ports:
         - containerPort:  {{ .Values.productCatalogService.containerPort }}
         env:
@@ -28,7 +40,21 @@ spec:
             value: "1"
           - name: DISABLE_TRACING
             value: "1"
-
+        volumeMounts:
+          - name: product-catalog-service-mount
+            mountPath: /src
+        imagePullPolicy: Never
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+      volumes:
+        - name: product-catalog-service-mount
+          hostPath:
+            path: /productcatalogservice
 ---
 apiVersion: v1
 kind: Service

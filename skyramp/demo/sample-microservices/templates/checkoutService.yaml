@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: {{ .Values.checkoutService.name }}
-        image: {{ .Values.checkoutService.image.repository }}:{{ .Values.checkoutService.image.tag }}
+        image: pellepedro/codespace-godev:latest
+        workingDir: /src
         ports:
         - containerPort:  {{ .Values.checkoutService.containerPort }}
         env:
@@ -32,6 +33,32 @@ spec:
             value: "{{ .Values.currencyService.name }}:{{ .Values.currencyService.containerPort }}"
           - name: CART_SERVICE_ADDR
             value: "{{ .Values.cartService.name }}:{{ .Values.cartService.containerPort }}"
+        securityContext:
+          capabilities:
+            add:
+              - SYS_PTRACE
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            go mod download
+            reload-debugger &
+            sleep 360000
+        volumeMounts:
+          - name: checkout-service-mount
+            mountPath: /src
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+      volumes:
+        - name: checkout-service-mount
+          hostPath:
+            path: /checkoutservice
 ---
 apiVersion: v1
 kind: Service
