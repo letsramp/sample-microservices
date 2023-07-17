@@ -1,7 +1,10 @@
 {
 	"folders": [
 		{
-			"path": "codespace-demo"
+			"path": "."
+		},
+		{
+			"path": "skyramp/rest-demo"
 		},
 		{
 			"path": "src/productcatalogservice"
