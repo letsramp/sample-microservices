@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.cartService.name }}
-        image: pellepedro/codespace-godev:latest
+        image: pellepedro/skyramp-godebug:0.0.1
         workingDir: /src
         securityContext:
           capabilities:
@@ -35,13 +35,6 @@ spec:
             value: "1"
           - name: DISABLE_TRACING
             value: "1"
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            go mod download
-            reload-debugger &
-            sleep 360000
         volumeMounts:
           - name: cart-service-mount
             mountPath: /src

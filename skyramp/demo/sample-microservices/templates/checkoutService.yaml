@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.checkoutService.name }}
-        image: pellepedro/codespace-godev:latest
+        image: pellepedro/skyramp-godebug:0.0.1
         workingDir: /src
         ports:
         - containerPort:  {{ .Values.checkoutService.containerPort }}
@@ -37,13 +37,6 @@ spec:
           capabilities:
             add:
               - SYS_PTRACE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            go mod download
-            reload-debugger &
-            sleep 360000
         volumeMounts:
           - name: checkout-service-mount
             mountPath: /src

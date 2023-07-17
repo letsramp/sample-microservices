@@ -16,19 +16,12 @@ spec:
     spec:
       containers:
       - name: {{ .Values.productCatalogService.name }}
-        image: pellepedro/codespace-godev:latest
+        image: pellepedro/skyramp-godebug:0.0.1
         workingDir: /src
         securityContext:
           capabilities:
             add:
               - SYS_PTRACE
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            go mod download
-            reload-debugger &
-            sleep 360000
         ports:
         - containerPort:  {{ .Values.productCatalogService.containerPort }}
         env:
