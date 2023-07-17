@@ -2,7 +2,7 @@
 
 
 curl -X 'POST' \
-  'http://rest-demo.email-service-port60000.checkout-system.skyramp.test/send-order-confirmation' \
+  'http://email-service:60000/send-order-confirmation' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

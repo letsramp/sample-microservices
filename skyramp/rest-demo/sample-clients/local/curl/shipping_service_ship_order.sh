@@ -3,7 +3,7 @@
 set -e
 
 curl -X 'PUT' \
-  'http://rest-demo.shipping-service-port60000.checkout-system.skyramp.test/ship-order' \
+  'http://shipping-service:60000/ship-order' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
