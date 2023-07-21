@@ -52,12 +52,10 @@ func getService(serviceEnv string, port int) string {
 		serviceHost = strings.Split(serviceUrlEnv, ":")[0]
 	}
 	service := fmt.Sprintf("%s:%d", serviceHost, port)
-	log.Infof("resolving service uri to [%s]", service)
 	return service
 }
 
 func init() {
-	log.Info("entering rest.init()")
 	client.CartService = getService(CART_SERVICE_ADDR, 60000)
 	client.ProductCatalogService = getService(PRODUCT_CATALOG_SERVICE_ADDR, 60000)
 	client.Currencyservice = getService(CURRENCY_SERVICE_ADDR, 60000)
@@ -133,7 +131,6 @@ func startRest() {
 		if os.Getenv("REST_PORT") != "" {
 			port = os.Getenv("REST_PORT")
 		}
-		log.Infof("rest server started on port %s", port)
 		router := gin.Default()
 		router.POST("/checkout", checkout)
 		router.Run(fmt.Sprintf("0.0.0.0:%s", port))

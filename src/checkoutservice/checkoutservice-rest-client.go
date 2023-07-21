@@ -97,7 +97,6 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 
 func (c *RestClient) charge(chargeReq pb.ChargeRequest) (*pb.ChargeResponse, error) {
 	url := fmt.Sprintf("http://%s/%s", c.Paymentservice, "charge")
-	log.Debugf("calling rest endpoint %s", url)
 	data, err := json.Marshal(chargeReq)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ChargeRequest")
@@ -105,6 +104,7 @@ func (c *RestClient) charge(chargeReq pb.ChargeRequest) (*pb.ChargeResponse, err
 	res, err := c.restClient.Post(url, "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		fmt.Printf("error sending post: url [%s], error:  %v", url, err)
+		return nil, err
 	}
 	data, err = ioutil.ReadAll(res.Body)
 	if err != nil {
