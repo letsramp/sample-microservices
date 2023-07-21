@@ -1,0 +1,8 @@
+sudo apt-get update && sudo apt-get install -y fzf 
+function s() {
+	CMD=$(cat /workspaces/sample-microservices/codespace-demo/commands | fzf --no-sort --reverse)
+	echo "# $CMD"
+	eval $CMD
+}
+
+cd /workspaces/sample-microservices/skyramp/rest-demo

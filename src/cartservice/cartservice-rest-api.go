@@ -21,18 +21,18 @@ import (
 )
 
 func get(c *gin.Context) {
-	user_id := c.Param("user_id")
-	cart := GetCart(user_id)
+	userId := c.Param("id")
+	cart := GetCart(userId)
 	if cart != nil {
 		c.JSON(200, cart)
 	} else {
-		c.JSON(404, gin.H{"error": fmt.Sprintf("cart not found for user_id [%s]", user_id)})
+		c.JSON(404, gin.H{"error": fmt.Sprintf("cart not found for user id[%s]", userId)})
 	}
 }
 
 func post(c *gin.Context) {
-	user_id := c.Param("id")
-	if len(user_id) < 1 {
+	userId := c.Param("id")
+	if len(userId) < 1 {
 		c.JSON(400, gin.H{"error": "missing user id"})
 		return
 	}
@@ -41,7 +41,7 @@ func post(c *gin.Context) {
 		c.JSON(501, gin.H{"error": "failed updating cart"})
 		return
 	}
-	AddItem(user_id, item.ProductId, item.Quantity)
+	AddItem(userId, item.ProductId, item.Quantity)
 	c.JSON(200, gin.H{"success": "200 OK"})
 }
 

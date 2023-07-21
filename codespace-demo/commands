@@ -1,0 +1,5 @@
+/workspaces/sample-microservices/codespace-demo/create-cluster.sh
+skyramp config add-kubeconfig ~/.kube/config
+skyramp deployer up checkout-system
+skyramp tester start checkout-test -n test-rest-demo
+skyramp mocker apply -n test-rest-demo

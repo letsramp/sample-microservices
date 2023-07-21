@@ -1,0 +1,4 @@
+#!/bin/bash
+NAMESPACE=test-rest-demo
+POD=$(kubectl get pods -n ${NAMESPACE} -l app.kubernetes.io/name=product-catalog-service -o jsonpath='{.items[0].metadata.name}')
+kubectl port-forward $POD 20002:2345
