@@ -31,9 +31,9 @@ func get(c *gin.Context) {
 }
 
 func post(c *gin.Context) {
-	user_id := c.Param("user_id")
+	user_id := c.Param("id")
 	if len(user_id) < 1 {
-		c.JSON(403, gin.H{"error": fmt.Sprintf("invalid user id [%s]", user_id)})
+		c.JSON(400, gin.H{"error": "missing user id"})
 		return
 	}
 	var item pb.CartItem
