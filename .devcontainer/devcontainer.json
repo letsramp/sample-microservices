@@ -6,6 +6,7 @@
         "ghcr.io/letsramp/devcontainer-features/skyramp:1": {},
         "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
         "ghcr.io/mpriscella/features/kind:1": {},
+        "ghcr.io/rio/features/skaffold:2": {},
         "ghcr.io/devcontainers/features/go:1": {
             "version": "1.20.6"
         },
