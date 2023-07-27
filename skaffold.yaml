@@ -1,0 +1,27 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: sample-microservices
+build:
+  artifacts:
+    - image: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice
+      context: src/cartservice
+      docker:
+        dockerfile: Dockerfile
+    - image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice
+      context: src/checkoutservice
+      buildpacks:
+        builder: gcr.io/buildpacks/builder:v1
+    - image: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice
+      context: src/productcatalogservice
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  helm:
+    releases:
+      - name: sample-microservices
+        chartPath: skyramp/demo/sample-microservices
+        valuesFiles:
+          - skyramp/demo/sample-microservices/values.yaml
+          - skyramp/demo/sample-microservices/values.yaml
+        version: 0.1.0
