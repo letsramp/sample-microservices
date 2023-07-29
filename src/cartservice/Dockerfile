@@ -2,7 +2,7 @@ FROM golang:1.18.4-alpine AS builder
 RUN apk add --no-cache ca-certificates git
 RUN apk add build-base
 
-WORKDIR /build
+WORKDIR /src
 
 # restore dependencies
 COPY go.mod go.sum ./
@@ -23,7 +23,7 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.11 && \
 RUN apk update && apk add procps bind-tools net-tools curl
 
 WORKDIR /src
-COPY --from=builder /build/cartservice /src/cartservice
+COPY --from=builder /src/cartservice /src/cartservice
 # Definition of this variable is used by 'skaffold debug' to identify a golang binary.
 # Default behavior - a failure prints a stack trace for the current goroutine.
 # See https://golang.org/pkg/runtime/

@@ -25,3 +25,11 @@ deploy:
           - skyramp/demo/sample-microservices/values.yaml
           - skyramp/rest-demo/helm/values.yaml
         version: 0.1.0
+
+portForward:
+  - resourceType: pod
+    resourceName: cart-service
+  - resourceType: pod
+    resourceName: checkout-service
+  - resourceType: pod
+    resourceName: product-catalog-service
