@@ -25,3 +25,17 @@ deploy:
           - skyramp/demo/sample-microservices/values.yaml
           - skyramp/rest-demo/helm/values.yaml
         version: 0.1.0
+
+portForward:
+  - resourceType: deployment
+    resourceName: cart-service
+    port: 2345
+    localPort: 20000
+  - resourceType: deployment
+    resourceName: checkout-service
+    port: 2345
+    localPort: 20001
+  - resourceType: deployment
+    resourceName: product-catalog-service
+    port: 2345
+    localPort: 20002
