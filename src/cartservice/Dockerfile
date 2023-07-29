@@ -22,7 +22,8 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.11 && \
 
 RUN apk update && apk add procps bind-tools net-tools curl
 
-COPY --from=builder /build/cartservice /usr/local/bin/cartservice
+WORKDIR /src
+COPY --from=builder /build/cartservice /src/cartservice
 # Definition of this variable is used by 'skaffold debug' to identify a golang binary.
 # Default behavior - a failure prints a stack trace for the current goroutine.
 # See https://golang.org/pkg/runtime/
@@ -34,4 +35,4 @@ ENV DISABLE_PROFILER="1"
 
 EXPOSE 3550 50000 60000
 
-ENTRYPOINT ["/usr/local/bin/cartservice"]
+ENTRYPOINT ["/src/cartservice"]

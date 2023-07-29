@@ -23,5 +23,5 @@ deploy:
         chartPath: skyramp/demo/sample-microservices
         valuesFiles:
           - skyramp/demo/sample-microservices/values.yaml
-          - skyramp/demo/sample-microservices/values.yaml
+          - skyramp/rest-demo/helm/values.yaml
         version: 0.1.0
