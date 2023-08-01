@@ -104,7 +104,9 @@ func (c *RestClient) charge(chargeReq pb.ChargeRequest) (*pb.ChargeResponse, err
 	}
 	res, err := c.restClient.Post(url, "application/json", bytes.NewBuffer(data))
 	if err != nil {
-		fmt.Printf("error sending post: url [%s], error:  %v", url, err)
+		error := fmt.Sprintf("failed calling payment service [%s]: %v", url, err)
+		return nil, fmt.Errorf(error)
+
 	}
 	data, err = ioutil.ReadAll(res.Body)
 	if err != nil {

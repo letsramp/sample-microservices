@@ -142,7 +142,7 @@ frontend:
   protocol: rest
 
 paymentService:
-  create: true
+  create: false
   name: payment-service
   image: 
     repository: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice
