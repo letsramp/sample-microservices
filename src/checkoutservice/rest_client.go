@@ -21,6 +21,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sync"
+	"time"
 )
 
 const (
@@ -28,7 +30,9 @@ const (
 )
 
 type RestClient struct {
-	restClient            *http.Client
+	// restClient            *http.Client
+	Transport             *http.Transport
+	pool                  *sync.Pool
 	ProductCatalogService string
 	RecommendationService string
 	CartService           string
@@ -40,14 +44,28 @@ type RestClient struct {
 	Emailservice          string
 }
 
-func NewRestClient() *RestClient {
-	return &RestClient{restClient: &http.Client{}}
+func NewRestClient(maxIdleConns, maxIdleConnsPerHost int, idleConnTimeout time.Duration) *RestClient {
+	return &RestClient{
+		Transport: &http.Transport{
+			MaxIdleConns:        maxIdleConns,
+			MaxIdleConnsPerHost: maxIdleConnsPerHost,
+			IdleConnTimeout:     idleConnTimeout,
+		},
+		pool: &sync.Pool{
+			New: func() interface{} {
+				return &http.Client{
+					Transport: &http.Transport{},
+				}
+			},
+		},
+	}
 }
 
 func (c *RestClient) GetProduct(productID string) (*api.Product, error) {
 	url := fmt.Sprintf("http://%s/%s?product_id=%s", c.ProductCatalogService, "get-product", productID)
-
-	res, err := c.restClient.Get(url)
+	client := c.pool.Get().(*http.Client)
+	defer c.pool.Put(client)
+	res, err := client.Get(url)
 	if err != nil {
 		error := fmt.Sprintf("error sending get: url [%s], error:  %v", url, err)
 		return nil, fmt.Errorf(error)
@@ -73,8 +91,9 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	res, err := c.restClient.Do(request)
+	client := c.pool.Get().(*http.Client)
+	defer c.pool.Put(client)
+	res, err := client.Do(request)
 	if err != nil {
 		return nil, err
 	}
@@ -97,12 +116,13 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 
 func (c *RestClient) charge(chargeReq pb.ChargeRequest) (*pb.ChargeResponse, error) {
 	url := fmt.Sprintf("http://%s/%s", c.Paymentservice, "charge")
-	log.Debugf("calling rest endpoint %s", url)
 	data, err := json.Marshal(chargeReq)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ChargeRequest")
 	}
-	res, err := c.restClient.Post(url, "application/json", bytes.NewBuffer(data))
+	client := c.pool.Get().(*http.Client)
+	defer c.pool.Put(client)
+	res, err := client.Post(url, "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		error := fmt.Sprintf("failed calling payment service [%s]: %v", url, err)
 		return nil, fmt.Errorf(error)
