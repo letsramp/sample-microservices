@@ -19,9 +19,9 @@ import (
 	pb "checkoutservice/genproto"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+	"net"
 	"net/http"
-	"sync"
 	"time"
 )
 
@@ -30,9 +30,7 @@ const (
 )
 
 type RestClient struct {
-	// restClient            *http.Client
-	Transport             *http.Transport
-	pool                  *sync.Pool
+	restClient            *http.Client
 	ProductCatalogService string
 	RecommendationService string
 	CartService           string
@@ -44,34 +42,33 @@ type RestClient struct {
 	Emailservice          string
 }
 
-func NewRestClient(maxIdleConns, maxIdleConnsPerHost int, idleConnTimeout time.Duration) *RestClient {
+func NewRestClient() *RestClient {
+	t := &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).DialContext,
+		MaxIdleConnsPerHost:   3,
+		MaxIdleConns:          9,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+	}
 	return &RestClient{
-		Transport: &http.Transport{
-			MaxIdleConns:        maxIdleConns,
-			MaxIdleConnsPerHost: maxIdleConnsPerHost,
-			IdleConnTimeout:     idleConnTimeout,
-		},
-		pool: &sync.Pool{
-			New: func() interface{} {
-				return &http.Client{
-					Transport: &http.Transport{},
-				}
-			},
-		},
+		restClient: &http.Client{Transport: t},
 	}
 }
 
 func (c *RestClient) GetProduct(productID string) (*api.Product, error) {
 	url := fmt.Sprintf("http://%s/%s?product_id=%s", c.ProductCatalogService, "get-product", productID)
-	client := c.pool.Get().(*http.Client)
-	defer c.pool.Put(client)
-	res, err := client.Get(url)
+	res, err := c.restClient.Get(url)
 	if err != nil {
 		error := fmt.Sprintf("error sending get: url [%s], error:  %v", url, err)
 		return nil, fmt.Errorf(error)
 	}
 	defer res.Body.Close()
-	out, err := ioutil.ReadAll(res.Body)
+	out, err := io.ReadAll(res.Body)
 	if err != nil {
 		error := fmt.Sprintf("error reading response: %v", err)
 		return nil, fmt.Errorf(error)
@@ -91,17 +88,15 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 	if err != nil {
 		return nil, err
 	}
-	client := c.pool.Get().(*http.Client)
-	defer c.pool.Put(client)
-	res, err := client.Do(request)
+	res, err := c.restClient.Do(request)
 	if err != nil {
 		return nil, err
 	}
 	if res.Status != "200 OK" {
-		return nil, fmt.Errorf("Expected 200 OK, but received %s", res.Status)
+		return nil, fmt.Errorf("expected 200 OK, but received %s", res.Status)
 	}
 	defer res.Body.Close()
-	out, err := ioutil.ReadAll(res.Body)
+	out, err := io.ReadAll(res.Body)
 	if err != nil {
 		error := fmt.Sprintf("error reading GetCart response: %v", err)
 		return nil, fmt.Errorf(error)
@@ -120,20 +115,18 @@ func (c *RestClient) charge(chargeReq pb.ChargeRequest) (*pb.ChargeResponse, err
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ChargeRequest")
 	}
-	client := c.pool.Get().(*http.Client)
-	defer c.pool.Put(client)
-	res, err := client.Post(url, "application/json", bytes.NewBuffer(data))
+	res, err := c.restClient.Post(url, "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		error := fmt.Sprintf("failed calling payment service [%s]: %v", url, err)
 		return nil, fmt.Errorf(error)
 
 	}
-	data, err = ioutil.ReadAll(res.Body)
+	defer res.Body.Close()
+	data, err = io.ReadAll(res.Body)
 	if err != nil {
 		error := fmt.Sprintf("error reading ChargeResponse response: %v", err)
 		return nil, fmt.Errorf(error)
 	}
-
 	var chargeResponse pb.ChargeResponse
 	err = json.Unmarshal(data, &chargeResponse)
 	if err != nil {

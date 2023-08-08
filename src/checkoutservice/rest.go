@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"time"
 
 	pb "checkoutservice/genproto"
 
@@ -44,7 +43,7 @@ var defaultServiceName = map[string]string{
 	EMAIL_SERVICE_ADDR:           "email-service-addr",
 }
 
-var client = NewRestClient(100, 10, 30*time.Second)
+var client = NewRestClient()
 
 func getService(serviceEnv string, port int) string {
 	serviceHost := defaultServiceName[serviceEnv]
