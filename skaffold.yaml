@@ -10,8 +10,8 @@ build:
         dockerfile: Dockerfile
     - image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice
       context: src/checkoutservice
-      buildpacks:
-        builder: gcr.io/buildpacks/builder:v1
+      docker:
+        dockerfile: Dockerfile
     - image: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice
       context: src/productcatalogservice
       docker:

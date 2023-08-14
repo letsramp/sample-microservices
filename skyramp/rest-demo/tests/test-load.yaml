@@ -3,7 +3,7 @@ test:
   target: checkout-system
   testPattern:
     - startAt: 1s
-      atOnce: 2
+      atOnce: 1
       scenario: scenario1
       duration: 10s
 

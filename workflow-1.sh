@@ -7,4 +7,4 @@ skyramp config apply local
 cp ~/.skyramp/kind-cluster.kubeconfig ~/.kube/config
 
 # deploy with skaffold
-skaffold debug 
+skaffold dev
