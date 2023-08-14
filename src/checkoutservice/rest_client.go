@@ -15,12 +15,12 @@ package main
 
 import (
 	"bytes"
-	api "checkoutservice/genproto"
-	pb "checkoutservice/genproto"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+
+	pb "checkoutservice/genproto"
 )
 
 const (
@@ -44,7 +44,7 @@ func NewRestClient() *RestClient {
 	return &RestClient{restClient: &http.Client{}}
 }
 
-func (c *RestClient) GetProduct(productID string) (*api.Product, error) {
+func (c *RestClient) GetProduct(productID string) (*pb.Product, error) {
 	url := fmt.Sprintf("http://%s/%s?product_id=%s", c.ProductCatalogService, "get-product", productID)
 
 	res, err := c.restClient.Get(url)
@@ -59,7 +59,7 @@ func (c *RestClient) GetProduct(productID string) (*api.Product, error) {
 		return nil, fmt.Errorf(error)
 	}
 
-	var p api.Product
+	var p pb.Product
 	if err := json.Unmarshal(out, &p); err != nil {
 		error := fmt.Sprintf("error mmarshaling response: %v", err)
 		return nil, fmt.Errorf(error)
@@ -67,7 +67,7 @@ func (c *RestClient) GetProduct(productID string) (*api.Product, error) {
 	return &p, nil
 }
 
-func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
+func (c *RestClient) GetCart(user_id string) (*pb.Cart, error) {
 	url := fmt.Sprintf("http://%s/%s/user_id/%s", c.CartService, "cart", user_id)
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -79,7 +79,7 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 		return nil, err
 	}
 	if res.Status != "200 OK" {
-		return nil, fmt.Errorf("Expected 200 OK, but received %s", res.Status)
+		return nil, fmt.Errorf("expected 200 OK, but received %s", res.Status)
 	}
 	defer res.Body.Close()
 	out, err := ioutil.ReadAll(res.Body)
@@ -87,7 +87,7 @@ func (c *RestClient) GetCart(user_id string) (*api.Cart, error) {
 		error := fmt.Sprintf("error reading GetCart response: %v", err)
 		return nil, fmt.Errorf(error)
 	}
-	cart := &api.Cart{}
+	cart := &pb.Cart{}
 	if err := json.Unmarshal(out, cart); err != nil {
 		error := fmt.Sprintf("error mmarshaling response: %v", err)
 		return nil, fmt.Errorf(error)
@@ -104,8 +104,10 @@ func (c *RestClient) charge(chargeReq pb.ChargeRequest) (*pb.ChargeResponse, err
 	}
 	res, err := c.restClient.Post(url, "application/json", bytes.NewBuffer(data))
 	if err != nil {
-		fmt.Printf("error sending post: url [%s], error:  %v", url, err)
+		error := fmt.Sprintf("failed calling payment service [%s]: %v", url, err)
+		return nil, fmt.Errorf(error)
 	}
+	defer res.Body.Close()
 	data, err = ioutil.ReadAll(res.Body)
 	if err != nil {
 		error := fmt.Sprintf("error reading ChargeResponse response: %v", err)

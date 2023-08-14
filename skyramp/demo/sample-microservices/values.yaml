@@ -106,7 +106,7 @@ checkoutService:
   name: checkout-service
   image: 
     repository: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice
-    tag: v0.4.0
+    tag: v0.4.1
   servicePort: 5050
   containerPort: 5050
   protocol: rest
