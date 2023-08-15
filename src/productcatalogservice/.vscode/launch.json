@@ -9,7 +9,7 @@
             "type": "go",
             "request": "attach",
             "mode": "remote",
-            "port": 56271,
+            "port": 56268,
             "host": "127.0.0.1",
             "remotePath": "/src",
             "debugAdapter": "dlv-dap",
