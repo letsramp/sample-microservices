@@ -20,6 +20,8 @@
 
 This is a demo project based on [GCP Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo) with added support for REST and Thrift APIs. It is designed to be used during cloud-native development for testing across different APIs–REST, gRPC, and Thrift. It is extensible in support of future functionality (e.g. GraphQL).
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/letsramp/sample-microservices/tree/docker-compose-demo?machine=standardLinux32gb)
+
 ## Use Cases
 
 1. Use as a test project for developing cloud-native dev tools.
