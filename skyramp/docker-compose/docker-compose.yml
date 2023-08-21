@@ -8,7 +8,7 @@ services:
     volumes:
       - ./src/cartservice:/src
   checkout-service:
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:v0.4.0
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:v0.4.1
     env_file:
       - 'variables.env'
     environment:
