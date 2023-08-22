@@ -22,7 +22,7 @@ This is a demo project based on [GCP Online Boutique](https://github.com/GoogleC
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/letsramp/sample-microservices/tree/skaffold-demo?machine=standardLinux32gb)
 
-**NOTE:** After launching the Codespace, run the commands in ```workflow-1.sh``` to start Skaffold! 
+**NOTE:** After launching the Codespace, run the commands in ```workflow-1.sh``` to start Skaffold! Then, run the commands in ```workflow-2.sh``` to install the Skyramp worker. Finally, run the commands in ```workflow-3.sh``` to try out mocking and testing with Skyramp.
 
 ## Use Cases
 
