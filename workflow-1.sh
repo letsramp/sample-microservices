@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create skyramp cluster
-skyramp config apply local
+skyramp cluster create --local
 
 # Copy kubeconfig to default location
 cp ~/.skyramp/kind-cluster.kubeconfig ~/.kube/config
