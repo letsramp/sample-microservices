@@ -22,6 +22,8 @@ This is a demo project based on [GCP Online Boutique](https://github.com/GoogleC
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/letsramp/sample-microservices/tree/skaffold-demo?machine=standardLinux32gb)
 
+**NOTE:** After launching the Codespace, run the commands in ```workflow-1.sh``` to start Skaffold! 
+
 ## Use Cases
 
 1. Use as a test project for developing cloud-native dev tools.
