@@ -22,6 +22,8 @@ This is a demo project based on [GCP Online Boutique](https://github.com/GoogleC
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/letsramp/sample-microservices/tree/docker-compose-demo?machine=standardLinux32gb)
 
+**NOTE:** After launching the Codespace, run the commands in ```workflow-1.sh``` to start Docker Compose! Then, run the commands in ```workflow-2.sh``` to try out mocking and testing with Skyramp.
+
 ## Use Cases
 
 1. Use as a test project for developing cloud-native dev tools.
