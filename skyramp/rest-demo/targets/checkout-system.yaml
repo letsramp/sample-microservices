@@ -17,3 +17,14 @@ containers:
       - Service/shipping-service
       - Deployment/email-service
       - Service/email-service
+    debug:
+      - containerName: Deployment/checkout-service
+        mountPaths: 
+          - /Users/kslee/git/sample-microservices/src/checkoutservice
+        runtimeType: go
+        command: checkoutservice
+        debugPort: 33333
+      - containerName: cart-service
+        mountPaths:
+          - /Users/kslee/git/sample-microservices/src/cartservice
+
