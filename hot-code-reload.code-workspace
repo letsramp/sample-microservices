@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "src/cartservice"
+		},
+		{
+			"path": "skyramp/rest-demo"
+		}
+	],
+	"settings": {}
+}

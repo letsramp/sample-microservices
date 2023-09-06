@@ -31,9 +31,10 @@ func get(c *gin.Context) {
 }
 
 func post(c *gin.Context) {
-	user_id := c.Param("user_id")
+	user_id := c.Param("userId")
 	if len(user_id) < 1 {
 		c.JSON(403, gin.H{"error": fmt.Sprintf("invalid user id [%s]", user_id)})
+		c.JSON(403, gin.H{"error": fmt.Sprintf("forbidden: invalid user id [%s]", user_id)})
 		return
 	}
 	var item pb.CartItem
@@ -49,6 +50,7 @@ func delete(c *gin.Context) {
 	user_id := c.Param("user_id")
 	if len(user_id) < 1 {
 		c.JSON(403, gin.H{"error": fmt.Sprintf("invalid user id [%s]", user_id)})
+		c.JSON(403, gin.H{"error": fmt.Sprintf("forbidden - invalid user id [%s]", user_id)})
 		return
 	}
 	EmtyCart(user_id)

@@ -9,6 +9,8 @@ containers:
       - Service/checkout-service
       - Deployment/cart-service
       - Service/cart-service
+      - Deployment/payment-service
+      - Service/payment-service
       - Deployment/product-catalog-service
       - Service/product-catalog-service
       - Deployment/currency-service
@@ -17,3 +19,8 @@ containers:
       - Service/shipping-service
       - Deployment/email-service
       - Service/email-service
+    debug:
+      - containerName: Deployment/cart-service
+        debugPort: 33333
+        mountPaths:
+          - /workspaces/sample-microservices/src/cartservice
