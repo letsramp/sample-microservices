@@ -1,0 +1,24 @@
+version: v1
+requests:
+  - name: request2
+    endpointName: CheckoutService
+    methodName: PlaceOrder
+    blob: |
+      {
+          "user_id": "abcde",
+          "user_currency": "USD",
+          "address": {
+            "street_address": "1600 Amp street",
+            "city": "Mountain View",
+            "state": "CA",
+            "country": "USA",
+            "zip_code": 94043
+          },
+          "email": "someone@example.com",
+          "credit_card": {
+              "credit_card_number": "4432-8015-6152-0454",
+              "credit_card_cvv": 672,
+              "credit_card_expiration_year": 2024,
+              "credit_card_expiration_month": 1
+          }
+      }

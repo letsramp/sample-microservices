@@ -1,0 +1,7 @@
+version: v1
+scenarios:
+  - name: scenario1
+    steps:
+      - requestName: ECartServiceMAddItem
+      - requestName: ECheckoutServiceMPlaceOrder
+      - asserts: requests.ECheckoutServiceMPlaceOrder.res.order.items[0].item.productId == "OLJCESPC7Z"

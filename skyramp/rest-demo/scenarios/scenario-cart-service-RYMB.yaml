@@ -1,0 +1,25 @@
+version: v1
+requests:
+    - name: addCartRequest
+      endpointName: cart-service
+      methodName: cart-service-post
+      blob: |
+          {
+              "product_id": "OLJCESPC7Z",
+              "quantity": 1
+          }
+      headers:
+          Authorization: "Basic YWxhZGRpbjpvcGVuc2VzYW1l"
+      params:
+        - name: user_id
+          in: path
+          value: abcde
+    - name: getCartRequest
+      endpointName: cart-service
+      methodName: cart-service-get
+      headers:
+        Authorization: "Basic YWxhZGRpbjpvcGVuc2VzYW1l"
+      params:
+        - name: user_id
+          in: path
+          value: abcde

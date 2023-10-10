@@ -1,0 +1,15 @@
+version: v1
+services:
+    - name: cart-service
+      port: 60000
+      alias: cart-service
+      protocol: rest
+endpoints:
+  - name: cart-service
+    path: "/cart/user_id/{user_id}"
+    serviceName: cart-service
+    methods:
+      - type: 'POST'
+        name: cart-service-post
+      - type: 'GET'
+        name: cart-service-get

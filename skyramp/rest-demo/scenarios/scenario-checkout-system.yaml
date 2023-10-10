@@ -1,0 +1,9 @@
+version: v1
+scenarios:
+  - name: scenario1
+    steps:
+      - requestName: addCartRequest
+      - requestName: getCartRequest
+      - asserts: requests.getCartRequest.res.user_id == "abcde"
+      - requestName: checkoutRequest
+      - asserts: requests.checkoutRequest.res.items[0].item.product_id == "OLJCESPC7Z"

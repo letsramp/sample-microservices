@@ -18,7 +18,7 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
   "user_id": "abcde",
-  "user_currency": "UDS",
+  "user_currency": "USD",
   "address": {
     "street_address": "1600 Amp street",
     "city": "Mountain View",

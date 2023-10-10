@@ -1,0 +1,6 @@
+version: v1
+scenarios:
+  - name: scenario1
+    steps:
+      - requestName: request1
+      - requestName: request2

@@ -1,0 +1,9 @@
+version: v1
+responses:
+    - name: s-payment-service-e-PaymentService-m-Charge
+      blob: |-
+        {
+          "transaction_id": "default-string"
+        }
+      endpointName: s-payment-service-e-PaymentService
+      methodName: Charge

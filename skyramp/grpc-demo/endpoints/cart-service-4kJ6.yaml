@@ -1,0 +1,16 @@
+version: v1
+services:
+    - name: cart-service
+      port: 7070
+      alias: cart-service
+      protocol: grpc
+endpoints:
+    - name: cart-service-svc-CartService
+      methods:
+        - name: AddItem
+        - name: GetCart
+        - name: EmptyCart
+      defined:
+        path: pb/demo.proto
+        name: CartService
+      serviceName: cart-service
