@@ -1,75 +1,9 @@
+version: v1
 test:
   name: "[GRPC] Checkout system load test testcase"
   target: checkout-system
   testPattern:
     - startAt: 1s
       atOnce: 2
-      scenario: scenario1
+      scenarioName: scenario1
       duration: 10s
-services:
-  - name: cart-service
-    port: 7070
-    protocol: grpc
-  - name: checkout-service
-    port: 5050
-    protocol: grpc
-    
-endpoints:
-  - name: cart-service
-    defined:
-      name: CartService
-      path: "pb/demo.proto"
-    service: cart-service
-    methods:
-      - name: AddItem
-  - name: checkout-service
-    defined:
-      name: CheckoutService
-      path: "pb/demo.proto"
-    service: checkout-service
-    methods:
-      - name: PlaceOrder
-
-scenarios:
-  - name: scenario1
-    steps:
-      - request: request1
-      - request: request2
-      - asserts: requests.request2.res.order.items[0].item.productId == "OLJCESPC7Z"
-
-requests:
-  - name: request1
-    endpoint: cart-service
-    method: AddItem
-    requestValue:
-      blob: |
-        {
-            "userId": "abcde",
-            "item": {
-                "productId": "OLJCESPC7Z",
-                "quantity": 1
-            }
-        }
-  - name: request2
-    endpoint: checkout-service
-    method: PlaceOrder
-    requestValue:
-      blob: |
-        {
-            "userId": "abcde",
-            "userCurrency": "USD",
-            "address": {
-              "streetAddress": "1600 Amp street",
-              "city": "Mountain View",
-              "state": "CA",
-              "country": "USA",
-              "zipCode": 94043
-            },
-            "email": "someone@example.com",
-            "creditCard": {
-                "creditCardNumber": "4432-8015-6152-0454",
-                "creditCardCvv": 672,
-                "creditCardExpirationYear": 2024,
-                "creditCardExpirationMonth": 1
-            }
-        }

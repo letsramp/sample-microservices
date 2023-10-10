@@ -1,0 +1,14 @@
+version: v1
+services:
+    - name: checkout-service
+      port: 5050
+      alias: checkout-service
+      protocol: grpc
+endpoints:
+    - name: checkout-service-svc-CheckoutService
+      methods:
+        - name: PlaceOrder
+      defined:
+        path: pb/demo.proto
+        name: CheckoutService
+      serviceName: checkout-service

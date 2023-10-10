@@ -1,0 +1,24 @@
+version: v1
+requests:
+    - name: ECheckoutServiceMPlaceOrder
+      blob: |-
+        {
+            "userId": "abcde",
+            "userCurrency": "USD",
+            "address": {
+              "streetAddress": "1600 Amp street",
+              "city": "Mountain View",
+              "state": "CA",
+              "country": "USA",
+              "zipCode": 94043
+            },
+            "email": "someone@example.com",
+            "creditCard": {
+                "creditCardNumber": "4432-8015-6152-0454",
+                "creditCardCvv": 672,
+                "creditCardExpirationYear": 2024,
+                "creditCardExpirationMonth": 1
+            }
+        }
+      endpointName: checkout-service-svc-CheckoutService
+      methodName: PlaceOrder

@@ -1,0 +1,13 @@
+version: v1
+services:
+    - name: checkout-service
+      port: 60000
+      alias: checkout-service
+      protocol: rest
+endpoints:
+    - name: checkout-service
+      path: "/checkout"
+      serviceName: checkout-service
+      methods:
+        - type: 'POST'
+          name: checkout-service-post

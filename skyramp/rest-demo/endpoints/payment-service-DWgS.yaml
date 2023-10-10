@@ -1,0 +1,15 @@
+version: v1
+services:
+    - name: payment-service
+      port: 60000
+      alias: payment-service
+      protocol: rest
+endpoints:
+    - name: s-payment-service-e-charge
+      methods:
+        - name: s-payment-service-e-charge-m-POST
+          type: POST
+      path: /charge
+      defined:
+        path: openapi/demo.yaml
+      serviceName: payment-service
