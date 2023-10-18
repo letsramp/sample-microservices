@@ -20,7 +20,13 @@ containers:
       - Deployment/email-service
       - Service/email-service
     debug:
-      - containerName: Deployment/cart-service
+      - containerName: Deployment/checkout-service
+        mountPaths: 
+          - /workspaces/sample-microservices/src/checkoutservice
+        runtimeType: go
+        command: --log --api-version=2 --continue --accept-multiclient checkoutservice
         debugPort: 33333
+      - containerName: Deployment/cart-service
+        debugPort: 33334
         mountPaths:
           - /workspaces/sample-microservices/src/cartservice

@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "skyramp/rest-demo"
+		},
+		{
+			"path": "src/checkoutservice"
 		}
 	],
 	"settings": {}

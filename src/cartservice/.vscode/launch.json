@@ -6,15 +6,10 @@
             "type": "go",
             "request": "attach",
             "mode": "remote",
-            "port": 33333,
+            "port": 33334,
             "host": "127.0.0.1",
-            "remotePath": "/mnt/debug/cart-service/cartservice",
-            "substitutePath": [
-                {
-                    "from": "${workspaceFolder}",
-                    "to": "/mnt/debug/cart-service/cartservice",
-                }
-            ]
+            "cwd" : "${workspaceFolder}",
+            "remotePath": "/workspaces/sample-microservices/src/cartservice",
         }
     ]
 }
