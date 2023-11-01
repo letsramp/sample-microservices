@@ -1,0 +1,20 @@
+version: v1
+requests:
+  - name: chargeRequest
+    headers:
+      Content-Type: "application/json"
+    blob: |-
+        {
+          "amount": {
+            "currency_code": "USD",
+            "units": 100
+          },
+          "credit_card": {
+            "credit_card_cvv": 100,
+            "credit_card_expiration_month": 10,
+            "credit_card_expiration_year": 2030,
+            "credit_card_number": "4432-8015-6152-0454"
+          }
+        }
+    endpointName: s-payment-service-e-charge
+    methodName: s-payment-service-e-charge-m-POST

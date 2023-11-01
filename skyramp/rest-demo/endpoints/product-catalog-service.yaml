@@ -1,0 +1,13 @@
+version: v1
+services:
+    - name: product-catalog-service
+      port: 60000
+      alias: product-catalog-service
+      protocol: rest
+endpoints:
+  - name: product-catalog-service-get-products
+    path: "/get-products"
+    serviceName: product-catalog-service
+    methods:
+      - type: 'GET'
+        name: get-products

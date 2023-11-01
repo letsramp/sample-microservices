@@ -1,0 +1,14 @@
+version: v1
+scenarios:
+  - name: scenario_123
+    steps:
+      - requestName: listProductsRequest
+      - asserts: requests.listProductsRequest.res[0].id == "OLJCESPC7Z"
+      - requestName: addCartRequest
+      - asserts: requests.addCartRequest.res.success == "200 OK"
+      - requestName: getCartRequest
+      - asserts: requests.getCartRequest.res.user_id == "abcde"
+      - requestName: chargeRequest
+      - asserts: requests.chargeRequest.res.transaction_id != null
+      - requestName: checkoutRequest
+      - asserts: requests.checkoutRequest.res.items[0].item.product_id == "OLJCESPC7Z"

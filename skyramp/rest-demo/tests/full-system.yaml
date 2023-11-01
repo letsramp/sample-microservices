@@ -1,0 +1,7 @@
+version: v1
+test:
+  name: "[REST] Full system testcase"
+  target: checkout-system
+  testPattern:
+    - startAt: 1s
+      scenarioName: scenario_123

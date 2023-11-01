@@ -1,0 +1,5 @@
+version: v1
+requests:
+    - name: listProductsRequest
+      endpointName: product-catalog-service-get-products
+      methodName: get-products
