@@ -5,7 +5,7 @@ services:
       alias: checkout-service
       protocol: grpc
 endpoints:
-    - name: checkout-service-svc-CheckoutService
+    - name: checkout-service_2ASc
       methods:
         - name: PlaceOrder
       defined:

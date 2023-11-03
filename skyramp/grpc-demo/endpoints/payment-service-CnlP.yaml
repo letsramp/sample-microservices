@@ -1,3 +1,5 @@
+# This file was generated on 2023-11-01_11-18-27.
+# Visit https://skyramp.dev/docs/ for instructions on making changes to this endpoint configuration file.
 version: v1
 services:
     - name: payment-service
@@ -5,7 +7,7 @@ services:
       alias: payment-service
       protocol: grpc
 endpoints:
-    - name: s-payment-service-e-PaymentService
+    - name: payment-service_Z22U
       methods:
         - name: Charge
       defined:

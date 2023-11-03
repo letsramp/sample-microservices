@@ -1,0 +1,8 @@
+# This file was generated on 2023-10-30_16-50-14.
+# This file contains references to generated requests residing in the "scenarios" folder.
+# Visit https://skyramp.dev/docs/ for instructions on making changes to this test configuration file.
+version: v1
+test:
+    name: trace-test
+    testPattern:
+        - scenarioName: scenario_x2Dk

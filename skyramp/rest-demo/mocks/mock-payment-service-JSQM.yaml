@@ -1,0 +1,9 @@
+# This file was generated on 2023-11-01_11-48-59.
+# This file contains references to generated responses residing in the "responses" folder.
+# Visit https://skyramp.dev/docs/ for instructions on making changes to this mock configuration file.
+version: v1
+mock:
+    description: payment-service
+    responses:
+        # `POST_wwCF` response for endpoint `payment-service_charge_jMBp` (REST path/gRPC service `/charge`) is defined in file `responses/response-payment-service-JSQM.yaml`
+        - responseName: POST_wwCF

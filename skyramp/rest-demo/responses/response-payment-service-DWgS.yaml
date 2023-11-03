@@ -1,9 +1,0 @@
-version: v1
-responses:
-    - name: s-payment-service-e-charge-m-POST
-      blob: |-
-        {
-          "transaction_id": "default-value"
-        }
-      endpointName: s-payment-service-e-charge
-      methodName: s-payment-service-e-charge-m-POST

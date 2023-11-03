@@ -1,0 +1,13 @@
+# This file was generated on 2023-11-01_11-18-27.
+# This file contains references to generated endpoints residing in the "endpoints" folder.
+# Visit https://skyramp.dev/docs/ for instructions on making changes to this response configuration file.
+version: v1
+responses:
+    # `payment-service_Z22U` endpoint is defined in file `endpoints/payment-service-CnlP.yaml`
+    - name: Charge_L52N
+      blob: |-
+        {
+          "transaction_id": "default-string"
+        }
+      endpointName: payment-service_Z22U
+      methodName: Charge
