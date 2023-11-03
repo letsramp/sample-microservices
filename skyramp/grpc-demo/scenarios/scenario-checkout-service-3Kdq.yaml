@@ -1,6 +1,10 @@
+# This file was generated on 2023-11-01_11-16-43.
+# This file contains references to generated endpoints residing in the "endpoints" folder.
+# Visit https://skyramp.dev/docs/ for instructions on making changes to this scenario configuration file.
 version: v1
 requests:
-    - name: ECheckoutServiceMPlaceOrder
+    # `checkout-service_2ASc` endpoint is defined in file `endpoints/checkout-service-3Kdq.yaml`
+    - name: PlaceOrder_QQEf
       blob: |-
         {
             "userId": "abcde",
@@ -20,5 +24,5 @@ requests:
                 "creditCardExpirationMonth": 1
             }
         }
-      endpointName: checkout-service-svc-CheckoutService
+      endpointName: checkout-service_2ASc
       methodName: PlaceOrder

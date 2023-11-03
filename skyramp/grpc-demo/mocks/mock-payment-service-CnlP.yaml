@@ -1,0 +1,9 @@
+# This file was generated on 2023-11-01_11-18-27.
+# This file contains references to generated responses residing in the "responses" folder.
+# Visit https://skyramp.dev/docs/ for instructions on making changes to this mock configuration file.
+version: v1
+mock:
+    description: payment-service
+    responses:
+        # `Charge_L52N` response for endpoint `payment-service_Z22U` (REST path/gRPC service `PaymentService`) is defined in file `responses/response-payment-service-CnlP.yaml`
+        - responseName: Charge_L52N
