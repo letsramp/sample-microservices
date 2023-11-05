@@ -13,6 +13,9 @@
     - [Add to cart using REST API](#add-to-cart-using-rest-api)
     - [Add to cart using Thrift API](#add-to-cart-using-thrift-api)
     - [Verify contents of cart](#verify-contents-of-cart)
+  - [6. Exploring the pre-generated tests](#6-exploring-the-pre-generated-tests)
+    - [Running the tests from the Skyramp CLI](#running-the-tests-from-the-skyramp-cli)
+    - [How were these tests generated?](#how-were-these-tests-generated)
 - [Contributing Code](#contributing-code)
 
 
@@ -200,6 +203,85 @@ Result:
 {"user_id":"abcde","items":[{"product_id":"OLJCESPC7Z","quantity":3}]}
 ```
 
+## 6. Exploring the pre-generated tests
+
+This repo contains a number of test scenarios that were generated using Skyramp for demo purposes. These test scenarios are located under the `skyramp` folder in `grpc-demo`, `rest-demo`, and `thrift-demo`. The test scenarios can be run using the Skyramp client. Visit the [Skyramp Docs](https://skyramp.dev/docs/get-started/install-client/) for instructions on installing the Skyramp client.
+
+### Running the tests from the Skyramp CLI
+
+Once the microservices have been deployed to a cluster, you can run the demo tests with the Skyramp CLI. See the [Walkthrough](https://skyramp.dev/docs/get-started/walkthrough/) in the Skyramp Docs for one method of deployment with Skyramp Deployer.
+
+To run the tests for the REST demo, as an example, navigate to the `rest-demo` folder in a terminal:
+```bash
+cd sample-microservices/skyramp/rest-demo
+```
+You can see the existing test description files under `tests`:
+```bash
+checkout-test.yaml
+test-load.yaml       
+test-trace-bOl4.yaml
+```
+Running the `checkout-test` test with Skyramp Tester...
+```bash
+skyramp tester checkout-test -n test-rest-demo
+```
+Will produce output similar to this:
+```bash
+Starting tests
+Tester finished
+Test [REST] Checkout system testcase------
+ [Status: finished] [Started at: 2023-11-04 16:41:21 PDT] [End: 2023-11-04 16:41:22 PDT] [Duration: 1s]
+  - pattern0.scenario1
+    [Status: finished] [Started at: 2023-11-04 16:41:22 PDT] [Duration: 0s]
+  - pattern0.scenario1.0.addCartRequest
+    [Status: finished] [Started at: 2023-11-04 16:41:22 PDT] [Duration: 0s]
+    Executed: {"success":"200 OK"}
+  - pattern0.scenario1.1.getCartRequest
+    [Status: finished] [Started at: 2023-11-04 16:41:22 PDT] [Duration: 0s]
+    Executed: {"user_id":"abcde","items":[{"product_id":"OLJCESPC7Z","quantity":2}]}
+  - pattern0.scenario1.2.assert
+    [Status: finished] [Started at: N/A]
+    Assert: requests.getCartRequest.res.user_id == "abcde"
+    Passed: true
+  - pattern0.scenario1.3.checkoutRequest
+    [Status: finished] [Started at: 2023-11-04 16:41:22 PDT] [Duration: 0s]
+    Executed: {"order_id":"1cae99ba-f22e-42cd-8b4d-79160ef3ae72","shipping_tracking_id":"2c287fac-104a-4a4b-a3fc-32f1ec3a7495","shipping_cost":{"currency_code":"USD","units":10,"nanos":100},"shipping_address":{"street_address":"1600 Amp street","city":"Mountain View","state":"CA","country":"USA"},"items":[{"item":{"product_id":"OLJCESPC7Z","quantity":2}}]}
+  - pattern0.scenario1.4.assert
+    [Status: finished] [Started at: N/A]
+    Assert: requests.checkoutRequest.res.items[0].item.product_id == "OLJCESPC7Z"
+    Passed: true
+```
+### How were these tests generated?
+
+Test files can be generated using the `skyramp generate` command. For more information on generating tests, see the Skyramp Docs covering the [Test Description](https://www.skyramp.dev/docs/tester/test-description/) and the specific [CLI command](https://www.skyramp.dev/docs/reference/cli-commands/tester/generate/).
+
+Notice from the docs that there are a number of possible options for generating tests. Tests can be generated using an API schema definition with [OpenAPI](https://www.openapis.org) or [Protocol Buffers](https://protobuf.dev) as well as with telemetry trace data from an observability provider like [Pixie](https://px.dev). You will see in the `skyramp/rest-demo` folder in this repo that there are `openapi` and `trace` folders containing example input files for generating tests. Here are a few examples to illustrate test generation options with varying inputs:
+
+```bash
+skyramp tester generate \
+--trace-file trace/trace.json
+```
+```bash
+skyramp tester generate \
+--protocol openapi \
+--api-schema openapi/demo.yaml \
+--alias test-rest-demo \
+--port 60000
+```
+```bash
+skyramp tester generate \
+--telemetry-provider pixie \
+--cluster-id cluster-id \
+--namespace namespace \
+--start-time "-5m" 
+```
+```bash
+skyramp tester generate grpc \
+--api-schema file.proto \
+--alias namespace \
+--port port \
+--service service
+```
 
 # Contributing Code
 
