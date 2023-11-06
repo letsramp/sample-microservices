@@ -15,7 +15,7 @@
     - [Verify contents of cart](#verify-contents-of-cart)
   - [6. Exploring the pre-generated tests](#6-exploring-the-pre-generated-tests)
     - [Running the tests from the Skyramp CLI](#running-the-tests-from-the-skyramp-cli)
-    - [How were these tests generated?](#how-were-these-tests-generated)
+    - [Exploring the demo tests](#6-exploring-the-demo-tests)
 - [Contributing Code](#contributing-code)
 
 
