@@ -15,7 +15,7 @@
     - [Verify contents of cart](#verify-contents-of-cart)
   - [6. Exploring the pre-generated tests](#6-exploring-the-pre-generated-tests)
     - [Running the tests from the Skyramp CLI](#running-the-tests-from-the-skyramp-cli)
-    - [How were these tests generated?](#how-were-these-tests-generated)
+    - [Exploring the demo tests](#6-exploring-the-demo-tests)
 - [Contributing Code](#contributing-code)
 
 
@@ -203,9 +203,9 @@ Result:
 {"user_id":"abcde","items":[{"product_id":"OLJCESPC7Z","quantity":3}]}
 ```
 
-## 6. Exploring the pre-generated tests
+## 6. Exploring the demo tests
 
-This repo contains a number of test scenarios that were generated using Skyramp for demo purposes. These test scenarios are located under the `skyramp` folder in `grpc-demo`, `rest-demo`, and `thrift-demo`. The test scenarios can be run using the Skyramp client. Visit the [Skyramp Docs](https://skyramp.dev/docs/get-started/install-client/) for instructions on installing the Skyramp client.
+This repo contains a number of test scenarios used for demo purposes. These test scenarios are located under the `skyramp` folder in `grpc-demo`, `rest-demo`, and `thrift-demo`. The test scenarios can be run using the Skyramp client. Visit the [Skyramp Docs](https://skyramp.dev/docs/get-started/install-client/) for instructions on installing the Skyramp client.
 
 ### Running the tests from the Skyramp CLI
 
@@ -251,11 +251,13 @@ Test [REST] Checkout system testcase------
     Assert: requests.checkoutRequest.res.items[0].item.product_id == "OLJCESPC7Z"
     Passed: true
 ```
-### How were these tests generated?
+### Creating or generating tests
 
-Test files can be generated using the `skyramp generate` command. For more information on generating tests, see the Skyramp Docs covering the [Test Description](https://www.skyramp.dev/docs/tester/test-description/) and the specific [CLI command](https://www.skyramp.dev/docs/reference/cli-commands/tester/generate/).
+Test files can be created manually or generated using the `skyramp generate` command. The test files can then be edited and customized for your specific testing requirements. For more information on creating or generating tests, see the Skyramp Docs covering the [Test Description](https://www.skyramp.dev/docs/tester/test-description/) and the specific [CLI command - tester generate](https://www.skyramp.dev/docs/reference/cli-commands/tester/generate/).
 
-Notice from the docs that there are a number of possible options for generating tests. Tests can be generated using an API schema definition with [OpenAPI](https://www.openapis.org) or [Protocol Buffers](https://protobuf.dev) as well as with telemetry trace data from an observability provider like [Pixie](https://px.dev). You will see in the `skyramp/rest-demo` folder in this repo that there are `openapi` and `trace` folders containing example input files for generating tests. Here are a few examples to illustrate test generation options with varying inputs:
+Notice from the Skyramp docs that there are a number of possible options for generating tests. Tests can be generated using an API schema definition with [OpenAPI](https://www.openapis.org) or [Protocol Buffers](https://protobuf.dev) as well as with telemetry trace data from an observability provider like [Pixie](https://px.dev).
+
+You will see in the `skyramp/rest-demo` folder in this repo that there are `openapi` and `trace` folders containing example input files for generating tests.  The `test-trace-bOl4.yaml` demo test description was generated from trace data. Here are a few examples to illustrate test generation options with various inputs:
 
 ```bash
 skyramp tester generate \
