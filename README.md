@@ -13,9 +13,9 @@
     - [Add to cart using REST API](#add-to-cart-using-rest-api)
     - [Add to cart using Thrift API](#add-to-cart-using-thrift-api)
     - [Verify contents of cart](#verify-contents-of-cart)
-  - [6. Exploring the pre-generated tests](#6-exploring-the-pre-generated-tests)
+  - [6. Exploring the demo tests](#6-exploring-the-demo-tests)
     - [Running the tests from the Skyramp CLI](#running-the-tests-from-the-skyramp-cli)
-    - [Exploring the demo tests](#6-exploring-the-demo-tests)
+    - [Creating or generating tests](#creating-or-generating-tests)
 - [Contributing Code](#contributing-code)
 
 
