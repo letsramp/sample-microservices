@@ -20,6 +20,5 @@
                 "skyramp.mocker-vscode"
             ]
         }
-    },
-    "postCreateCommand": "sudo curl -f https://skyramp-public.s3.us-west-2.amazonaws.com/dev/hcr/skyramp-1b5d -o /usr/local/bin/skyramp && sudo chmod +x /usr/local/bin/skyramp",
+    }
 }
