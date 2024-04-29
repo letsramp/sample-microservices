@@ -1,4 +1,4 @@
-FROM golang:1.18.4-alpine AS builder
+FROM golang:1.20-alpine AS builder
 RUN apk add --no-cache ca-certificates git
 RUN apk add build-base
 
@@ -11,7 +11,7 @@ COPY . .
 
 # Skaffold passes in debug-oriented compiler flags
 ARG SKAFFOLD_GO_GCFLAGS
-RUN go build -gcflags="${SKAFFOLD_GO_GCFLAGS}" -o cartservice .
+RUN go build -cover -gcflags="${SKAFFOLD_GO_GCFLAGS}" -o cartservice .
 
 
 FROM alpine AS release

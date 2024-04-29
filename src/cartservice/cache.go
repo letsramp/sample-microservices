@@ -54,3 +54,13 @@ func GetCart(userId string) *pb.Cart {
 	}
 	return cart
 }
+
+func GetCarts() []*pb.Cart {
+	carts := make([]*pb.Cart, 0)
+
+    for userId, _ := range db {
+        carts = append(carts, &pb.Cart{UserId: userId})
+    }
+	
+	return carts
+}

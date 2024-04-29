@@ -51,13 +51,13 @@ func main() {
 		port = defaultRestPort
 		log.Infof("env REST_PORT is not se, using default %s", defaultRestPort)
 	}
-	runGrpc()
+	// runGrpc()
 	runRest(port)
-	port, found = os.LookupEnv("THRIFT_PORT")
-	if !found {
-		port = defaultThriftPort
-		log.Infof("env THRIFT_PORT is not set, using default %s", defaultThriftPort)
-	}
-	runThrift(port)
-	select {}
+	// port, found = os.LookupEnv("THRIFT_PORT")
+	// if !found {
+	// 	port = defaultThriftPort
+	// 	log.Infof("env THRIFT_PORT is not set, using default %s", defaultThriftPort)
+	// }
+	// runThrift(port)
+	// select {}
 }
