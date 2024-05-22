@@ -1,9 +1,12 @@
-FROM mcr.microsoft.com/devcontainers/universal:linux 
+FROM mcr.microsoft.com/devcontainers/base:alpine
+
+RUN apk add bash
+RUN apk add docker-cli
 
 # Install Skyramp
 RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
-
-# Add Skyramp docker-compose manifest
+ 
+# # Add Skyramp docker-compose manifest
 RUN cat <<EOF > /tmp/skyramp-docker-compose.yaml
 services:
     skyramp:
