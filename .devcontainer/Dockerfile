@@ -57,4 +57,4 @@ services:
 EOF
 
 # Bringup Skyramp worker
-RUN docker-compose -f /tmp/skyramp-docker-compose.yaml up -d
+RUN docker compose -f /tmp/skyramp-docker-compose.yaml up -d
