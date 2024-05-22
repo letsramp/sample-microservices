@@ -1,0 +1,1063 @@
+{
+  "openapi": "3.0.2",
+#  "info": {
+#    "title": "Skyramp Sample Microservices",
+#    "version": "0.0.1"
+#  },
+  "paths": {
+    "/get-ad": {
+      "get": {
+        "tags": [
+          "ad"
+        ],
+        "summary": "Get Ad",
+        "operationId": "get_ad_get_ad_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Category",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "name": "category",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Ad Get Ad Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ad"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/user_id": {
+      "get": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "Get Carts",
+        "operationId": "get_carts_cart__user_id__get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Cart Cart  User Id  Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cart"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+    },
+    "/cart/user_id/{user_id}": {
+      "get": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "Get Cart",
+        "operationId": "get_cart_cart__user_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "User Id",
+              "type": "string"
+            },
+            "name": "user_id",
+            "in": "path",
+            "example": "userABC"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Cart Cart  User Id  Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cart"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "Add To Cart",
+        "operationId": "add_to_cart_cart__user_id__post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "User Id",
+              "type": "string"
+            },
+            "name": "user_id",
+            "in": "path",
+            "example": "userABC"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cart"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "Delete Cart",
+        "operationId": "delete_cart_cart__user_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "User Id",
+              "type": "string"
+            },
+            "name": "user_id",
+            "in": "path",
+            "example": "userABC"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkout/": {
+      "post": {
+        "tags": [
+          "checkout"
+        ],
+        "summary": "Checkout Order",
+        "operationId": "checkout_order_checkout__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/send-order-confirmation": {
+      "post": {
+        "tags": [
+          "confirmation"
+        ],
+        "summary": "Send Order Confirmation",
+        "operationId": "send_order_confirmation_send_order_confirmation_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderConfirmation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/charge": {
+      "put": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "Charge",
+        "operationId": "charge_charge_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-quote": {
+      "put": {
+        "tags": [
+          "shipping"
+        ],
+        "summary": "Get Shipping Quote",
+        "operationId": "get_shipping_quote_get_quote_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetQuoteRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShippingQuote"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ship-order": {
+      "put": {
+        "tags": [
+          "shipping"
+        ],
+        "summary": "Ship Order",
+        "operationId": "ship_order_ship_order_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShipOrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list-recommendation": {
+      "get": {
+        "tags": [
+          "recommendation"
+        ],
+        "summary": "Listrecommendations",
+        "operationId": "listRecommendations_list_recommendation_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Product Id",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "name": "product_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-product": {
+      "get": {
+        "tags": [
+          "productcatalog"
+        ],
+        "summary": "Get Product",
+        "operationId": "get_product_get_product_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Product Id",
+              "type": "string"
+            },
+            "name": "product_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-products": {
+      "get": {
+        "tags": [
+          "productcatalog"
+        ],
+        "summary": "Get Products",
+        "operationId": "get_products_get_products_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Products Get Products Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search-product": {
+      "get": {
+        "tags": [
+          "productcatalog"
+        ],
+        "summary": "Search Product",
+        "operationId": "search_product_search_product_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Query",
+              "type": "string"
+            },
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Search Product Search Product Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Ad": {
+        "title": "Ad",
+        "required": [
+          "redirect_url",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "redirect_url": {
+            "title": "Redirect Url",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "title": "Address",
+        "required": [
+          "street_address",
+          "city",
+          "state",
+          "country",
+          "zip_code"
+        ],
+        "type": "object",
+        "properties": {
+          "street_address": {
+            "title": "Street Address",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "state": {
+            "title": "State",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "zip_code": {
+            "title": "Zip Code",
+            "type": "string"
+          }
+        }
+      },
+      "Cart": {
+        "title": "Cart",
+        "required": [
+          "user_id",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          },
+          "items": {
+            "title": "Items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartItem"
+            }
+          }
+        }
+      },
+      "CartItem": {
+        "title": "CartItem",
+        "required": [
+          "product_id",
+          "quantity"
+        ],
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "title": "Product Id",
+            "type": "string"
+          },
+          "quantity": {
+            "title": "Quantity",
+            "type": "integer"
+          }
+        }
+      },
+      "CreditCardInfo": {
+        "title": "CreditCardInfo",
+        "required": [
+          "credit_card_number",
+          "credit_card_cvv",
+          "credit_card_expiration_year",
+          "credit_card_expiration_month"
+        ],
+        "type": "object",
+        "properties": {
+          "credit_card_number": {
+            "title": "Credit Card Number",
+            "type": "string"
+          },
+          "credit_card_cvv": {
+            "title": "Credit Card Cvv",
+            "type": "integer"
+          },
+          "credit_card_expiration_year": {
+            "title": "Credit Card Expiration Year",
+            "type": "integer"
+          },
+          "credit_card_expiration_month": {
+            "title": "Credit Card Expiration Month",
+            "type": "integer"
+          }
+        }
+      },
+      "GetQuoteRequest": {
+        "title": "GetQuoteRequest",
+        "required": [
+          "address",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "items": {
+            "title": "Items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartItem"
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "Money": {
+        "title": "Money",
+        "required": [
+          "currency_code",
+          "units",
+          "nanos"
+        ],
+        "type": "object",
+        "properties": {
+          "currency_code": {
+            "title": "Currency Code",
+            "type": "string"
+          },
+          "units": {
+            "title": "Units",
+            "type": "integer"
+          },
+          "nanos": {
+            "title": "Nanos",
+            "type": "integer"
+          }
+        }
+      },
+      "Order": {
+        "title": "Order",
+        "required": [
+          "user_id",
+          "user_currency",
+          "address",
+          "email",
+          "credit_card"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          },
+          "user_currency": {
+            "title": "User Currency",
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "credit_card": {
+            "$ref": "#/components/schemas/CreditCardInfo"
+          }
+        }
+      },
+      "OrderConfirmation": {
+        "title": "OrderConfirmation",
+        "required": [
+          "email",
+          "order"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "order": {
+            "$ref": "#/components/schemas/OrderResult"
+          }
+        }
+      },
+      "OrderItem": {
+        "title": "OrderItem",
+        "required": [
+          "item",
+          "cost"
+        ],
+        "type": "object",
+        "properties": {
+          "item": {
+            "$ref": "#/components/schemas/CartItem"
+          },
+          "cost": {
+            "$ref": "#/components/schemas/Money"
+          }
+        }
+      },
+      "OrderResult": {
+        "title": "OrderResult",
+        "required": [
+          "order_id",
+          "shipping_tracking_id",
+          "shipping_cost",
+          "shipping_address",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          },
+          "shipping_tracking_id": {
+            "title": "Shipping Tracking Id",
+            "type": "string"
+          },
+          "shipping_cost": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "shipping_address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "items": {
+            "title": "Items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            }
+          }
+        }
+      },
+      "Payment": {
+        "title": "Payment",
+        "required": [
+          "amount",
+          "credit_card"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "credit_card": {
+            "$ref": "#/components/schemas/CreditCardInfo"
+          }
+        }
+      },
+      "PaymentResponse": {
+        "title": "PaymentResponse",
+        "required": [
+          "transaction_id"
+        ],
+        "type": "object",
+        "properties": {
+          "transaction_id": {
+            "title": "Transaction Id",
+            "type": "string"
+          }
+        }
+      },
+      "Product": {
+        "title": "Product",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "picture",
+          "price_usd",
+          "categories"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "picture": {
+            "title": "Picture",
+            "type": "string"
+          },
+          "price_usd": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "categories": {
+            "title": "Categories",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "RecommendationResponse": {
+        "title": "RecommendationResponse",
+        "required": [
+          "product_id"
+        ],
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "title": "Product Id",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ShipOrderRequest": {
+        "title": "ShipOrderRequest",
+        "required": [
+          "address",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "items": {
+            "title": "Items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartItem"
+            }
+          }
+        }
+      },
+      "ShipOrderResponse": {
+        "title": "ShipOrderResponse",
+        "required": [
+          "tracking_id"
+        ],
+        "type": "object",
+        "properties": {
+          "tracking_id": {
+            "title": "Tracking Id",
+            "type": "string"
+          }
+        }
+      },
+      "ShippingQuote": {
+        "title": "ShippingQuote",
+        "required": [
+          "cost_usd"
+        ],
+        "type": "object",
+        "properties": {
+          "cost_usd": {
+            "$ref": "#/components/schemas/Money"
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "ad",
+      "description": "**Ad Service**"
+    },
+    {
+      "name": "cart",
+      "description": "**Cart Service**"
+    },
+    {
+      "name": "checkout",
+      "description": "**Checkout Service**"
+    },
+    {
+      "name": "payment",
+      "description": "**Payment Service**"
+    },
+    {
+      "name": "shipping",
+      "description": "**Shipping Service**"
+    },
+    {
+      "name": "confirmation",
+      "description": "**Email Service**"
+    },
+    {
+      "name": "recommendation",
+      "description": "**Recommendation Service**"
+    },
+    {
+      "name": "productcatalog",
+      "description": "**Product Catalog Service**"
+    }
+  ]
+}
