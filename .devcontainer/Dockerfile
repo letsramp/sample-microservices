@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:bullseye
+FROM mcr.microsoft.com/devcontainers/universal:linux 
 
 # Install Skyramp
 RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
