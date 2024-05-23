@@ -17,11 +17,14 @@
 		}
 	},
 
+	"runArgs": ["--init", "--privileged"],
+	"overrideCommand": false,
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "docker --version"
+	"postCreateCommand": "docker-compose -f /etc/skyramp/skyramp-docker-compose.yaml up -d"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
