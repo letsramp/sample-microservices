@@ -29,7 +29,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "docker-compose -f /etc/skyramp/skyramp-docker-compose.yaml up -d"
+	"postCreateCommand": "echo $ECR_TOKEN | docker login --username AWS --password-stdin 296613639307.dkr.ecr.us-west-2.amazonaws.com && docker-compose -f /etc/skyramp/skyramp-docker-compose.yaml up -d"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
