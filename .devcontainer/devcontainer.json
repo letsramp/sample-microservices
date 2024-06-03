@@ -14,7 +14,10 @@
 			"version": "latest",
 			"enableNonRootDocker": "true",
 			"moby": "true"
-		}
+		},
+        "ghcr.io/devcontainers/features/sshd:1": {
+		    "version": "latest"
+	    }
 	},
 
 	"runArgs": ["--init", "--privileged"],
