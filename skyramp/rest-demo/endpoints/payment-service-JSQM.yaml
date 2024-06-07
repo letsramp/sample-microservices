@@ -4,7 +4,7 @@ version: v1
 services:
     - name: payment-service
       port: 60000
-      alias: payment-service
+      addr: localhost
       protocol: rest
 endpoints:
     - name: payment-service_charge_jMBp

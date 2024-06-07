@@ -7,6 +7,10 @@ services:
     ports:
       - "35142:35142"
     restart: always
+    # networks:
+    #   default:
+    #     aliases:
+    #       - paymentservice
   # The services below (dashboard-server, dashboard-client, and mongodb)
   # can be included optionally for Skyramp Dashboard bring up
   dashboard-server:
@@ -44,3 +48,7 @@ services:
 volumes:
   mongodb:
   skyramp:
+   
+networks:
+  my_shared_network:
+    name: my_shared_network 
