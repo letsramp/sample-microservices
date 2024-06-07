@@ -2,7 +2,7 @@
 # Visit https://skyramp.dev/docs/ for instructions on making changes to this endpoint configuration file.
 version: v1
 services:
-    - name: payment-service
+    - name: paymentservice
       port: 60000
       addr: localhost
       protocol: rest
@@ -14,4 +14,4 @@ endpoints:
       path: /charge
       defined:
         path: openapi/demo.yaml
-      serviceName: payment-service
+      serviceName: paymentservice

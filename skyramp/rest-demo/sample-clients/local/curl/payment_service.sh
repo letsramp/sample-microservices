@@ -3,7 +3,7 @@
 set -e
 
 curl -X 'POST' \
-  'http://localhost:60000/charge' \
+  'http://payment-service:60000/charge' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

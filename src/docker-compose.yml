@@ -11,6 +11,8 @@ services:
       - REST_PORT=60000
     ports:
       - 60003:60000
+    networks:
+      - devcontainer_default 
   checkoutservice:
     build:
       context: ./checkoutservice/.
@@ -23,6 +25,8 @@ services:
       - REST_PORT=60000
     ports:
       - 60001:60000
+    networks:
+      - devcontainer_default
   # paymentservice:
   #   build:
   #     context: ./paymentservice/.
@@ -47,7 +51,9 @@ services:
       - REST_PORT=60000
     ports:
       - 60002:60000
+    networks:
+      - devcontainer_default
     
 networks:
-  my_shared_network:
-    external: true  
+  devcontainer_default:
+    external: true
