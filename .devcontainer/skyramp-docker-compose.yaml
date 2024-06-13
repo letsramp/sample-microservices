@@ -8,10 +8,6 @@ services:
       - "35142:35142"
       - "60000:60000"
     restart: always
-    # networks:
-    #   default:
-    #     aliases:
-    #       - paymentservice
   # The services below (dashboard-server, dashboard-client, and mongodb)
   # can be included optionally for Skyramp Dashboard bring up
   dashboard-server:

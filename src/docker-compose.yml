@@ -12,7 +12,7 @@ services:
     ports:
       - 60003:60000
     networks:
-      - devcontainer_default 
+      - skyramp_default 
   checkoutservice:
     build:
       context: ./checkoutservice/.
@@ -26,7 +26,7 @@ services:
     ports:
       - 60001:60000
     networks:
-      - devcontainer_default
+      - skyramp_default
   # paymentservice:
   #   build:
   #     context: ./paymentservice/.
@@ -52,8 +52,8 @@ services:
     ports:
       - 60002:60000
     networks:
-      - devcontainer_default
+      - skyramp_default
     
 networks:
-  devcontainer_default:
+  skyramp_default:
     external: true
