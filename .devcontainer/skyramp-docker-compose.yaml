@@ -1,4 +1,10 @@
 services:
+  devcontainer:
+    build:
+      context: ssh
+      dockerfile: Dockerfile
+    ports:
+      - "22:22"
   skyramp:
     image: public.ecr.aws/j1n2c2p2/rampup/worker:latest
     volumes:
