@@ -20,7 +20,7 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 # RUN mkdir /var/run/sshd && \
 #     ssh-keygen -A
 
-EXPOSE 22
+EXPOSE 2222
 
 # Start SSH service in foreground
 CMD ["/usr/sbin/sshd", "-D"]
