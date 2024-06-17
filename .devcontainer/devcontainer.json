@@ -27,14 +27,6 @@
 			"description": "This is the token for ECR authentication."
 		}
 	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "/etc/skyramp/startup.sh",
-	// Configure tool-specific properties.
-	// "customizations": {},
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 	"containerEnv": {
 		"SKY_CODESPACE_NAME": "${env:CODESPACE_NAME}",
 		"NEW_PASSWORD": "password"
@@ -43,5 +35,13 @@
 		"2222": {
 			"label": "ssh port"
 		}
-	}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "/etc/skyramp/startup.sh"
+	// Configure tool-specific properties.
+	// "customizations": {},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }
