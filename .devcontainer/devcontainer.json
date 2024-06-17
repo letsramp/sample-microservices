@@ -35,10 +35,8 @@
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
-	"env": {
-		"CODESPACE_NAME": "${env:CODESPACE_NAME}"
-	},
-	"options": {
+	"containerEnv": {
+		"SKY_CODESPACE_NAME": "${env:CODESPACE_NAME}",
 		"NEW_PASSWORD": "password"
 	},
 	"portsAttributes": {
