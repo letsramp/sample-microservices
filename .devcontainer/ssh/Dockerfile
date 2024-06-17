@@ -3,25 +3,24 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
 
 # Add a new user and set up sudo privileges
 ARG USERNAME=user
-ARG USER_UID=1000
+ARG USER_UID=100011
 ARG USER_GID=$USER_UID
 ARG USER_PASSWORD=password
 
-RUN apt-get update && apt-get install -y \
-    sudo \
-    openssh-server \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd --gid $USER_GID $USERNAME \
-    && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && echo "$USERNAME:$USER_PASSWORD" | chpasswd \
-    && echo "$USERNAME ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && mkdir /var/run/sshd \
-    && echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config \
-    && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config \
-    && service ssh start
+RUN apt-get update && apt-get install -y sudo openssh-server
+
+# Create the user and set the password
+RUN groupadd --gid $USER_GID $USERNAME && \
+    useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME && \
+    echo "$USERNAME:$USER_PASSWORD" | chpasswd && \
+    echo "$USERNAME ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/$USERNAME && \
+    chmod 0440 /etc/sudoers.d/$USERNAME
+
+# # Ensure SSH directory and keys are created
+# RUN mkdir /var/run/sshd && \
+#     ssh-keygen -A
 
 EXPOSE 22
 
-# Start SSH service
+# Start SSH service in foreground
 CMD ["/usr/sbin/sshd", "-D"]
