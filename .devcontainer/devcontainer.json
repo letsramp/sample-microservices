@@ -45,12 +45,15 @@
 		2222,
 		3000
 	],
+	"appPort": 3000,
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
 		// "command": "echo \"cs name ==============\n$SKY_CODESPACE_NAME\n\nnew password ==============\n$NEW_PASSWORD\n\n\" && echo \"vscode:random\" | sudo chpasswd"
 		"command": "/etc/skyramp/startup.sh"
-	}
+	},
+	// "postAttachCommand": "gh codespace ports visibility 3000:public -c $CODESPACE_NAME"
+
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.

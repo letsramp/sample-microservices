@@ -3,7 +3,7 @@ services:
     image: public.ecr.aws/j1n2c2p2/rampup/worker:latest
     volumes:
       - skyramp:/etc/skyramp
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "35142:35142"
       - "60000:60000"
@@ -15,8 +15,8 @@ services:
     environment:
       NODE_ENV: production
       DOCKER_ENV: "true" 
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "4000:4000"
     restart: always
@@ -24,8 +24,8 @@ services:
     image: public.ecr.aws/j1n2c2p2/rampup/dashboard-client:latest
     environment:
       NODE_ENV: production
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "3000:3000"
     restart: always
