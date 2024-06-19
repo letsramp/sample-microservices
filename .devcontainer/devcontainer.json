@@ -34,11 +34,16 @@
 	"portsAttributes": {
 		"2222": {
 			"label": "ssh port"
+		},
+		"3000": {
+			"label": "Dashboard",
+			"onAutoForward": "openPreview"
 		}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		2222
+		2222,
+		3000
 	],
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
