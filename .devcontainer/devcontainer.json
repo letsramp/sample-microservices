@@ -37,10 +37,14 @@
 		}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		2222
+	],
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"command": "echo \"cs name ==============\n$SKY_CODESPACE_NAME\n\nnew password ==============\n$NEW_PASSWORD\n\n\" && echo \"vscode:random\" | sudo chpasswd"
+		// "command": "echo \"cs name ==============\n$SKY_CODESPACE_NAME\n\nnew password ==============\n$NEW_PASSWORD\n\n\" && echo \"vscode:random\" | sudo chpasswd"
+		"command": "/etc/skyramp/startup.sh"
 	}
 	// Configure tool-specific properties.
 	// "customizations": {},
