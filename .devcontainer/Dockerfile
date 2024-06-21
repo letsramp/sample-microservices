@@ -36,6 +36,15 @@ RUN (type -p wget >/dev/null || (apt update && apt-get install wget -y)) \
     && apt update \
     && apt install gh -y
 
+# Install Node.js and npm 18
+RUN apt-get update \
+    && apt-get install -y curl \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
+# Verify npm version
+RUN npm --version
+
 VOLUME [ "/var/lib/docker" ]
 
 # Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
@@ -52,5 +61,7 @@ RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 # # Add Skyramp docker-compose manifest
 COPY skyramp-docker-compose.yaml /etc/skyramp/skyramp-docker-compose.yaml
 COPY scripts/startup.sh /etc/skyramp/startup.sh
+
+
 
 CMD [ "sleep", "infinity" ]
