@@ -9,7 +9,7 @@ const execAsync = promisify(exec);
 
 app.use(express.json());
 
-app.get('/run-command', async (req: Request, res: Response) => {
+app.post('/run-command', async (req: Request, res: Response) => {
   const { command } = req.body;
 
   if (!command) {
