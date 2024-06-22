@@ -54,7 +54,7 @@
 		// "command": "echo \"cs name ==============\n$SKY_CODESPACE_NAME\n\nnew password ==============cho \"vscode:random\" | sudo chpasswd"
 		"command": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && pwd"// && docker build -t skyramp-server ./skyramp-server -f ./skyramp-server/Dockerfile && e && docker run -d --rm -p 4000:4000 --name skyramp-server skyramp-server" // "/etc/skyramp/startup.sh "
 	},
-	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && echo hello"
+	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && cd skyramp-server && npm i && npm run start"
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.

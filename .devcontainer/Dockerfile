@@ -42,8 +42,7 @@ RUN apt-get update \
     && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
-# Verify npm version
-RUN npm --version
+
 
 VOLUME [ "/var/lib/docker" ]
 
@@ -62,6 +61,6 @@ RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 COPY skyramp-docker-compose.yaml /etc/skyramp/skyramp-docker-compose.yaml
 COPY scripts/startup.sh /etc/skyramp/startup.sh
 
-
-
 CMD [ "sleep", "infinity" ]
+
+

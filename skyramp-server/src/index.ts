@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const execAsync = promisify(exec);
 
