@@ -19,17 +19,17 @@ app.post('/run-command', async (req: Request, res: Response) => {
   try {
     const { stdout, stderr } = await execAsync(command);
     console.log("command:::::::::::::::::::: ", command);
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error executing command: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`Standard error: ${stderr}`);
-        return;
-      }
-      console.log(`Standard output:\n${stdout}`);
-    });
+    // exec(command, (error, stdout, stderr) => {
+    //   if (error) {
+    //     console.error(`Error executing command: ${error.message}`);
+    //     return;
+    //   }
+    //   if (stderr) {
+    //     console.error(`Standard error: ${stderr}`);
+    //     return;
+    //   }
+    //   console.log(`Standard output:\n${stdout}`);
+    // });
     res.status(200).send({
       success: true,
       output: stdout,
