@@ -1,0 +1,35 @@
+services:
+  cartservice:
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice:v0.3.9
+    environment:
+      - PORT=7070
+      - REST_PORT=60000
+    ports:
+      - 60003:60000
+  checkoutservice:
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:v0.4.1
+    environment:
+      - PORT=5050
+      - REST_PORT=60000
+      - SHIPPING_SERVICE_ADDR=shippingservice:60000
+      - PRODUCT_CATALOG_SERVICE_ADDR=productcatalogservice:60000
+      - CART_SERVICE_ADDR=cartservice:60000
+      - CURRENCY_SERVICE_ADDR=currencyservice:60000
+      - EMAIL_SERVICE_ADDR=emailservice:60000
+      - PAYMENT_SERVICE_ADDR=paymentservice:60000
+    ports:
+      - 60001:60000
+  productcatalogservice:
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice:v0.3.9
+    environment:
+      - PORT=3550
+      - REST_PORT=60000
+    ports:
+     - 60002:60000
+  paymentservice:
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:v0.3.9
+    environment:
+      - PORT=50051
+      - REST_PORT=60000
+    ports:
+      - 50051:60000
