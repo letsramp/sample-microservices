@@ -12,24 +12,19 @@ app.use(express.json());
 app.post('/run-command', async (req: Request, res: Response) => {
   const { command } = req.body;
 
+  console.log("command:::::::::::::::::::: ", command);
+
   if (!command) {
     return res.status(400).send({ error: 'Command is required' });
   }
 
+  let cmds = "mkdir -p ../skyramp-copilot-agent && cd ../skyramp-copilot-agent && output=\$("+command+") && filename=$(echo \"$output\" | grep -o 'mocks/mock-[^ ]*.yaml' | awk -F'/' '{print $NF}') && skyramp mocker apply \$filename --address localhost:35142"
+
   try {
-    const { stdout, stderr } = await execAsync(command);
-    console.log("command:::::::::::::::::::: ", command);
-    // exec(command, (error, stdout, stderr) => {
-    //   if (error) {
-    //     console.error(`Error executing command: ${error.message}`);
-    //     return;
-    //   }
-    //   if (stderr) {
-    //     console.error(`Standard error: ${stderr}`);
-    //     return;
-    //   }
-    //   console.log(`Standard output:\n${stdout}`);
-    // });
+    const { stdout, stderr } = await execAsync(cmds);
+    console.log("cmds:::::::::::::::::::: ", cmds);
+    console.log(stdout)
+    console.log("cmds:::::::::::::::::::: ", cmds);
     res.status(200).send({
       success: true,
       output: stdout,
