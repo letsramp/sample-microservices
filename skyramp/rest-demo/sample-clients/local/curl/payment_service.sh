@@ -3,7 +3,7 @@
 set -e
 
 curl -X 'POST' \
-  'http://payment-service:60000/charge' \
+  'http://rest-demo.payment-service-port60000.checkout-system.skyramp.test/charge' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{

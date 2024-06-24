@@ -3,7 +3,7 @@
 
 set -e
 
-curl -X 'POST' 'http://localhost:60003/cart/user_id/abcde' \
+curl -X 'POST' 'http://rest-demo.cart-service-port60000.checkout-system.skyramp.test/cart/user_id/abcde' \
   -H 'accept: application/json' \
   -H 'content-type: application/json' \
   -d '{
@@ -13,7 +13,7 @@ curl -X 'POST' 'http://localhost:60003/cart/user_id/abcde' \
 
 
 curl -X 'POST' \
-  'http://localhost:60001/checkout' \
+  'http://rest-demo.checkout-service-port60000.checkout-system.skyramp.test/checkout' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
