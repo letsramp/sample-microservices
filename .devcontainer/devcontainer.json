@@ -18,16 +18,6 @@
 			"version": "latest"
 		}
 	},
-	// "runArgs": [
-	// 	"--init",
-	// 	"--privileged"
-	// ],
-	// "overrideCommand": false,
-	// "secrets": {
-	// 	"ECR_TOKEN": {
-	// 		"description": "This is the token for ECR authentication."
-	// 	}
-	// },
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
 		4000
