@@ -10,7 +10,7 @@
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"version": "latest",
-			// "enableNonRootDocker": "true",
+			"enableNonRootDocker": "true",
 			"moby": "true",
 			"dockerDashComposeVersion": "v2",
 			"installDockerBuildx": true,
