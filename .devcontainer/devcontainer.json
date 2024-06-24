@@ -9,12 +9,7 @@
 	},
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
-			"version": "latest",
-			"enableNonRootDocker": "true",
-			"moby": "true",
-			"dockerDashComposeVersion": "v2",
-			"installDockerBuildx": true,
-			"installDockerComposeSwitch": true
+			"version": "latest"
 		},
 		"ghcr.io/devcontainers/features/sshd:1": {
 			"version": "latest"
@@ -23,7 +18,6 @@
 			"version": "latest"
 		}
 	},
-	"remoteUser": "root",
 	"runArgs": [
 		"--init",
 		"--privileged"
@@ -34,36 +28,17 @@
 			"description": "This is the token for ECR authentication."
 		}
 	},
-	"containerEnv": {
-		"SKY_CODESPACE_NAME": "${env:CODESPACE_NAME}",
-		"NEW_PASSWORD": "password"
-	},
-	"portsAttributes": {
-		"2222": {
-			"label": "ssh port"
-		},
-		"3000": {
-			"label": "Dashboard",
-			"onAutoForward": "openPreview"
-		}
-	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		2222,
 		4000
 	],
 	"appPort": [
 		4000
 	],
-	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created...
 	"postCreateCommand": {
-		// "command": "echo \"cs name ==============\n$SKY_CODESPACE_NAME\n\nnew password ==============cho \"vscode:random\" | sudo chpasswd"
 		"command": "/etc/skyramp/start-docker.sh "
 	},
-	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && cd skyramp-server && npm i && npm run start  &&  wait"
-	// Configure tool-specific properties.
-	// "customizations": {},
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && cd skyramp-server && npm i && npm run start  &&  wait",
+	"remoteUser": "root",
 }
