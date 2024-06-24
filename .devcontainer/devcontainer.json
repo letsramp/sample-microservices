@@ -55,7 +55,7 @@
 		"command": "/etc/skyramp/start-docker.sh "
 	},
 	"postStartCommand": "sudo dockerd &",
-	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME  && cd skyramp/docker/demo && docker compose up -d --wait && cd ../../../skyramp-server && npm i && npm run start  &&  wait"
+	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && cd skyramp-server && npm i && npm run start  &&  wait"
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
