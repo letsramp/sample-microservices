@@ -1,4 +1,13 @@
 services:
+  adservice:
+    build:
+      context: ./adservice/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/adservice:latest
+    env_file:
+      - 'variables.env'
+    environment:
+      - PORT=9550
   cartservice:
     build:
       context: ./cartservice/.
@@ -8,37 +17,56 @@ services:
       - 'variables.env'
     environment:
       - PORT=7070
-      - REST_PORT=60000
-    ports:
-      - 60003:60000
-    networks:
-      - skyramp_default 
   checkoutservice:
     build:
       context: ./checkoutservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:v0.4.1
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:latest
     env_file:
       - 'variables.env'
     environment:
       - PORT=5050
-      - REST_PORT=60000
+  currencyservice:
+    build:
+      context: ./currencyservice/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/currencyservice:latest
+    env_file:
+      - 'variables.env'
+    environment:
+      - PORT=7000
     ports:
-      - 60001:60000
-    networks:
-      - skyramp_default
-  # paymentservice:
-  #   build:
-  #     context: ./paymentservice/.
-  #     dockerfile: Dockerfile
-  #   image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:latest
-  #   env_file:
-  #     - 'variables.env'
-  #   environment:
-  #     - PORT=50051
-  #     - REST_PORT=60000
-  #   ports:
-  #     - 50051:60000
+      - 50000:50000
+      - 60000:60000
+  emailservice:
+    build:
+      context: ./emailservice/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/emailservice:latest
+    env_file:
+      - 'variables.env'
+    environment:
+      - PORT=5000
+  frontend:
+    build:
+      context: ./frontend/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/frontend:latest
+    ports:
+      - 8080:80
+    env_file:
+      - 'variables.env'
+    environment:
+      - PORT=80
+  paymentservice:
+    build:
+      context: ./paymentservice/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:latest
+    env_file:
+      - 'variables.env'
+    environment:
+      - PORT=50051
   productcatalogservice:
     build:
       context: ./productcatalogservice/.
@@ -48,12 +76,27 @@ services:
       - 'variables.env'
     environment:
       - PORT=3550
-      - REST_PORT=60000
-    ports:
-      - 60002:60000
-    networks:
-      - skyramp_default
-    
-networks:
-  skyramp_default:
-    external: true
+  recommendationservice:
+    build:
+      context: ./recommendationservice/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/recommendationservice:latest
+    env_file:
+      - 'variables.env'
+    environment:
+      - PORT=8080
+  shippingservice:
+    build:
+      context: ./shippingservice/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/shippingservice:latest
+    env_file:
+      - 'variables.env'
+    environment:
+      - PORT=50051
+  clients:
+    build:
+      context: ./clients/.
+      dockerfile: Dockerfile
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/clients:v0.0.2
+  
