@@ -13,7 +13,8 @@
 			// "enableNonRootDocker": "true",
 			"moby": "true",
 			"dockerDashComposeVersion": "v2",
-			"installDockerBuildx": true
+			"installDockerBuildx": true,
+			"installDockerComposeSwitch": true
 		},
 		"ghcr.io/devcontainers/features/sshd:1": {
 			"version": "latest"
