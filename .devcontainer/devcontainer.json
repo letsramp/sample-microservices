@@ -35,10 +35,7 @@
 	"appPort": [
 		4000
 	],
-	// Use 'postCreateCommand' to run commands after the container is created...
-	"postCreateCommand": {
-		"command": "/etc/skyramp/start-docker.sh "
-	},
+	// making port 4000 public and starting the skyramp server that runs command on codespace
 	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && cd skyramp-server && npm i && npm run start  &&  wait",
-	"remoteUser": "root",
+	"remoteUser": "root"
 }
