@@ -59,7 +59,7 @@ ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 # # Add Skyramp docker-compose manifest
 COPY skyramp-docker-compose.yaml /etc/skyramp/skyramp-docker-compose.yaml
-COPY scripts/startup.sh /etc/skyramp/startup.sh
+COPY scripts/start-docker.sh /etc/skyramp/start-docker.sh
 
 CMD [ "sleep", "infinity" ]
 
