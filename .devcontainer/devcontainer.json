@@ -25,7 +25,5 @@
 	"appPort": [
 		4000
 	],
-	// making port 4000 public and starting the skyramp server that runs command on codespace
-	"postAttachCommand": "/etc/skyramp/start.sh",
 	"remoteUser": "root"
 }
