@@ -18,7 +18,7 @@ app.post('/run-command', async (req: Request, res: Response) => {
     return res.status(400).send({ error: 'Command is required' });
   }
 
-  let cmds = "mkdir -p ../skyramp-copilot-agent && cd ../skyramp-copilot-agent && output=\$("+command+") && filename=$(echo \"$output\" | grep -o 'mocks/mock-[^ ]*.yaml' | awk -F'/' '{print $NF}') && skyramp mocker apply \$filename --address localhost:35142"
+  let cmds = "mkdir -p ../skyramp-copilot-agent && cd ../skyramp-copilot-agent && output=\$("+command+") && filename=$(echo \"$output\" | grep -o 'mocks/mock-[^ ]*.yaml' | awk -F'/' '{print $NF}') && skyramp mocker apply \$filename --address localhost:35142 && gh codespace ports visibility 60000:public -c $CODESPACE_NAME"
 
   try {
     const { stdout, stderr } = await execAsync(cmds);
