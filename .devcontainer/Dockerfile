@@ -17,4 +17,6 @@ ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 # Install Skyramp
 RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 
+RUN docker compose -f /workspaces/sample-microservices/skyramp/docker/demo/docker-compose.yml up -d --wait || true
+
 CMD [ "sleep", "infinity" ]

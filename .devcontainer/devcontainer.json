@@ -25,7 +25,9 @@
 	"appPort": [
 		4000
 	],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "docker compose -f /workspaces/sample-microservices/skyramp/docker/demo/docker-compose.yml up -d",
 	// making port 4000 public and starting the skyramp server that runs command on codespace
-	"postAttachCommand": "docker compose -f /workspaces/sample-microservices/skyramp/docker/demo/docker-compose.yml up -d  --wait && gh codespace ports visibility 4000:public -c $CODESPACE_NAME && cd skyramp-server && npm i && npm run start  &&  wait",
+	"postAttachCommand": "gh codespace ports visibility 4000:public -c $CODESPACE_NAME && cd skyramp-server && npm i && npm run start  &&  wait",
 	"remoteUser": "root"
 }
