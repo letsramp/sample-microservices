@@ -20,4 +20,10 @@ RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 COPY scripts/start.sh /etc/skyramp/start.sh
 RUN chmod +x /etc/skyramp/start.sh
 
-CMD [ "sleep", "infinity" ]
+COPY skyramp-server /etc/skyramp/skyramp-server
+WORKDIR /etc/skyramp/skyramp-server
+RUN npm i
+ 
+npm run start
+
+CMD [ "npm", "run", "start" ]
