@@ -22,8 +22,9 @@ app.post('/run-command', async (req: Request, res: Response) => {
 
   try {
     const { stdout, stderr } = await execAsync(cmds);
-    console.log("cmds start:::::::::::::::::::: ", command);
+    console.log("cmds start:::::::::::::::::::: ", cmds);
     console.log(stdout)
+    console.log(stderr)
     console.log("cmds end:::::::::::::::::::: ");
     res.status(200).send({
       success: true,
