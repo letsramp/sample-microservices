@@ -11,6 +11,10 @@ RUN apt-get update \
 RUN apt-get update \
     && apt-get install -y python3 python3-pip
 
+# install requirements.txt
+COPY requirements.txt /tmp/requirements.txt
+RUN pip3 install -r /tmp/requirements.txt
+
 VOLUME [ "/var/lib/docker" ]
 
 # Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
