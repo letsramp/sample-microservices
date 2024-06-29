@@ -26,6 +26,6 @@
 		4000
 	],
 	// making port 4000 public and starting the skyramp server that runs command on codespace
-	"postStartCommand": "nohup bash -c '/etc/skyramp/start.sh' &",
+	"postStartCommand": "/etc/skyramp/start.sh",
 	"remoteUser": "root"
 }
