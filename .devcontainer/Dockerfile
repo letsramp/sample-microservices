@@ -20,4 +20,6 @@ RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 COPY scripts/start.sh /etc/skyramp/start.sh
 RUN chmod +x /etc/skyramp/start.sh
 
+# Start the Skyramp server
+RUN skyramp server up &
 CMD [ "sleep", "infinity" ]
