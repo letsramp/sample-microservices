@@ -4,4 +4,4 @@
 # #install skyramp cli curl -fsSL https://skyramp.dev/installer.sh
 # curl -fsSL https://skyramp.dev/installer.sh | bash
 # #run skyramp cli
-skyramp --version
+# skyramp --version
