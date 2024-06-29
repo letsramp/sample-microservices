@@ -9,7 +9,7 @@ RUN apt-get update \
 
 # install python3 and pip
 RUN apt-get update \
-    && apt-get install -y python3 python3-pip
+    && apt-get install -y python3.11 python3-pip
 
 # install requirements.txt
 COPY scripts/requirements.txt /etc/skyramp/requirements.txt
