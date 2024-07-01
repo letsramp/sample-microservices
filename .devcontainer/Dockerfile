@@ -1,4 +1,4 @@
-# Note: You can use any Debian/Ubuntu based image you want. 
+# use the latest version of the Python 3.11 container image
 FROM mcr.microsoft.com/devcontainers/python:3.11
 
 # Install Node.js and npm 18
