@@ -99,47 +99,8 @@
             }
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "cart"
-        ],
-        "summary": "Delete Cart",
-        "operationId": "delete_cart_cart__user_id__delete",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "User Id",
-              "type": "string"
-            },
-            "name": "user_id",
-            "in": "path",
-            "example": "skyramp"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
       }
-    },
+    }
   },
   "components": {
     "schemas": {
