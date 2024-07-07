@@ -40,6 +40,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "35142:35142"
+      - "60000:60000"
     restart: always
   dashboard-server:
     image: ghcr.io/letsramp/rampup/dashboard-server:latest
