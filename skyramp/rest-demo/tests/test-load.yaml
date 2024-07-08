@@ -1,9 +1,0 @@
-version: v1
-test:
-  name: "[REST] Checkout system load test testcase"
-  target: checkout-system
-  testPattern:
-    - startAt: 1s
-      atOnce: 2
-      scenarioName: scenario1
-      duration: 10s

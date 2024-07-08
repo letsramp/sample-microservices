@@ -1,7 +1,0 @@
-version: v1
-test:
-  name:  "[Thrift] Checkout system testcase"
-  target: checkout-system
-  testPattern:
-    - startAt: 1s
-      scenarioName: scenario1

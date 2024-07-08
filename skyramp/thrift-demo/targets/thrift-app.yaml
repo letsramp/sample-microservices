@@ -1,6 +1,0 @@
-namespace: test-thrift-demo
-containers:
-  - type: helm
-    releaseName: test-thrift-demo
-    path: ../demo/sample-microservices
-    valuesPath: helm/values.yaml
