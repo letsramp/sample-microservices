@@ -20,10 +20,16 @@
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		45132
+		45132,
+		3000,
+		4000,
+		35142
 	],
 	"appPort": [
-		45132
+		45132,
+		3000,
+		4000,
+		35142
 	],
 	// making port 45132 public and starting the skyramp server that runs command on codespace
 	"postStartCommand": "/etc/skyramp/start.sh",
