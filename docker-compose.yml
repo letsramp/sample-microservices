@@ -43,7 +43,7 @@ services:
       - "60000:60000"
     restart: always
   dashboard-server:
-    image: ghcr.io/letsramp/rampup/dashboard-server:latest
+    image: public.ecr.aws/j1n2c2p2/rampup/dashboard-server:latest
     environment:
       NODE_ENV: production
       DOCKER_ENV: true 
@@ -53,7 +53,7 @@ services:
       - "4000:4000"
     restart: always
   dashboard-client:
-    image: ghcr.io/letsramp/rampup/dashboard-client:latest
+    image: public.ecr.aws/j1n2c2p2/rampup/dashboard-client:latest
     environment:
       NODE_ENV: production
     volumes:
