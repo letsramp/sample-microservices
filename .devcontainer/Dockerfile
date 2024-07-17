@@ -6,13 +6,13 @@ COPY scripts/requirements.txt /etc/skyramp/requirements.txt
 
 VOLUME [ "/var/lib/docker" ]
 
-# startup script
+# setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 
-# Install Skyramp
+# install Skyramp
 RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 
-# copy the startup script
+# startup script
 COPY scripts/start.sh /etc/skyramp/start.sh
 RUN chmod +x /etc/skyramp/start.sh
 

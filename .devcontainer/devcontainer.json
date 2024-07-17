@@ -14,7 +14,7 @@
 			"version": "latest"
 		}
 	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// use 'forwardPorts' to make a list of ports inside the container available locally
 	"forwardPorts": [
 		45132,
 		3000,
