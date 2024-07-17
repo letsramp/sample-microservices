@@ -6,9 +6,7 @@ COPY scripts/requirements.txt /etc/skyramp/requirements.txt
 
 VOLUME [ "/var/lib/docker" ]
 
-# Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
-# inside the container "overrideCommand": false is set in devcontainer.json. 
-# The script will also execute CMD if you need to alter startup behaviors.
+# startup script
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 
 # Install Skyramp
