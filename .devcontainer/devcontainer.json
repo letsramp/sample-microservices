@@ -1,0 +1,34 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
+{
+	"name": "Sample Microservices w/ Skyramp",
+	// "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "."
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/github-cli": {
+			"version": "latest"
+		}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		45132,
+		3000,
+		4000,
+		35142
+	],
+	"appPort": [
+		45132,
+		3000,
+		4000,
+		35142
+	],
+	// start's the skyramp server that runs command on codespace
+	"postStartCommand": "/etc/skyramp/start.sh",
+	"remoteUser": "root"
+}
