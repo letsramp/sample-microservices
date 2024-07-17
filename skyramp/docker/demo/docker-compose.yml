@@ -26,13 +26,6 @@ services:
       - REST_PORT=60000
     ports:
      - 60002:60000
-  # paymentservice:
-  #   image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:v0.3.9
-  #   environment:
-  #     - PORT=50051
-  #     - REST_PORT=60000
-  #   ports:
-  #     - 50051:60000
   skyramp:
     image: public.ecr.aws/j1n2c2p2/rampup/worker:latest
     volumes:
