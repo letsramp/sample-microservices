@@ -1,10 +1,6 @@
 # use the latest version of the Python 3.11 container image
 FROM mcr.microsoft.com/devcontainers/python:3.11
 
-# install python3 and pip
-RUN apt-get update \
-    && apt-get install -y python3.11 python3-pip
-
 # install requirements.txt
 COPY scripts/requirements.txt /etc/skyramp/requirements.txt
 
