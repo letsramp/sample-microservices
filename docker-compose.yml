@@ -33,7 +33,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "35142:35142"
-      - "60000:60000"
     restart: always
   dashboard-server:
     image: public.ecr.aws/j1n2c2p2/rampup/dashboard-server:latest
