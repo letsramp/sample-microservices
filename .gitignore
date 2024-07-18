@@ -17,3 +17,4 @@ bin/
 .terraform.lock.hcl
 *.tfvars
 release/wi-kubernetes-manifests.yaml
+nohup.out
