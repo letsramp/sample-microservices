@@ -3,7 +3,7 @@ services:
   #  build:
   #    context: ./adservice/.
   #    dockerfile: Dockerfile
-  #  image: public.ecr.aws/j1n2c2p2/microservices-demo/adservice:v0.3.9
+  #  image: public.ecr.aws/j1n2c2p2/microservices-demo/adservice:coverage
   #  env_file:
   #    - 'variables.env'
   #  environment:
@@ -12,7 +12,7 @@ services:
     build:
       context: ./cartservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice:coverage
     env_file:
       - 'variables.env'
     environment:
@@ -21,7 +21,7 @@ services:
     build:
       context: ./checkoutservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:latest
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:coverage
     env_file:
       - 'variables.env'
     environment:
@@ -30,7 +30,7 @@ services:
     build:
       context: ./currencyservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/currencyservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/currencyservice:coverage
     env_file:
       - 'variables.env'
     environment:
@@ -42,7 +42,7 @@ services:
     build:
       context: ./emailservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/emailservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/emailservice:coverage
     env_file:
       - 'variables.env'
     environment:
@@ -51,7 +51,7 @@ services:
     build:
       context: ./frontend/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/frontend:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/frontend:coverage
     ports:
       - 8080:80
     env_file:
@@ -62,7 +62,7 @@ services:
     build:
       context: ./paymentservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:coverage
     env_file:
       - 'variables.env'
     environment:
@@ -71,7 +71,7 @@ services:
     build:
       context: ./productcatalogservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice:coverage
     env_file:
       - 'variables.env'
     environment:
@@ -80,7 +80,7 @@ services:
         #   build:
         #     context: ./recommendationservice/.
         #     dockerfile: Dockerfile
-        #   image: public.ecr.aws/j1n2c2p2/microservices-demo/recommendationservice:v0.3.9
+        #   image: public.ecr.aws/j1n2c2p2/microservices-demo/recommendationservice:coverage
         #   env_file:
         #     - 'variables.env'
         #   environment:
@@ -89,14 +89,9 @@ services:
     build:
       context: ./shippingservice/.
       dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/shippingservice:v0.3.9
+    image: public.ecr.aws/j1n2c2p2/microservices-demo/shippingservice:coverage
     env_file:
       - 'variables.env'
     environment:
       - PORT=50051
-  clients:
-    build:
-      context: ./clients/.
-      dockerfile: Dockerfile
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/clients:v0.0.2
-  
+ 
