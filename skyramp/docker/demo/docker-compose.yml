@@ -1,13 +1,13 @@
 services:
   cartservice:
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/cartservice:v0.3.9
+    image: ghcr.io/letsramp/microservices-demo/cartservice:v0.3.9
     environment:
       - PORT=7070
       - REST_PORT=60000
     ports:
       - 60003:60000
   checkoutservice:
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/checkoutservice:v0.4.1
+    image: ghcr.io/letsramp/microservices-demo/checkoutservice:v0.4.1
     environment:
       - PORT=5050
       - REST_PORT=60000
@@ -20,26 +20,52 @@ services:
     ports:
       - 60001:60000
   productcatalogservice:
-    image: public.ecr.aws/j1n2c2p2/microservices-demo/productcatalogservice:v0.3.9
+    image: ghcr.io/letsramp/microservices-demo/productcatalogservice:v0.3.9
     environment:
       - PORT=3550
       - REST_PORT=60000
     ports:
      - 60002:60000
-  # paymentservice:
-  #   image: public.ecr.aws/j1n2c2p2/microservices-demo/paymentservice:v0.3.9
-  #   environment:
-  #     - PORT=50051
-  #     - REST_PORT=60000
-  #   ports:
-  #     - 50051:60000
   skyramp:
-    image: public.ecr.aws/j1n2c2p2/rampup/worker:latest
+    image: ghcr.io/letsramp/rampup/worker:latest
     volumes:
       - skyramp:/etc/skyramp
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "35142:35142"
     restart: always
+  dashboard-server:
+    image: public.ecr.aws/j1n2c2p2/rampup/dashboard-server:latest
+    environment:
+      NODE_ENV: production
+      DOCKER_ENV: true 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "4000:4000"
+    restart: always
+  dashboard-client:
+    image: public.ecr.aws/j1n2c2p2/rampup/dashboard-client:latest
+    environment:
+      NODE_ENV: production
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "3000:3000"
+    restart: always
+  mongodb:
+    image: mongo:6.0.6
+    container_name : mongo-datastore-svc
+    mem_limit: 2g
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: skyramp
+      MONGO_INITDB_DATABASE: dashboarddb
+    volumes:
+      - mongodb:/data/db
+    restart: always
 volumes:
+  mongodb:
   skyramp:
