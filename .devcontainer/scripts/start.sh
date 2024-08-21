@@ -4,7 +4,7 @@ yes | bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 # install sample-microservices and skyramp
 # curl -o https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/docker-compose.yml /etc/skyramp/docker-compose.yml
 # docker compose -f /etc/skyramp/docker-compose.yml up -d --wait || true
-skyramp dashboard up -d -vvv
+skyramp dashboard up -d -vvv || true
 # start skyramp  server
 nohup skyramp server up -vvv &
 # open public port for skyramp dashboard
