@@ -1,7 +1,7 @@
 #!/bin/bash
 # install skyramp
 yes | bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
-# install sample-microservices and skyramp
+# install skyramp worker and dashboard
 # curl -o https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/docker-compose.yml /etc/skyramp/docker-compose.yml
 # docker compose -f /etc/skyramp/docker-compose.yml up -d --wait || true
 skyramp dashboard up -d -vvv || true
