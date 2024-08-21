@@ -1,6 +1,6 @@
 #!/bin/bash
 # install skyramp
-bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
+yes | bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 # install sample-microservices and skyramp
 docker compose -f /workspaces/sample-microservices/skyramp/docker/demo/docker-compose.yml up -d --wait || true
 # start skyramp  server
