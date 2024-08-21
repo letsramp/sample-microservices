@@ -10,4 +10,4 @@ gh codespace ports visibility 4000:public -c $CODESPACE_NAME
 gh codespace ports visibility 3000:public -c $CODESPACE_NAME
 # install python3.11 and requirements
 apt-get update && apt-get install -y python3.11 python3-pip && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
-pip3 install -r /workspaces/sample-microservices/.devcontainer/scripts/requirements.txt
+pip3 install -r https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/requirements.txt
