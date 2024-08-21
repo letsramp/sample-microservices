@@ -1,13 +1,16 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
 {
-	"name": "Sample Microservices w/ Skyramp",
-	"image": "mcr.microsoft.com/devcontainers/python:3.11",
+	"name": "Skyramp dev container",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"version": "latest"
 		},
 		"ghcr.io/devcontainers/features/github-cli": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
 			"version": "latest"
 		}
 	},
