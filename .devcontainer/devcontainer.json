@@ -11,7 +11,7 @@
 			"version": "latest"
 		},
 		"ghcr.io/devcontainers/features/python:1": {
-			"version": "latest"
+			"version": "3.11"
 		}
 	},
 	// use 'forwardPorts' to make a list of ports inside the container available locally
@@ -28,6 +28,5 @@
 		35142
 	],
 	// start's the skyramp server that runs command on codespace
-	"postAttachCommand": "sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
-	"remoteUser": "vscode"
+	"postAttachCommand": "sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh"
 }
