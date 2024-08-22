@@ -10,6 +10,10 @@ docker compose -f /etc/skyramp/docker-compose.yml up -d --wait || true
 # start skyramp  server
 nohup skyramp server up -vvv &
 
+# open public port for skyramp dashboard
+gh codespace ports visibility 4000:public -c $CODESPACE_NAME
+gh codespace ports visibility 3000:public -c $CODESPACE_NAME
+
 # install python requirements
 curl -o /etc/skyramp/requirements.txt https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/requirements.txt
 chmod +x /etc/skyramp/requirements.txt
