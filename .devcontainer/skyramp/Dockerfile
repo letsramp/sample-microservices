@@ -14,6 +14,8 @@ RUN bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 
 # startup script
 COPY scripts/start.sh /etc/skyramp/start.sh
+# copy the Skyramp configuration file
+COPY scripts/docker-compose.yml /etc/skyramp/docker-compose.yml
 RUN chmod +x /etc/skyramp/start.sh
 
 CMD [ "sleep", "infinity" ]
