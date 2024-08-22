@@ -15,7 +15,7 @@
 		}
 	},
 	"containerEnv": {
-		"PATH": "/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/.local/bin"
+		"PYTHON_PIP_PATH": "/usr/local/python/3.11.9/bin/pip"
 	},
 	// use 'forwardPorts' to make a list of ports inside the container available locally
 	"forwardPorts": [
