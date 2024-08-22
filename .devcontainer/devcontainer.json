@@ -15,8 +15,7 @@
 		}
 	},
 	"containerEnv": {
-		"MY_CUSTOM_ENV_VAR": "custom_value",
-		"CODESPACE_NAME": "${localEnv:CODESPACE_NAME}"
+		"PATH": "/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/.local/bin"
 	},
 	// use 'forwardPorts' to make a list of ports inside the container available locally
 	"forwardPorts": [
@@ -32,6 +31,6 @@
 		35142
 	],
 	// start's the skyramp server that runs command on codespace
-	"postStartCommand": "echo $MY_CUSTOM_ENV_VAR && sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
+	"postStartCommand": "sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
 	"remoteUser": "root"
 }
