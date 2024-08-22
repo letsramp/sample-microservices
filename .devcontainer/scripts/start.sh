@@ -14,4 +14,4 @@ nohup skyramp server up -vvv &
 # apt-get update && apt-get install -y python3.11 python3-pip && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
 curl -o /etc/skyramp/requirements.txt https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/requirements.txt
 chmod +x /etc/skyramp/requirements.txt
-# pip install -r /etc/skyramp/requirements.txt
+pip install -r /etc/skyramp/requirements.txt
