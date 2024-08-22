@@ -14,7 +14,7 @@
 			"version": "3.11"
 		}
 	},
-	"containerEnv": {
+	"remoteEnv": {
 		"PYTHON_PIP_PATH": "/usr/local/python/3.11.9/bin/pip"
 	},
 	// use 'forwardPorts' to make a list of ports inside the container available locally
