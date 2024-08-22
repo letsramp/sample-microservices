@@ -14,6 +14,7 @@
 			"version": "3.11"
 		}
 	},
+	"initializeCommand": "python --version",
 	// use 'forwardPorts' to make a list of ports inside the container available locally
 	"forwardPorts": [
 		45132,
@@ -28,6 +29,6 @@
 		35142
 	],
 	// start's the skyramp server that runs command on codespace
-	"postStartCommand": "while ! (command -v python3 &>/dev/null && command -v gh &>/dev/null) ; do sleep 1; done && sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
+	"postStartCommand": "sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
 	"remoteUser": "vscode"
 }
