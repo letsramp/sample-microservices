@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Starting Skyramp ............."${PYTHON_PIP_PATH}
+echo "Starting Skyramp ............. ${PYTHON_PIP_PATH} hello====================="
 # install skyramp
 yes | bash -c "$(curl -fsSL https://skyramp.dev/installer.sh)"
 
