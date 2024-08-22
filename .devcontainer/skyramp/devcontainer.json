@@ -26,6 +26,6 @@
 		35142
 	],
 	// start's the skyramp server that runs command on codespace
-	"postStartCommand": "sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
+	"postStartCommand": "mkdir -p /etc/skyramp && curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && chmod +x /etc/skyramp/start.sh && /etc/skyramp/start.sh",
 	"remoteUser": "root"
 }
