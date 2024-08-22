@@ -28,6 +28,6 @@
 		35142
 	],
 	// start's the skyramp server that runs command on codespace
-	"postStartCommand": "sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
+	"postStartCommand": "while ! command -v python3; do sleep 1; done && sudo mkdir -p /etc/skyramp && sudo curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/sample-microservices/script_branch/.devcontainer/scripts/start.sh && sudo chmod +x /etc/skyramp/start.sh && sudo /etc/skyramp/start.sh",
 	"remoteUser": "vscode"
 }
