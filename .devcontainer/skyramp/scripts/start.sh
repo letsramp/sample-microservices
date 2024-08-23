@@ -1,6 +1,6 @@
 #!/bin/bash
 # install sample-microservices and skyramp
-docker compose -f /etc/skyramp/docker-compose.yml up -d --wait || true
+docker compose -f /workspaces/sample-microservices/skyramp/docker/demo/docker-compose.yml up -d --wait || true
 # start skyramp  server
 nohup skyramp server up -vvv &
 # open public port for skyramp dashboard
