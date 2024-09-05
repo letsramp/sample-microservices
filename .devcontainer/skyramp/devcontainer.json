@@ -1,17 +1,15 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
 {
-	"name": "Sample Microservices w/ Skyramp",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"context": "."
-	},
+	"name": "Skyramp dev container",
+	"image": "mcr.microsoft.com/devcontainers/base:debian",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"version": "latest"
 		},
 		"ghcr.io/devcontainers/features/github-cli": {
 			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "3.11"
 		}
 	},
 	// use 'forwardPorts' to make a list of ports inside the container available locally
@@ -28,6 +26,6 @@
 		35142
 	],
 	// start's the skyramp server that runs command on codespace
-	"postStartCommand": "/etc/skyramp/start.sh",
+	"postStartCommand": "mkdir -p /etc/skyramp && curl -o /etc/skyramp/start.sh https://raw.githubusercontent.com/letsramp/Skyramp-for-Github-Copilot/script-refactor/scripts/start.sh && chmod +x /etc/skyramp/start.sh && /etc/skyramp/start.sh && docker compose -f /workspaces/sample-microservices/skyramp/docker/demo/docker-compose.yml up -d --wait || true",
 	"remoteUser": "root"
 }
