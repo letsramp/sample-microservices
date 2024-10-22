@@ -9,22 +9,22 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@google-cloud/debug-agent": "5.2.9",
-    "@google-cloud/profiler": "4.2.0",
-    "@google-cloud/trace-agent": "5.1.6",
+    "@google-cloud/debug-agent": "9.0.1",
+    "@google-cloud/profiler": "6.0.2",
+    "@google-cloud/trace-agent": "8.0.0",
     "@grpc/grpc-js": "1.12.2",
-    "@grpc/proto-loader": "0.6.13",
-    "google-protobuf": "3.20.1",
-    "async": "3.2.4",
-    "pino": "5.17.0",
+    "@grpc/proto-loader": "0.7.13",
+    "google-protobuf": "3.21.4",
+    "async": "3.2.6",
+    "pino": "9.5.0",
     "request": "2.88.2",
-    "xml2js": "0.5.0",
+    "xml2js": "0.6.2",
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
-    "thrift": "^0.16.0",
+    "thrift": "^0.21.0",
     "worker-threads": "^1.0.0"
   },
   "devDependencies": {
-    "semistandard": "16.0.1"
+    "semistandard": "17.0.0"
   }
 }
