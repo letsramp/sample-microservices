@@ -14,15 +14,15 @@
     "@google-cloud/trace-agent": "8.0.0",
     "@grpc/grpc-js": "1.12.2",
     "@grpc/proto-loader": "0.7.13",
-    "google-protobuf": "3.21.4",
     "async": "3.2.6",
-    "pino": "9.5.0",
-    "request": "2.88.2",
-    "xml2js": "0.6.2",
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
+    "google-protobuf": "3.21.4",
+    "pino": "9.5.0",
+    "request": "2.88.2",
     "thrift": "^0.21.0",
-    "worker-threads": "^1.0.0"
+    "worker-threads": "^1.0.0",
+    "xml2js": "0.6.2"
   },
   "devDependencies": {
     "semistandard": "17.0.0"
