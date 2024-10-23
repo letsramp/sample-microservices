@@ -16,11 +16,11 @@
     "@google-cloud/trace-agent": "8.0.0",
     "@grpc/grpc-js": "1.12.2",
     "@grpc/proto-loader": "0.7.13",
+    "express": "^4.21.1",
     "pino": "9.5.0",
     "simple-card-validator": "^1.1.0",
-    "uuid": "^10.0.0",
-    "express": "^4.21.1",
     "thrift": "^0.21.0",
+    "uuid": "^10.0.0",
     "worker-threads": "^1.0.0"
   },
   "devDependencies": {
