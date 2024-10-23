@@ -1,6 +1,6 @@
 module github.com/GoogleCloudPlatform/microservices-demo/src/frontend
 
-go 1.18
+go 1.21
 
 require (
 	cloud.google.com/go/compute/metadata v0.2.3
@@ -40,5 +40,5 @@ require (
 	google.golang.org/api v0.114.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
-	google.golang.org/protobuf v1.30.0 // indirect
+	google.golang.org/protobuf v1.35.1 // indirect
 )
