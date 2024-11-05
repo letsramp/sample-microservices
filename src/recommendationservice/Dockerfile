@@ -12,28 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.7-slim
-RUN apt-get update -qqy && \
-	apt-get -qqy install wget g++ && \
-	rm -rf /var/lib/apt/lists/*
-# show python logs as they occur
-ENV PYTHONUNBUFFERED=0
+FROM python:3.12.6-slim@sha256:ad48727987b259854d52241fac3bc633574364867b8e20aec305e6e7f4028b26 AS base
 
-# download the grpc health probe
-RUN GRPC_HEALTH_PROBE_VERSION=v0.4.11 && \
-    wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
-    chmod +x /bin/grpc_health_probe
+FROM base AS builder
+
+RUN apt-get -qq update \
+    && apt-get install -y --no-install-recommends \
+        wget g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# get packages
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+FROM base
+# Enable unbuffered logging
+ENV PYTHONUNBUFFERED=1
 
 # get packages
 WORKDIR /recommendationservice
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
 
-# add files into working directory
+# Grab packages from builder
+COPY --from=builder /usr/local/lib/python3.12/ /usr/local/lib/python3.12/
+
+# Add the application
 COPY . .
 
 # set listen port
 ENV PORT "8080"
 EXPOSE 8080
 
-ENTRYPOINT ["python", "/recommendationservice/main.py"]
+ENTRYPOINT ["python", "main.py"]
