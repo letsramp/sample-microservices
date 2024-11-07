@@ -19,7 +19,6 @@
     "fs": "^0.0.1-security",
     "google-protobuf": "3.21.4",
     "pino": "9.5.0",
-    "request": "2.88.2",
     "thrift": "^0.21.0",
     "worker-threads": "^1.0.0",
     "xml2js": "0.6.2"
