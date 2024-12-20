@@ -13,7 +13,7 @@ require (
 	github.com/golang/protobuf v1.5.4
 	github.com/sirupsen/logrus v1.9.3
 	go.opencensus.io v0.24.0
-	golang.org/x/net v0.30.0
+	golang.org/x/net v0.33.0
 	google.golang.org/grpc v1.66.2
 )
 
