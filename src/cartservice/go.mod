@@ -9,7 +9,7 @@ require (
 	github.com/golang/protobuf v1.5.3
 	github.com/stretchr/testify v1.8.3
 	go.opencensus.io v0.24.0
-	golang.org/x/net v0.30.0
+	golang.org/x/net v0.33.0
 	google.golang.org/grpc v1.56.3
 )
 
