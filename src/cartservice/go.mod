@@ -1,6 +1,8 @@
 module cartservice
 
-go 1.21
+go 1.23.0
+
+toolchain go1.23.4
 
 require (
 	cloud.google.com/go/profiler v0.3.0
@@ -9,7 +11,7 @@ require (
 	github.com/golang/protobuf v1.5.3
 	github.com/stretchr/testify v1.8.3
 	go.opencensus.io v0.24.0
-	golang.org/x/net v0.33.0
+	golang.org/x/net v0.36.0
 	google.golang.org/grpc v1.56.3
 )
 
@@ -47,11 +49,11 @@ require (
 	github.com/uber/jaeger-client-go v2.25.0+incompatible // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	golang.org/x/arch v0.3.0 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
+	golang.org/x/crypto v0.35.0 // indirect
 	golang.org/x/oauth2 v0.7.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
+	golang.org/x/sync v0.11.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/text v0.22.0 // indirect
 	google.golang.org/api v0.114.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
