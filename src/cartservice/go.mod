@@ -11,7 +11,7 @@ require (
 	github.com/golang/protobuf v1.5.3
 	github.com/stretchr/testify v1.8.3
 	go.opencensus.io v0.24.0
-	golang.org/x/net v0.36.0
+	golang.org/x/net v0.38.0
 	google.golang.org/grpc v1.56.3
 )
 
