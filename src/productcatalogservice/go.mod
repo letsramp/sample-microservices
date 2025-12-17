@@ -11,7 +11,7 @@ require (
 	github.com/apache/thrift v0.16.0
 	github.com/golang/protobuf v1.5.3
 	github.com/google/go-cmp v0.5.9
-	github.com/sirupsen/logrus v1.8.1
+	github.com/sirupsen/logrus v1.9.1
 	go.opencensus.io v0.24.0
 	golang.org/x/net v0.38.0
 	google.golang.org/grpc v1.56.3
