@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"html/template"
+	"math"
 	"math/rand"
 	"net"
 	"net/http"
@@ -210,7 +211,7 @@ func (fe *frontendServer) addToCartHandler(w http.ResponseWriter, r *http.Reques
 	log := r.Context().Value(ctxKeyLog{}).(logrus.FieldLogger)
 	quantity, _ := strconv.ParseUint(r.FormValue("quantity"), 10, 32)
 	productID := r.FormValue("product_id")
-	if productID == "" || quantity == 0 {
+	if productID == "" || quantity == 0 || quantity > uint64(math.MaxInt32) {
 		renderHTTPError(log, r, w, errors.New("invalid form input"), http.StatusBadRequest)
 		return
 	}
@@ -411,9 +412,11 @@ func (fe *frontendServer) setCurrencyHandler(w http.ResponseWriter, r *http.Requ
 
 	if cur != "" {
 		http.SetCookie(w, &http.Cookie{
-			Name:   cookieCurrency,
-			Value:  cur,
-			MaxAge: cookieMaxAge,
+			Name:     cookieCurrency,
+			Value:    cur,
+			MaxAge:   cookieMaxAge,
+			Secure:   true,
+			HttpOnly: true,
 		})
 	}
 	referer := r.Header.Get("referer")
