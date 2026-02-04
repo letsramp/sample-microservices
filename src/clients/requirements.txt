@@ -4,5 +4,5 @@ h2==4.3.0
 hpack==4.0.0
 hyperframe==6.0.1
 multidict==6.0.2
-protobuf==4.25.8
+protobuf==6.33.5
 thrift==0.16.0
