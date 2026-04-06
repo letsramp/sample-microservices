@@ -2,6 +2,8 @@ module gcp
 
 go 1.24.0
 
+toolchain go1.24.7
+
 require (
 	google.golang.org/grpc v1.79.3
 	google.golang.org/protobuf v1.36.10
