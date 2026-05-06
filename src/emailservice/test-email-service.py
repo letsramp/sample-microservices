@@ -19,7 +19,7 @@ def main():
     print("successfully connected to email-service", flush=True)
     client = EmailService.Client(protocol)
     order = Thrift.TType.LIST
-    order['order_']
+    order['order_'] = {
         "order_id": "100",
         "shipping_tracking_id": "abcde",
         "shiping_cost": {"currency_code": "USD", "units": 100, "nanos": 20}
