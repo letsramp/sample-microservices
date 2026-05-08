@@ -1,10 +1,8 @@
 module shippingservice
 
-go 1.24.0
+go 1.25
 
-toolchain go1.24.7
-
-require github.com/apache/thrift v0.16.0
+require github.com/apache/thrift v0.23.0
 
 require (
 	cloud.google.com/go/profiler v0.4.1

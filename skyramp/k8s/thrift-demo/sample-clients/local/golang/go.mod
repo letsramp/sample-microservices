@@ -1,5 +1,5 @@
 module sample-thrift
 
-go 1.19
+go 1.25
 
-require github.com/apache/thrift v0.16.0
+require github.com/apache/thrift v0.23.0
