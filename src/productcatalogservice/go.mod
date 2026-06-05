@@ -1,12 +1,12 @@
 module productcatalogservice
 
-go 1.24.0
+go 1.25
 
 require (
 	cloud.google.com/go/profiler v0.3.0
 	contrib.go.opencensus.io/exporter/jaeger v0.2.1
 	contrib.go.opencensus.io/exporter/stackdriver v0.13.12
-	github.com/apache/thrift v0.16.0
+	github.com/apache/thrift v0.23.0
 	github.com/golang/protobuf v1.5.4
 	github.com/google/go-cmp v0.7.0
 	github.com/sirupsen/logrus v1.9.1
