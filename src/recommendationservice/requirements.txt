@@ -93,7 +93,7 @@ protobuf==7.35.0
     #   googleapis-common-protos
     #   grpcio-health-checking
     #   opentelemetry-proto
-pyasn1==0.6.3
+pyasn1==0.6.4
     # via
     #   pyasn1-modules
     #   rsa
