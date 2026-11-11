@@ -9,3 +9,8 @@ google-cloud-profiler==4.1.0
 google-cloud-trace==1.13.5
 requests==2.33.0
 protobuf==5.29.6 # transitive dependency, move when google-api is bumped safely
+# REST and Thrift servers (email_rest_server.py, email_thrift_server.py)
+fastapi
+pydantic
+uvicorn
+thrift==0.24.0
