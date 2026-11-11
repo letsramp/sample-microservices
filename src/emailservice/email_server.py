@@ -31,7 +31,6 @@ import demo_pb2_grpc
 from grpc_health.v1 import health_pb2
 from grpc_health.v1 import health_pb2_grpc
 
-from opencensus.ext.stackdriver import trace_exporter as stackdriver_exporter
 from opencensus.ext.grpc import server_interceptor
 from opencensus.common.transports.async_ import AsyncTransport
 from opencensus.trace import samplers
@@ -194,6 +193,10 @@ def startGrpc():
       raise KeyError()
     else:
       logger.info("Tracing enabled.")
+      # Imported lazily: opencensus-ext-stackdriver requires google-cloud-trace<1.0,
+      # which conflicts with the pinned google-cloud-trace, so it is not installed.
+      # A missing package falls through to the generic handler below (tracing disabled).
+      from opencensus.ext.stackdriver import trace_exporter as stackdriver_exporter
       sampler = samplers.AlwaysOnSampler()
       exporter = stackdriver_exporter.StackdriverExporter(
         project_id=os.environ.get('GCP_PROJECT_ID'),

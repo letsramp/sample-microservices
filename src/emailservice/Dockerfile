@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.7-slim as base
+FROM python:3.12.6-slim@sha256:ad48727987b259854d52241fac3bc633574364867b8e20aec305e6e7f4028b26 as base
 
 FROM base as builder
 
@@ -43,7 +43,7 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.11 && \
 WORKDIR /email_server
 
 # Grab packages from builder
-COPY --from=builder /usr/local/lib/python3.7/ /usr/local/lib/python3.7/
+COPY --from=builder /usr/local/lib/python3.12/ /usr/local/lib/python3.12/
 
 # Add the application
 COPY . .

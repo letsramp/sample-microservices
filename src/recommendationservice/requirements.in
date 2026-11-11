@@ -1,0 +1,15 @@
+google-api-core
+google-cloud-profiler
+grpcio-health-checking
+opentelemetry-distro
+opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-instrumentation-grpc
+python-json-logger
+requests
+rsa
+urllib3
+# REST and Thrift servers (recommendation_rest_server.py, recommendation_thrift_server.py)
+fastapi
+pydantic
+uvicorn
+thrift==0.24.0
